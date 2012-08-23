@@ -11,6 +11,7 @@
     <!-- Require.js configuration and javascript entry point -->
     <script data-main="/assets/main.js" src="/assets/lib/require/require.js"></script>
 
+    <!-- Stylesheet entry point -->
     <%= stylesheet_link_tag "/assets/main", :media => "all"  %>
 
     <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
@@ -21,29 +22,35 @@
 
   <body>
 
-    <div class="navbar navbar-inverse navbar-fixed-top">
-      <div class="navbar-inner">
-        <div class="container">
-          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </a>
-          <a class="brand" href="#">Project name</a>
-          <div class="nav-collapse collapse">
-            <ul class="nav">
-              <li class="active"><a href="#">Home</a></li>
-              <li><a href="#about">About</a></li>
-              <li><a href="#contact">Contact</a></li>
-            </ul>
-          </div><!--/.nav-collapse -->
+    <div class="container">
+      <div class="navbar navbar-square">
+        <div class="navbar-inner">
+          <div class="container">
+            
+            <a class="brand" href="#">Project name</a>
+            
+              <ul class="nav">
+                <li class="active"><a href="#">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+              </ul>
+          </div>
         </div>
       </div>
+		  
+      <%= yield %>
+
     </div>
 
-    <div class="container">
-		<%= yield %>
-    </div> <!-- /container -->
+    <footer class="footer">
+      <div class="container">
+        <hr>
+        <div class="span12">
+
+          It also has a footer
+        </div>    
+      </div>
+    </footer>
 
   </body>
 </html>

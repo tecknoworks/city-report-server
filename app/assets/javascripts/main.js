@@ -1,4 +1,9 @@
-/* Require.js configuration and bootstrapping */
+/*=============================================================================
+*
+*   Entry point for scripts
+*   Configues require.js with modules, dependencies and paths
+*
+*=============================================================================*/
 
 require.config({
 	// Configure paths to common libraries

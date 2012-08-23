@@ -1,4 +1,8 @@
-/* Application module */
+/*=============================================================================
+*
+* 	Main application module, gets loaded on any page
+*
+*=============================================================================*/
 
 define([
 	// Framework dependencies
