@@ -40,11 +40,6 @@ require.config({
         	// Export the jQuery function variable
         	exports: '$'
         },
-        'Less': {
-        	deps: [],
-        	// Export the jQuery function variable
-        	exports: 'less'
-        },
         'Bootstrap': {
           deps: [],
           exports: ''
