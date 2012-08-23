@@ -8,6 +8,8 @@ require.config({
 		jQuery: 'lib/jquery',
 		Underscore: 'lib/underscore',
 		Backbone: 'lib/backbone',
+    Less: 'lib/less/less',
+    Bootstrap: 'lib/bootstrap/bootstrap',
 
 		// Require.js Plugins
 		text: 'lib/require/text'
@@ -37,6 +39,15 @@ require.config({
         	deps: [],
         	// Export the jQuery function variable
         	exports: '$'
+        },
+        'Less': {
+        	deps: [],
+        	// Export the jQuery function variable
+        	exports: 'less'
+        },
+        'Bootstrap': {
+          deps: [],
+          exports: ''
         },
     }
 });

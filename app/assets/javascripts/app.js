@@ -6,7 +6,6 @@ define([
 	'Underscore',
 	'Backbone',
 	'Less',
-	'TwitterBootstrap',
 ], 
 
 // After loading
@@ -18,9 +17,6 @@ function($, _, Backbone, less) {
 
 		console.log("Starting less...");
 		less.watch();
-
-		console.log("Carousel loading...");
-		$("#carousel-showcase").carousel();
 	}
 
 	// Make the initialization publicly available
