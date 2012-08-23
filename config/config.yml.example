@@ -1,0 +1,8 @@
+development:
+  foo: 1
+
+test:
+  foo: 1
+
+production:
+  foo: 1
