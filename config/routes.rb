@@ -1,6 +1,7 @@
 ReparClujul::Application.routes.draw do
   root :to => 'webpage#index'
-  get "webpage/index"
+
+  resources :categories
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
