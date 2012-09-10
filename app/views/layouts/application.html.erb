@@ -3,7 +3,7 @@
   <head>
 	<%= csrf_meta_tags %>
     <meta charset="utf-8">
-    <title>Starter Template</title>
+    <title>Repara Clujul</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -27,27 +27,49 @@
         <div class="navbar-inner">
           <div class="container">
             
-            <a class="brand" href="#">Project name</a>
             
-              <ul class="nav">
-                <li class="active"><a href="#">Home</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#contact">Contact</a></li>
-              </ul>
+            <ul class="nav">
+              <li class="active"><a href="#">Acasa</a></li>
+              <li><a href="#about">Despre</a></li>
+              <li><a href="#contact">Contact</a></li>
+            </ul>
+
+            <ul class="nav pull-right">
+              <li class="dropdown">
+                <a id="categorii" href="#" role="button" class="dropdown-toggle" data-toggle="dropdown">Categorii <b class="caret"></b></a>
+
+                <ul class="dropdown-menu" role="menu" aria-labelledby="categorii">
+                  <li><a tabindex="-1" href="#">Trafic</a></li>
+                  <li><a tabindex="-1" href="#">Gunoi</a></li>
+                  <li><a tabindex="-1" href="#">Parcuri</a></li>
+                  <li class="divider"></li>
+                  <li><a tabindex="-1" href="#">Arata toate</a></li>
+                </ul>
+              </li>
+            </ul>
+
+            <a class="brand-center" id="logo-main" href="#">
+              <img src="/assets/logo.png" alt="Repar Clujul" />
+            </a>
+
           </div>
         </div>
       </div>
+    </div>
+
+    <div class="container container-main">
 		  
       <%= yield %>
 
     </div>
 
+    <div class="container-map" id="map-main">
+    </div>
+
     <footer class="footer">
       <div class="container">
-        <hr>
         <div class="span12">
-
-          It also has a footer
+          Footers are cool.
         </div>    
       </div>
     </footer>

@@ -13,11 +13,12 @@ require.config({
 		jQuery: 'lib/jquery',
 		Underscore: 'lib/underscore',
 		Backbone: 'lib/backbone',
-    Less: 'lib/less/less',
-    Bootstrap: 'lib/bootstrap/bootstrap',
 
-		// Require.js Plugins
-		text: 'lib/require/text'
+        // Maps
+        Maps: 'lib/jquery.ui.map',
+
+        // Bootstrap 
+        Bootstrap: 'twitter/bootstrap'
 	},
 
 	// Load Timeout
@@ -45,8 +46,14 @@ require.config({
         	// Export the jQuery function variable
         	exports: '$'
         },
+        
         'Bootstrap': {
           deps: [],
+          exports: ''
+        },
+
+        'Maps': {
+          deps: [ 'jQuery' ],
           exports: ''
         },
     }
