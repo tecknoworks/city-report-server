@@ -4,12 +4,11 @@ class CategoriesController < ApplicationController
       @category = Category.new(params[:category])
       @category.save
       respond_to do |format|
-        format.json { render :json => @category }
+        format.json { render :json => render_response(ApiStatus.OK_CODE, ApiStatus.OK, {category:@category}) }
       end
     else
       respond_to do |format|
-        error = {:error => {:code => "1"} }
-        format.json { render :json => error }
+        format.json { render :json => render_response(ApiStatus.BAD_REQUEST_CODE, ApiStatus.BAD_REQUEST, nil) }
       end
     end
   end
