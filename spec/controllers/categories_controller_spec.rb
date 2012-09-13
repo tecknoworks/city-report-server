@@ -7,9 +7,9 @@ describe CategoriesController do
       it "should create category; =>JSON with response code 200" do
         category = FactoryGirl.build(:category)
 
-        lambda {
+        expect {
           post :create, :category => { :name => category.name }, :format => :json
-        }.should change(Category, :count).by(1)
+        }.to change(Category, :count).by(1)
 
         JSON.parse(response.body)["status"]["code"].should == ApiStatus.OK_CODE
 
@@ -32,6 +32,32 @@ describe CategoriesController do
       it "should return JSON with response code Bad Request(400)" do
         post :create, :foo => { :bar => "baz" }, :format => :json
         JSON.parse(response.body)["status"]["code"].should == ApiStatus.BAD_REQUEST_CODE
+      end
+    end
+  end
+
+  describe "DELETE #destroy" do
+
+    describe "deleting existing category" do
+      it "should delete category" do
+        category = FactoryGirl.create(:category)
+
+        expect {
+          delete :destroy, :id => category, :format => :json
+        }.to change(Category, :count).by(-1)
+      end
+
+      it "should have JSON response code 200" do
+        category = FactoryGirl.create(:category)
+        delete :destroy, :id => category.id, :format => :json
+        JSON.parse(response.body)["status"]["code"].should == ApiStatus.OK_CODE
+      end
+    end
+
+    describe "deleting non-existing category" do
+      it "should return JSON response status NOT FOUND" do
+        delete :destroy, :id => 0, :format => :json
+        JSON.parse(response.body)["status"]["code"].should == ApiStatus.NOT_FOUND_CODE
       end
     end
 
