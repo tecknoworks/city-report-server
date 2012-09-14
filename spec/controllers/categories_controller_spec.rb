@@ -23,10 +23,9 @@ describe CategoriesController do
 
     describe "with valid params" do
       it "should create category; =>JSON with response code 200" do
-        category = FactoryGirl.build(:category)
-
+        category = FactoryGirl.create(:category)
         expect {
-          post :create, :category => { :name => category.name }, :format => :json
+          post :create, :category => FactoryGirl.attributes_for(:category), :format => :json
         }.to change(Category, :count).by(1)
 
         JSON.parse(response.body)["status"]["code"].should == ApiStatus.OK_CODE
@@ -50,6 +49,36 @@ describe CategoriesController do
       it "should return JSON with response code Bad Request(400)" do
         post :create, :foo => { :bar => "baz" }, :format => :json
         JSON.parse(response.body)["status"]["code"].should == ApiStatus.BAD_REQUEST_CODE
+      end
+    end
+  end
+
+
+  describe "PUT #update" do
+    describe "with valid params and existing model" do
+      it "should modifiy the category" do
+        existing_category = FactoryGirl.create(:category)
+        put :update, :id => existing_category, :category => FactoryGirl.attributes_for(:category, :name => "Problema"), :format => :json
+        existing_category.reload
+        existing_category.name.should == "Problema"
+      end
+      it "should return respone code 200" do
+        existing_category = FactoryGirl.create(:category)
+        put :update, :id => existing_category, :category => FactoryGirl.attributes_for(:category, :name => "Problema"), :format => :json
+        JSON.parse(response.body)["status"]["code"].should == ApiStatus.OK_CODE
+      end
+    end
+    describe "with bad params on existing model" do
+      it "should return response code 400(bad request)" do
+        existing_category = FactoryGirl.create(:category)
+        put :update, :id => existing_category, :category => { :foo => "bar" }, :format => :json 
+        JSON.parse(response.body)["status"]["code"].should == ApiStatus.BAD_REQUEST_CODE
+      end
+    end
+    describe "updating inexistent model" do
+      it "should return response code 404(not found)" do
+        put :update, :id => 0, :category => { :foo => "bar" }, :format => :json
+        JSON.parse(response.body)["status"]["code"].should == ApiStatus.NOT_FOUND_CODE
       end
     end
   end

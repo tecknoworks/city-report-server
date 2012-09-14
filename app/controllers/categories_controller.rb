@@ -20,6 +20,27 @@ class CategoriesController < ApplicationController
     end
   end
 
+  def update
+    if Category.exists?(params[:id])
+      if !params[:category].nil? && !params[:category][:name].nil?
+        category = Category.find(params[:id])
+        category.update_attributes(params[:category])
+        category.save
+        respond_to do |format|
+          format.json { render :json => render_response(ApiStatus.OK_CODE, ApiStatus.OK, nil) }
+        end
+      else
+        respond_to do |format|
+          format.json { render :json => render_response(ApiStatus.BAD_REQUEST_CODE, ApiStatus.BAD_REQUEST, nil) }
+        end
+      end
+    else
+      respond_to do |format|
+        format.json { render :json => render_response(ApiStatus.NOT_FOUND_CODE, ApiStatus.NOT_FOUND, nil) }
+      end
+    end
+  end
+
   def destroy
     if Category.exists?(params[:id])
       Category.delete(params[:id])
