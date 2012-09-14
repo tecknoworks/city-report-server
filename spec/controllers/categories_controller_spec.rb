@@ -1,6 +1,24 @@
 require 'spec_helper'
 
 describe CategoriesController do
+  describe "GET #index" do
+
+    describe "listing existing categories" do
+      it "should list all categories" do
+        category1 = FactoryGirl.create(:category)
+        category2 = FactoryGirl.create(:category)
+        get :index, :format => :json
+        categories = JSON.parse(response.body)
+        categories["response"]["categories"].to_json.should == [category1, category2].to_json
+      end
+
+      it "status code should be 200" do
+        get :index, :format => :json
+        JSON.parse(response.body)["status"]["code"].should == ApiStatus.OK_CODE
+      end
+    end
+  end
+
   describe "POST #create" do
 
     describe "with valid params" do

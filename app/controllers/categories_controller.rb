@@ -1,4 +1,11 @@
 class CategoriesController < ApplicationController
+  def index
+    categories = Category.all
+    respond_to do |format|
+      format.json { render :json => render_response(ApiStatus.OK_CODE, ApiStatus.OK, {categories:categories}) }
+    end
+  end
+
   def create
     if !params[:category].nil? && !params[:category][:name].nil?
       @category = Category.new(params[:category])
