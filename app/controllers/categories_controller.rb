@@ -1,4 +1,24 @@
 class CategoriesController < ApplicationController
+  def render_response a, b, c
+    "foo"
+  end
+  api :GET, "/categories", "Show all categories"
+  description "returns a JSON containing all the categories available"
+  formats ['json']
+  example "{ 
+    'status':{
+      'code':200,
+      'message':'Success'
+    }, 
+    'response': {
+      'categories':[
+        {cat1},
+        {cat2},
+        ...
+        ]
+    }
+}"
+  see "categories#index"
   def index
     categories = Category.all
     respond_to do |format|

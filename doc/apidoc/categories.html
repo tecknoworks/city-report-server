@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>API documentation</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link type="text/css" rel="stylesheet"
+          href="../apidoc/stylesheets/bundled/bootstrap.min.css"/>
+    <link type="text/css" rel="stylesheet"
+          href="../apidoc/stylesheets/application.css"/>
+    <link type="text/css" rel="stylesheet"
+          href="../apidoc/stylesheets/bundled/prettify.css"/>
+    <link type="text/css" rel="stylesheet"
+          href="../apidoc/stylesheets/bundled/bootstrap-responsive.min.css"/>
+  <!-- IE6-8 support of HTML5 elements -->
+  <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+</head>
+<body>
+  <div class="container">
+    <div class="row">
+      <div id='container'>
+        <ul class='breadcrumb'>
+  <li><a href='../apidoc.html'>Repara Clujul</a><span class='divider'>/</span></li>
+  <li class='active'>Categories</li>
+</ul>
+
+<div class='page-header'>
+  <h1>
+    Categories<br>
+    <small></small>
+  </h1>
+</div>
+
+
+
+<div class='accordion' id='accordion'>
+
+    <hr>
+    <div class='pull-right small'>
+      <a href='../apidoc/categories/index.html'> >>> </a>
+    </div>
+    <div>
+        <h2>
+          <a href='#description-index'
+           class='accordion-toggle'
+           data-toggle='collapse'
+           data-parent='#accordion'>
+            GET /categories
+          </a><br>
+          <small>Show all categories</small>
+        </h2>
+    </div>
+
+      Also see <a href="../apidoc/categories/index">categories#index</a>
+
+    <div id='description-index' class='collapse accordion-body'>
+      <p>returns a JSON containing all the categories available</p>
+
+
+        <h3>Supported Formats</h3>
+        json
+
+
+        <h3>Examples</h3>
+          <pre>{ 
+    'status':{
+      'code':200,
+      'message':'Success'
+    }, 
+    'response': {
+      'categories':[
+        {cat1},
+        {cat2},
+        ...
+        ]
+    }
+}</pre>
+
+    </div>
+</div>
+
+
+      </div>
+    </div>
+    <hr>
+    <footer>  &copy; 2012 SmartTech2000
+</footer>
+  </div>
+    <script type="text/javascript"
+            src="../apidoc/javascripts/bundled/jquery-1.7.2.js"></script>
+    <script type="text/javascript"
+            src="../apidoc/javascripts/bundled/bootstrap-collapse.js"></script>
+    <script type="text/javascript"
+            src="../apidoc/javascripts/bundled/prettify.js"></script>
+    <script type="text/javascript"
+            src="../apidoc/javascripts/apipie.js"></script>
+</body>
+</html>

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>API documentation</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link type="text/css" rel="stylesheet"
+          href="./apidoc/stylesheets/bundled/bootstrap.min.css"/>
+    <link type="text/css" rel="stylesheet"
+          href="./apidoc/stylesheets/application.css"/>
+    <link type="text/css" rel="stylesheet"
+          href="./apidoc/stylesheets/bundled/prettify.css"/>
+    <link type="text/css" rel="stylesheet"
+          href="./apidoc/stylesheets/bundled/bootstrap-responsive.min.css"/>
+  <!-- IE6-8 support of HTML5 elements -->
+  <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+</head>
+<body>
+  <div class="container">
+    <div class="row">
+      <div id='container'>
+          <h4><a href='#categories'>Categories</a></h4>
+  <ul>
+      <li><a href='#categories-index'>index</a></li>
+  </ul>
+
+
+
+<div><p>This is where you can inform user about your application and API
+in general.</p>
+</div>
+
+<hr>
+
+
+  <ul class='breadcrumb'  id='categories'>
+    <li><a href='#'>Repara Clujul</a><span class='divider'>/</span></li>
+    <li class='active'>Categories</li>
+  </ul>
+
+  <div class='page-header'>
+    <h1>
+      <a href='#categories'>Categories</a><br>
+      <small></small>
+    </h1>
+  </div>
+
+
+  <div class='accordion' id='accordion'>
+
+      <hr>
+
+      <ul class='breadcrumb' id='categories-index'>
+        <li>
+          <a href='#'>Repara Clujul</a>
+          <span class='divider'>/</span>
+        </li>
+        <li>
+          <a href='#categories'>Categories</a>
+          <span class='divider'>/</span>
+        </li>
+        <li class='active'>index</li>
+      </ul>
+
+      <div>
+          <h3>
+            <a href='#categories-index'>
+              GET /categories
+            </a><br>
+            <small>Show all categories</small>
+          </h3>
+      </div>
+
+      <div>
+        <p>returns a JSON containing all the categories available</p>
+
+          <h2>Examples</h2>
+            <pre>{ 
+    'status':{
+      'code':200,
+      'message':'Success'
+    }, 
+    'response': {
+      'categories':[
+        {cat1},
+        {cat2},
+        ...
+        ]
+    }
+}</pre>
+
+
+      </div>
+  </div>
+
+
+      </div>
+    </div>
+    <hr>
+    <footer>  &copy; 2012 SmartTech2000
+</footer>
+  </div>
+    <script type="text/javascript"
+            src="./apidoc/javascripts/bundled/jquery-1.7.2.js"></script>
+    <script type="text/javascript"
+            src="./apidoc/javascripts/bundled/bootstrap-collapse.js"></script>
+    <script type="text/javascript"
+            src="./apidoc/javascripts/bundled/prettify.js"></script>
+    <script type="text/javascript"
+            src="./apidoc/javascripts/apipie.js"></script>
+</body>
+</html>

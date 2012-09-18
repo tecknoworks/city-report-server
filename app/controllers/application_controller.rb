@@ -4,11 +4,11 @@ class ApplicationController < ActionController::Base
   def render_response code, message, response_hash
     {
       "status" =>
-       {
-          "code" => code,
-          "message" => message
-       },
-      "response" => response_hash
+      {
+        "code" => code,
+        "message" => message
+      },
+        "response" => response_hash
     }
   end
 end
