@@ -31,5 +31,50 @@ describe IssuesController do
     end
   end
 
+  describe "POST #create" do
+    describe "with valid params" do
+      before :each do
+        category = FactoryGirl.create(:category)
+        @issue_to_create = FactoryGirl.attributes_for(:issue, :category_id => category.id)
+      end
+      after :each do
+        Category.delete_all
+      end
+      it "should create issue" do
+        expect {
+          post :create, :issue => @issue_to_create, :format => :json
+        }.to change(Issue, :count).by(1)
+      end
+
+      it "should have response code 200" do
+        post :create, :issue => @issue_to_create, :format => :json
+        response_has_status(ApiStatus.OK_CODE)
+      end
+
+      it "should match what we sent" do
+        post :create, :issue => @issue_to_create, :format => :json
+
+        recieved_issue = JSON.parse(response.body)["response"]["issue"]
+        sent_issue = { "id" => Issue.last.id, "title" => @issue_attr[:title]  }
+
+        sent_issue["id"].should == recieved_issue["id"]
+        sent_issue["title"].should == recieved_issue["title"]
+      end
+    end
+
+    describe "with good params, but no other params" do
+      it "should return JSON with response code Bad Request(400)" do
+        post :create, :issue => @foo_issue, :format => :json
+        response_has_status(ApiStatus.BAD_REQUEST_CODE)
+      end
+    end
+
+    describe "with no params" do
+      it "should return JSON with response code Bad Request(400)" do
+        post :create, :foo => @foo_issue, :format => :json
+        response_has_status(ApiStatus.BAD_REQUEST_CODE)
+      end
+    end
+  end
 
 end
