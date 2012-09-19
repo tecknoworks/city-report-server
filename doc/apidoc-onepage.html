@@ -23,6 +23,9 @@
           <h4><a href='#categories'>Categories</a></h4>
   <ul>
       <li><a href='#categories-index'>index</a></li>
+      <li><a href='#categories-create'>create</a></li>
+      <li><a href='#categories-update'>update</a></li>
+      <li><a href='#categories-destroy'>destroy</a></li>
   </ul>
 
 
@@ -90,6 +93,231 @@ in general.</p>
     }
 }</pre>
 
+
+      </div>
+      <hr>
+
+      <ul class='breadcrumb' id='categories-create'>
+        <li>
+          <a href='#'>Repara Clujul</a>
+          <span class='divider'>/</span>
+        </li>
+        <li>
+          <a href='#categories'>Categories</a>
+          <span class='divider'>/</span>
+        </li>
+        <li class='active'>create</li>
+      </ul>
+
+      <div>
+          <h3>
+            <a href='#categories-create'>
+              POST /categories
+            </a><br>
+            <small>Create one category</small>
+          </h3>
+      </div>
+
+      <div>
+        <p>Creates a category on success; return JSON with status code succes or bad request. Also, returns the created category on success.</p>
+
+          <h2>Examples</h2>
+            <pre>{ 
+    'status':{
+      'code':200,
+      'message':'Success'
+    }, 
+    'response': {
+      'category': {
+          'id': 132,
+          'name': 'groapa',
+          'updated_at': ... ,
+          'created_at': ...
+        }
+    }
+}</pre>
+            <pre>{ 
+    'status':{
+      'code': 400,
+      'message':'Bad Request'
+    }, 
+    'response': {
+    }
+}</pre>
+
+          <h2>Errors</h2>
+            400
+            Bad Request
+            <br>
+
+          <h2>Params</h2>
+          <table class='table'>
+            <thead>
+              <tr>
+                <th>Param name</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+                <tr style='background-color:rgb(255,255,255);'>
+    <td>
+      <strong>name </strong><br>
+      <small>
+        required
+        
+      </small>
+    </td>
+    <td>
+      <p>Name of the new category</p>
+
+        <br>
+        Value: Parameter has to be String.
+    </td>
+  </tr>
+
+  
+
+            </tbody>
+          </table>
+      </div>
+      <hr>
+
+      <ul class='breadcrumb' id='categories-update'>
+        <li>
+          <a href='#'>Repara Clujul</a>
+          <span class='divider'>/</span>
+        </li>
+        <li>
+          <a href='#categories'>Categories</a>
+          <span class='divider'>/</span>
+        </li>
+        <li class='active'>update</li>
+      </ul>
+
+      <div>
+          <h3>
+            <a href='#categories-update'>
+              PUT /category/:id
+            </a><br>
+            <small>Edit one category</small>
+          </h3>
+      </div>
+
+      <div>
+        <p>Edits a category on success; return JSON with status code succes or bad request.</p>
+
+          <h2>Examples</h2>
+            <pre>{ 
+    'status':{
+      'code':200,
+      'message':'Success'
+    }, 
+    'response': {
+    }
+}</pre>
+            <pre>{ 
+    'status':{
+      'code': 400,
+      'message':'Bad Request'
+    }, 
+    'response': {
+    }
+}</pre>
+            <pre>{ 
+    'status':{
+      'code': 404,
+      'message':'Not Found'
+    }, 
+    'response': {
+    }
+}</pre>
+
+          <h2>Errors</h2>
+            400
+            Bad Request
+            <br>
+            404
+            Bad Request
+            <br>
+
+          <h2>Params</h2>
+          <table class='table'>
+            <thead>
+              <tr>
+                <th>Param name</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+                <tr style='background-color:rgb(255,255,255);'>
+    <td>
+      <strong>name </strong><br>
+      <small>
+        required
+        
+      </small>
+    </td>
+    <td>
+      <p>Name of the new category</p>
+
+        <br>
+        Value: Parameter has to be String.
+    </td>
+  </tr>
+
+  
+
+            </tbody>
+          </table>
+      </div>
+      <hr>
+
+      <ul class='breadcrumb' id='categories-destroy'>
+        <li>
+          <a href='#'>Repara Clujul</a>
+          <span class='divider'>/</span>
+        </li>
+        <li>
+          <a href='#categories'>Categories</a>
+          <span class='divider'>/</span>
+        </li>
+        <li class='active'>destroy</li>
+      </ul>
+
+      <div>
+          <h3>
+            <a href='#categories-destroy'>
+              DELETE /category/:id
+            </a><br>
+            <small>Delete one category</small>
+          </h3>
+      </div>
+
+      <div>
+        <p>Deletes a category on success; return JSON with status code succes or bad request.</p>
+
+          <h2>Examples</h2>
+            <pre>{ 
+    'status':{
+      'code':200,
+      'message':'Success'
+    }, 
+    'response': {
+    }
+}</pre>
+            <pre>{ 
+    'status':{
+      'code': 404,
+      'message':'Not Found'
+    }, 
+    'response': {
+    }
+}</pre>
+
+          <h2>Errors</h2>
+            404
+            Not Found
+            <br>
 
       </div>
   </div>

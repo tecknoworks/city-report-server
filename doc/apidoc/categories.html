@@ -78,6 +78,228 @@
 }</pre>
 
     </div>
+    <hr>
+    <div class='pull-right small'>
+      <a href='../apidoc/categories/create.html'> >>> </a>
+    </div>
+    <div>
+        <h2>
+          <a href='#description-create'
+           class='accordion-toggle'
+           data-toggle='collapse'
+           data-parent='#accordion'>
+            POST /categories
+          </a><br>
+          <small>Create one category</small>
+        </h2>
+    </div>
+
+      Also see <a href="../apidoc/categories/create">categories#create</a>
+
+    <div id='description-create' class='collapse accordion-body'>
+      <p>Creates a category on success; return JSON with status code succes or bad request. Also, returns the created category on success.</p>
+
+
+        <h3>Supported Formats</h3>
+        json
+
+        <h3>Errors</h3>
+          400
+          Bad Request
+          <br>
+
+        <h3>Examples</h3>
+          <pre>{ 
+    'status':{
+      'code':200,
+      'message':'Success'
+    }, 
+    'response': {
+      'category': {
+          'id': 132,
+          'name': 'groapa',
+          'updated_at': ... ,
+          'created_at': ...
+        }
+    }
+}</pre>
+          <pre>{ 
+    'status':{
+      'code': 400,
+      'message':'Bad Request'
+    }, 
+    'response': {
+    }
+}</pre>
+
+        <h3>Params</h3>
+        <table class='table'>
+          <thead>
+            <tr>
+              <th>Param name</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+              <tr style='background-color:rgb(255,255,255);'>
+    <td>
+      <strong>name </strong><br>
+      <small>
+        required
+        
+      </small>
+    </td>
+    <td>
+      <p>Name of the new category</p>
+
+        <br>
+        Value: Parameter has to be String.
+    </td>
+  </tr>
+
+  
+
+          </tbody>
+        </table>
+    </div>
+    <hr>
+    <div class='pull-right small'>
+      <a href='../apidoc/categories/update.html'> >>> </a>
+    </div>
+    <div>
+        <h2>
+          <a href='#description-update'
+           class='accordion-toggle'
+           data-toggle='collapse'
+           data-parent='#accordion'>
+            PUT /category/:id
+          </a><br>
+          <small>Edit one category</small>
+        </h2>
+    </div>
+
+      Also see <a href="../apidoc/categories/create">categories#create</a>
+
+    <div id='description-update' class='collapse accordion-body'>
+      <p>Edits a category on success; return JSON with status code succes or bad request.</p>
+
+
+        <h3>Supported Formats</h3>
+        json
+
+        <h3>Errors</h3>
+          400
+          Bad Request
+          <br>
+          404
+          Bad Request
+          <br>
+
+        <h3>Examples</h3>
+          <pre>{ 
+    'status':{
+      'code':200,
+      'message':'Success'
+    }, 
+    'response': {
+    }
+}</pre>
+          <pre>{ 
+    'status':{
+      'code': 400,
+      'message':'Bad Request'
+    }, 
+    'response': {
+    }
+}</pre>
+          <pre>{ 
+    'status':{
+      'code': 404,
+      'message':'Not Found'
+    }, 
+    'response': {
+    }
+}</pre>
+
+        <h3>Params</h3>
+        <table class='table'>
+          <thead>
+            <tr>
+              <th>Param name</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+              <tr style='background-color:rgb(255,255,255);'>
+    <td>
+      <strong>name </strong><br>
+      <small>
+        required
+        
+      </small>
+    </td>
+    <td>
+      <p>Name of the new category</p>
+
+        <br>
+        Value: Parameter has to be String.
+    </td>
+  </tr>
+
+  
+
+          </tbody>
+        </table>
+    </div>
+    <hr>
+    <div class='pull-right small'>
+      <a href='../apidoc/categories/destroy.html'> >>> </a>
+    </div>
+    <div>
+        <h2>
+          <a href='#description-destroy'
+           class='accordion-toggle'
+           data-toggle='collapse'
+           data-parent='#accordion'>
+            DELETE /category/:id
+          </a><br>
+          <small>Delete one category</small>
+        </h2>
+    </div>
+
+      Also see <a href="../apidoc/categories/destroy">categories#destroy</a>
+
+    <div id='description-destroy' class='collapse accordion-body'>
+      <p>Deletes a category on success; return JSON with status code succes or bad request.</p>
+
+
+        <h3>Supported Formats</h3>
+        json
+
+        <h3>Errors</h3>
+          404
+          Not Found
+          <br>
+
+        <h3>Examples</h3>
+          <pre>{ 
+    'status':{
+      'code':200,
+      'message':'Success'
+    }, 
+    'response': {
+    }
+}</pre>
+          <pre>{ 
+    'status':{
+      'code': 404,
+      'message':'Not Found'
+    }, 
+    'response': {
+    }
+}</pre>
+
+    </div>
 </div>
 
 
