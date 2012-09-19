@@ -1,7 +1,4 @@
 class CategoriesController < ApplicationController
-  def render_response a, b, c
-    "foo"
-  end
   api :GET, "/categories", "Show all categories"
   description "returns a JSON containing all the categories available"
   formats ['json']
