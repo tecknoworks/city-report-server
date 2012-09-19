@@ -2,6 +2,7 @@ ReparClujul::Application.routes.draw do
   root :to => 'webpage#index'
 
   resources :categories
+  resources :issues
 
   apipie
 
