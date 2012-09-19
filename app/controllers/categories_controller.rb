@@ -1,4 +1,6 @@
 class CategoriesController < ApplicationController
+  respond_to :json, :xml
+
   api :GET, "/categories", "Show all categories"
   description "returns a JSON containing all the categories available"
   formats ['json']
@@ -18,9 +20,7 @@ class CategoriesController < ApplicationController
   see "categories#index"
   def index
     categories = Category.all
-    respond_to do |format|
-      format.json { render :json => render_response(ApiStatus.OK_CODE, ApiStatus.OK, {categories:categories}) }
-    end
+    respond_with render_response(ApiStatus.OK_CODE, ApiStatus.OK, {categories:categories})
   end
 
   def create
