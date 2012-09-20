@@ -27,6 +27,12 @@
       <li><a href='#categories-update'>update</a></li>
       <li><a href='#categories-destroy'>destroy</a></li>
   </ul>
+  <h4><a href='#issues'>Issues</a></h4>
+  <ul>
+      <li><a href='#issues-index'>index</a></li>
+      <li><a href='#issues-create'>create</a></li>
+      <li><a href='#issues-destroy'>destroy</a></li>
+  </ul>
 
 
 
@@ -119,7 +125,7 @@ in general.</p>
       </div>
 
       <div>
-        <p>Creates a category on success; return JSON with status code succes or bad request. Also, returns the created category on success.</p>
+        <p>Creates a category on succes; return JSON with status code succes or bad request. Also, returns the created category on success.</p>
 
           <h2>Examples</h2>
             <pre>{ 
@@ -131,8 +137,8 @@ in general.</p>
       'category': {
           'id': 132,
           'name': 'groapa',
-          'updated_at': ... ,
-          'created_at': ...
+          'updated_at': '2012-09-13 15:14:33',
+          'created_at': '2012-09-13 15:06:33'
         }
     }
 }</pre>
@@ -204,7 +210,7 @@ in general.</p>
       </div>
 
       <div>
-        <p>Edits a category on success; return JSON with status code succes or bad request.</p>
+        <p>Edits a category on succes; return JSON with status code succes or bad request.</p>
 
           <h2>Examples</h2>
             <pre>{ 
@@ -225,7 +231,7 @@ in general.</p>
 }</pre>
             <pre>{ 
     'status':{
-      'code': 404,
+      'code':404,
       'message':'Not Found'
     }, 
     'response': {
@@ -237,7 +243,7 @@ in general.</p>
             Bad Request
             <br>
             404
-            Bad Request
+            Not Found
             <br>
 
           <h2>Params</h2>
@@ -258,7 +264,7 @@ in general.</p>
       </small>
     </td>
     <td>
-      <p>Name of the new category</p>
+      <p>new name</p>
 
         <br>
         Value: Parameter has to be String.
@@ -294,7 +300,7 @@ in general.</p>
       </div>
 
       <div>
-        <p>Deletes a category on success; return JSON with status code succes or bad request.</p>
+        <p>Deletes a category on succes; return JSON with status code succes or bad request.</p>
 
           <h2>Examples</h2>
             <pre>{ 
@@ -315,8 +321,257 @@ in general.</p>
 }</pre>
 
           <h2>Errors</h2>
-            404
-            Not Found
+            400
+            Bad Request
+            <br>
+
+      </div>
+  </div>
+
+  <ul class='breadcrumb'  id='issues'>
+    <li><a href='#'>Repara Clujul</a><span class='divider'>/</span></li>
+    <li class='active'>Issues</li>
+  </ul>
+
+  <div class='page-header'>
+    <h1>
+      <a href='#issues'>Issues</a><br>
+      <small></small>
+    </h1>
+  </div>
+
+
+  <div class='accordion' id='accordion'>
+
+      <hr>
+
+      <ul class='breadcrumb' id='issues-index'>
+        <li>
+          <a href='#'>Repara Clujul</a>
+          <span class='divider'>/</span>
+        </li>
+        <li>
+          <a href='#issues'>Issues</a>
+          <span class='divider'>/</span>
+        </li>
+        <li class='active'>index</li>
+      </ul>
+
+      <div>
+          <h3>
+            <a href='#issues-index'>
+              GET /issues
+            </a><br>
+            <small>Show all issues</small>
+          </h3>
+      </div>
+
+      <div>
+        <p>returns a JSON containing all the issues available</p>
+
+          <h2>Examples</h2>
+            <pre>{
+    'status':{
+      'code':200,
+      'message':'Success'
+    },
+    'response': {
+      'issues':[
+        {issue1},
+        {issue2},
+        ...
+        ]
+    }
+}</pre>
+
+
+      </div>
+      <hr>
+
+      <ul class='breadcrumb' id='issues-create'>
+        <li>
+          <a href='#'>Repara Clujul</a>
+          <span class='divider'>/</span>
+        </li>
+        <li>
+          <a href='#issues'>Issues</a>
+          <span class='divider'>/</span>
+        </li>
+        <li class='active'>create</li>
+      </ul>
+
+      <div>
+          <h3>
+            <a href='#issues-create'>
+              POST /issues
+            </a><br>
+            <small>Create one issue</small>
+          </h3>
+      </div>
+
+      <div>
+        <p>Creates a issue on succes; return JSON with status code succes or bad request. Also, returns the created issue on success.</p>
+
+          <h2>Examples</h2>
+            <pre>{
+    'status':{
+      'code':200,
+      'message':'Success'
+    },
+    'response': {
+      'issue': {
+          'id': 132,
+          'title': 'Groapa in fata teatrului din Cluj',
+          'latitude': 2.3232,
+          'longitude': 21.3232,
+          'category_id': 123,
+          'updated_at': '2012-09-13 15:14:33',
+          'created_at': '2012-09-13 15:06:33'
+        }
+    }
+}</pre>
+            <pre>{
+    'status':{
+      'code': 400,
+      'message':'Bad Request'
+    },
+    'response': {
+    }
+}</pre>
+
+          <h2>Errors</h2>
+            400
+            Bad Request
+            <br>
+
+          <h2>Params</h2>
+          <table class='table'>
+            <thead>
+              <tr>
+                <th>Param name</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+                <tr style='background-color:rgb(255,255,255);'>
+    <td>
+      <strong>title </strong><br>
+      <small>
+        required
+        
+      </small>
+    </td>
+    <td>
+      <p>Title of the new issue</p>
+
+        <br>
+        Value: Parameter has to be String.
+    </td>
+  </tr>
+
+  
+  <tr style='background-color:rgb(255,255,255);'>
+    <td>
+      <strong>latitude </strong><br>
+      <small>
+        required
+        
+      </small>
+    </td>
+    <td>
+      <p>latitude of the new issue</p>
+
+        <br>
+        Value: Parameter has to be Float.
+    </td>
+  </tr>
+
+  
+  <tr style='background-color:rgb(255,255,255);'>
+    <td>
+      <strong>longitude </strong><br>
+      <small>
+        required
+        
+      </small>
+    </td>
+    <td>
+      <p>longitude of the new issue</p>
+
+        <br>
+        Value: Parameter has to be Float.
+    </td>
+  </tr>
+
+  
+  <tr style='background-color:rgb(255,255,255);'>
+    <td>
+      <strong>category_id </strong><br>
+      <small>
+        required
+        
+      </small>
+    </td>
+    <td>
+      <p>Issue&#39;s category id</p>
+
+        <br>
+        Value: Parameter has to be Fixnum.
+    </td>
+  </tr>
+
+  
+
+            </tbody>
+          </table>
+      </div>
+      <hr>
+
+      <ul class='breadcrumb' id='issues-destroy'>
+        <li>
+          <a href='#'>Repara Clujul</a>
+          <span class='divider'>/</span>
+        </li>
+        <li>
+          <a href='#issues'>Issues</a>
+          <span class='divider'>/</span>
+        </li>
+        <li class='active'>destroy</li>
+      </ul>
+
+      <div>
+          <h3>
+            <a href='#issues-destroy'>
+              DELETE /issue/:id
+            </a><br>
+            <small>Delete one issue</small>
+          </h3>
+      </div>
+
+      <div>
+        <p>Deletes a issue on succes; return JSON with status code succes or bad request.</p>
+
+          <h2>Examples</h2>
+            <pre>{ 
+    'status':{
+      'code':200,
+      'message':'Success'
+    }, 
+    'response': {
+    }
+}</pre>
+            <pre>{ 
+    'status':{
+      'code': 404,
+      'message':'Not Found'
+    }, 
+    'response': {
+    }
+}</pre>
+
+          <h2>Errors</h2>
+            400
+            Bad Request
             <br>
 
       </div>

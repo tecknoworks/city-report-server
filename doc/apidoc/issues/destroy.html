@@ -26,22 +26,22 @@
     <span class='divider'>/</span>
   </li>
   <li>
-    <a href='../../apidoc/categories.html'>Categories</a>
+    <a href='../../apidoc/issues.html'>Issues</a>
     <span class='divider'>/</span>
   </li>
-  <li class='active'>create</li>
+  <li class='active'>destroy</li>
 </ul>
 
   <div class='page-header'>
     <h1>
-      POST /categories<br>
-      <small>Create one category</small>
+      DELETE /issue/:id<br>
+      <small>Delete one issue</small>
     </h1>
   </div>
 
 <div>
 
-  <p>Creates a category on succes; return JSON with status code succes or bad request. Also, returns the created category on success.</p>
+  <p>Deletes a issue on succes; return JSON with status code succes or bad request.</p>
 
 
     <h2>Examples</h2>
@@ -51,18 +51,12 @@
       'message':'Success'
     }, 
     'response': {
-      'category': {
-          'id': 132,
-          'name': 'groapa',
-          'updated_at': '2012-09-13 15:14:33',
-          'created_at': '2012-09-13 15:06:33'
-        }
     }
 }</pre>
       <pre>{ 
     'status':{
-      'code': 400,
-      'message':'Bad Request'
+      'code': 404,
+      'message':'Not Found'
     }, 
     'response': {
     }
@@ -76,35 +70,6 @@
       Bad Request
       <br>
 
-    <h2>Params</h2>
-    <table class='table'>
-      <thead>
-        <tr>
-          <th>Param name</th>
-          <th>Description</th>
-        </tr>
-      </thead>
-      <tbody>
-          <tr style='background-color:rgb(255,255,255);'>
-    <td>
-      <strong>name </strong><br>
-      <small>
-        required
-        
-      </small>
-    </td>
-    <td>
-      <p>Name of the new category</p>
-
-        <br>
-        Value: Parameter has to be String.
-    </td>
-  </tr>
-
-  
-
-      </tbody>
-    </table>
 </div>
 
 

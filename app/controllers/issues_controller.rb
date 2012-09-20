@@ -68,6 +68,41 @@ class IssuesController < ApplicationController
     end
   end
 
+  api :DELETE, "/issue/:id", "Delete one issue"
+  error :code => ApiStatus.BAD_REQUEST_CODE, :desc => ApiStatus.BAD_REQUEST
+  description "Deletes a issue on succes; return JSON with status code succes or bad request."
+  formats ['json']
+  example "{ 
+    'status':{
+      'code':200,
+      'message':'Success'
+    }, 
+    'response': {
+    }
+}"
+  example "{ 
+    'status':{
+      'code': 404,
+      'message':'Not Found'
+    }, 
+    'response': {
+    }
+}"
+  def destroy
+    if Issue.exists?(params[:id])
+      Issue.delete(params[:id])
+      respond_to do |format|
+        format.json { render :json => render_response(ApiStatus.OK_CODE, ApiStatus.OK, nil) }
+      end
+    else
+      respond_to do |format|
+        format.json { render :json => render_response(ApiStatus.NOT_FOUND_CODE, ApiStatus.NOT_FOUND, nil) }
+      end
+    end
+  end
+
+
+  private
   def issue_params_valid? issue
     return false if issue[:title].nil?
     return false if issue[:latitude].nil?

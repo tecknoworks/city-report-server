@@ -22,12 +22,12 @@
       <div id='container'>
         <ul class='breadcrumb'>
   <li><a href='../apidoc.html'>Repara Clujul</a><span class='divider'>/</span></li>
-  <li class='active'>Categories</li>
+  <li class='active'>Issues</li>
 </ul>
 
 <div class='page-header'>
   <h1>
-    Categories<br>
+    Issues<br>
     <small></small>
   </h1>
 </div>
@@ -38,7 +38,7 @@
 
     <hr>
     <div class='pull-right small'>
-      <a href='../apidoc/categories/index.html'> >>> </a>
+      <a href='../apidoc/issues/index.html'> >>> </a>
     </div>
     <div>
         <h2>
@@ -46,15 +46,15 @@
            class='accordion-toggle'
            data-toggle='collapse'
            data-parent='#accordion'>
-            GET /categories
+            GET /issues
           </a><br>
-          <small>Show all categories</small>
+          <small>Show all issues</small>
         </h2>
     </div>
 
 
     <div id='description-index' class='collapse accordion-body'>
-      <p>returns a JSON containing all the categories available</p>
+      <p>returns a JSON containing all the issues available</p>
 
 
         <h3>Supported Formats</h3>
@@ -62,15 +62,15 @@
 
 
         <h3>Examples</h3>
-          <pre>{ 
+          <pre>{
     'status':{
       'code':200,
       'message':'Success'
-    }, 
+    },
     'response': {
-      'categories':[
-        {cat1},
-        {cat2},
+      'issues':[
+        {issue1},
+        {issue2},
         ...
         ]
     }
@@ -79,7 +79,7 @@
     </div>
     <hr>
     <div class='pull-right small'>
-      <a href='../apidoc/categories/create.html'> >>> </a>
+      <a href='../apidoc/issues/create.html'> >>> </a>
     </div>
     <div>
         <h2>
@@ -87,15 +87,15 @@
            class='accordion-toggle'
            data-toggle='collapse'
            data-parent='#accordion'>
-            POST /categories
+            POST /issues
           </a><br>
-          <small>Create one category</small>
+          <small>Create one issue</small>
         </h2>
     </div>
 
 
     <div id='description-create' class='collapse accordion-body'>
-      <p>Creates a category on succes; return JSON with status code succes or bad request. Also, returns the created category on success.</p>
+      <p>Creates a issue on succes; return JSON with status code succes or bad request. Also, returns the created issue on success.</p>
 
 
         <h3>Supported Formats</h3>
@@ -107,25 +107,28 @@
           <br>
 
         <h3>Examples</h3>
-          <pre>{ 
+          <pre>{
     'status':{
       'code':200,
       'message':'Success'
-    }, 
+    },
     'response': {
-      'category': {
+      'issue': {
           'id': 132,
-          'name': 'groapa',
+          'title': 'Groapa in fata teatrului din Cluj',
+          'latitude': 2.3232,
+          'longitude': 21.3232,
+          'category_id': 123,
           'updated_at': '2012-09-13 15:14:33',
           'created_at': '2012-09-13 15:06:33'
         }
     }
 }</pre>
-          <pre>{ 
+          <pre>{
     'status':{
       'code': 400,
       'message':'Bad Request'
-    }, 
+    },
     'response': {
     }
 }</pre>
@@ -141,17 +144,68 @@
           <tbody>
               <tr style='background-color:rgb(255,255,255);'>
     <td>
-      <strong>name </strong><br>
+      <strong>title </strong><br>
       <small>
         required
         
       </small>
     </td>
     <td>
-      <p>Name of the new category</p>
+      <p>Title of the new issue</p>
 
         <br>
         Value: Parameter has to be String.
+    </td>
+  </tr>
+
+  
+  <tr style='background-color:rgb(255,255,255);'>
+    <td>
+      <strong>latitude </strong><br>
+      <small>
+        required
+        
+      </small>
+    </td>
+    <td>
+      <p>latitude of the new issue</p>
+
+        <br>
+        Value: Parameter has to be Float.
+    </td>
+  </tr>
+
+  
+  <tr style='background-color:rgb(255,255,255);'>
+    <td>
+      <strong>longitude </strong><br>
+      <small>
+        required
+        
+      </small>
+    </td>
+    <td>
+      <p>longitude of the new issue</p>
+
+        <br>
+        Value: Parameter has to be Float.
+    </td>
+  </tr>
+
+  
+  <tr style='background-color:rgb(255,255,255);'>
+    <td>
+      <strong>category_id </strong><br>
+      <small>
+        required
+        
+      </small>
+    </td>
+    <td>
+      <p>Issue&#39;s category id</p>
+
+        <br>
+        Value: Parameter has to be Fixnum.
     </td>
   </tr>
 
@@ -162,95 +216,7 @@
     </div>
     <hr>
     <div class='pull-right small'>
-      <a href='../apidoc/categories/update.html'> >>> </a>
-    </div>
-    <div>
-        <h2>
-          <a href='#description-update'
-           class='accordion-toggle'
-           data-toggle='collapse'
-           data-parent='#accordion'>
-            PUT /category/:id
-          </a><br>
-          <small>Edit one category</small>
-        </h2>
-    </div>
-
-
-    <div id='description-update' class='collapse accordion-body'>
-      <p>Edits a category on succes; return JSON with status code succes or bad request.</p>
-
-
-        <h3>Supported Formats</h3>
-        json
-
-        <h3>Errors</h3>
-          400
-          Bad Request
-          <br>
-          404
-          Not Found
-          <br>
-
-        <h3>Examples</h3>
-          <pre>{ 
-    'status':{
-      'code':200,
-      'message':'Success'
-    }, 
-    'response': {
-    }
-}</pre>
-          <pre>{ 
-    'status':{
-      'code': 400,
-      'message':'Bad Request'
-    }, 
-    'response': {
-    }
-}</pre>
-          <pre>{ 
-    'status':{
-      'code':404,
-      'message':'Not Found'
-    }, 
-    'response': {
-    }
-}</pre>
-
-        <h3>Params</h3>
-        <table class='table'>
-          <thead>
-            <tr>
-              <th>Param name</th>
-              <th>Description</th>
-            </tr>
-          </thead>
-          <tbody>
-              <tr style='background-color:rgb(255,255,255);'>
-    <td>
-      <strong>name </strong><br>
-      <small>
-        required
-        
-      </small>
-    </td>
-    <td>
-      <p>new name</p>
-
-        <br>
-        Value: Parameter has to be String.
-    </td>
-  </tr>
-
-  
-
-          </tbody>
-        </table>
-    </div>
-    <hr>
-    <div class='pull-right small'>
-      <a href='../apidoc/categories/destroy.html'> >>> </a>
+      <a href='../apidoc/issues/destroy.html'> >>> </a>
     </div>
     <div>
         <h2>
@@ -258,15 +224,15 @@
            class='accordion-toggle'
            data-toggle='collapse'
            data-parent='#accordion'>
-            DELETE /category/:id
+            DELETE /issue/:id
           </a><br>
-          <small>Delete one category</small>
+          <small>Delete one issue</small>
         </h2>
     </div>
 
 
     <div id='description-destroy' class='collapse accordion-body'>
-      <p>Deletes a category on succes; return JSON with status code succes or bad request.</p>
+      <p>Deletes a issue on succes; return JSON with status code succes or bad request.</p>
 
 
         <h3>Supported Formats</h3>

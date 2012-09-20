@@ -77,4 +77,25 @@ describe IssuesController do
     end
   end
 
+  describe "DELETE #destroy" do
+    describe "deleting existing issue" do
+      it "should delete issue" do
+        expect {
+          delete :destroy, :id => @issue, :format => :json
+        }.to change(Issue, :count).by(-1)
+      end
+
+      it "should have JSON response code 200" do
+        delete :destroy, :id => @issue, :format => :json
+        response_has_status(ApiStatus.OK_CODE)
+      end
+    end
+
+    describe "deleting non-existing issue" do
+      it "should return JSON response status NOT FOUND" do
+        delete :destroy, :id => 0, :format => :json
+        response_has_status(ApiStatus.NOT_FOUND_CODE)
+      end
+    end
+  end
 end

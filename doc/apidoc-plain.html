@@ -5,6 +5,12 @@
       <li><a href='#categories-update'>update</a></li>
       <li><a href='#categories-destroy'>destroy</a></li>
   </ul>
+  <h4><a href='#issues'>Issues</a></h4>
+  <ul>
+      <li><a href='#issues-index'>index</a></li>
+      <li><a href='#issues-create'>create</a></li>
+      <li><a href='#issues-destroy'>destroy</a></li>
+  </ul>
 
 
 
@@ -69,7 +75,7 @@
       </div>
 
       <div>
-        <p>Creates a category on success; return JSON with status code succes or bad request. Also, returns the created category on success.</p>
+        <p>Creates a category on succes; return JSON with status code succes or bad request. Also, returns the created category on success.</p>
 
           <h4>Examples</h4>
             <pre class="wiki">{ 
@@ -81,8 +87,8 @@
       'category': {
           'id': 132,
           'name': 'groapa',
-          'updated_at': ... ,
-          'created_at': ...
+          'updated_at': '2012-09-13 15:14:33',
+          'created_at': '2012-09-13 15:06:33'
         }
     }
 }</pre>
@@ -131,7 +137,7 @@
       </div>
 
       <div>
-        <p>Edits a category on success; return JSON with status code succes or bad request.</p>
+        <p>Edits a category on succes; return JSON with status code succes or bad request.</p>
 
           <h4>Examples</h4>
             <pre class="wiki">{ 
@@ -152,7 +158,7 @@
 }</pre>
             <pre class="wiki">{ 
     'status':{
-      'code': 404,
+      'code':404,
       'message':'Not Found'
     }, 
     'response': {
@@ -164,7 +170,7 @@
             Bad Request
             <br>
             404
-            Bad Request
+            Not Found
             <br>
 
           <h4>Params</h4>
@@ -176,7 +182,7 @@
         
           [ Parameter has to be String. ]
       </small>
-      <p>Name of the new category</p>
+      <p>new name</p>
 
     </li>
     
@@ -198,7 +204,7 @@
       </div>
 
       <div>
-        <p>Deletes a category on success; return JSON with status code succes or bad request.</p>
+        <p>Deletes a category on succes; return JSON with status code succes or bad request.</p>
 
           <h4>Examples</h4>
             <pre class="wiki">{ 
@@ -219,8 +225,195 @@
 }</pre>
 
           <h4>Errors</h4>
-            404
-            Not Found
+            400
+            Bad Request
+            <br>
+
+      </div>
+  </div>
+
+  <hr/>
+
+  <div>
+    <h2 id="issues">
+      <a href='#issues'>Issues</a><br>
+      <small></small>
+    </h2>
+  </div>
+
+
+  <div>
+
+      <hr/>
+
+      <h3 id="issues-index">
+      <a href='#issues'>Issues</a> / <a href='#issues-index'>index</a>
+      </h3>
+
+      <div>
+          <h4>
+              GET /issues
+            <br>
+            <small>Show all issues</small>
+          </h4>
+      </div>
+
+      <div>
+        <p>returns a JSON containing all the issues available</p>
+
+          <h4>Examples</h4>
+            <pre class="wiki">{
+    'status':{
+      'code':200,
+      'message':'Success'
+    },
+    'response': {
+      'issues':[
+        {issue1},
+        {issue2},
+        ...
+        ]
+    }
+}</pre>
+
+
+      </div>
+      <hr/>
+
+      <h3 id="issues-create">
+      <a href='#issues'>Issues</a> / <a href='#issues-create'>create</a>
+      </h3>
+
+      <div>
+          <h4>
+              POST /issues
+            <br>
+            <small>Create one issue</small>
+          </h4>
+      </div>
+
+      <div>
+        <p>Creates a issue on succes; return JSON with status code succes or bad request. Also, returns the created issue on success.</p>
+
+          <h4>Examples</h4>
+            <pre class="wiki">{
+    'status':{
+      'code':200,
+      'message':'Success'
+    },
+    'response': {
+      'issue': {
+          'id': 132,
+          'title': 'Groapa in fata teatrului din Cluj',
+          'latitude': 2.3232,
+          'longitude': 21.3232,
+          'category_id': 123,
+          'updated_at': '2012-09-13 15:14:33',
+          'created_at': '2012-09-13 15:06:33'
+        }
+    }
+}</pre>
+            <pre class="wiki">{
+    'status':{
+      'code': 400,
+      'message':'Bad Request'
+    },
+    'response': {
+    }
+}</pre>
+
+          <h4>Errors</h4>
+            400
+            Bad Request
+            <br>
+
+          <h4>Params</h4>
+          <ul>
+    <li>
+      <strong>title </strong>:
+      <small>
+        required
+        
+          [ Parameter has to be String. ]
+      </small>
+      <p>Title of the new issue</p>
+
+    </li>
+    
+    <li>
+      <strong>latitude </strong>:
+      <small>
+        required
+        
+          [ Parameter has to be Float. ]
+      </small>
+      <p>latitude of the new issue</p>
+
+    </li>
+    
+    <li>
+      <strong>longitude </strong>:
+      <small>
+        required
+        
+          [ Parameter has to be Float. ]
+      </small>
+      <p>longitude of the new issue</p>
+
+    </li>
+    
+    <li>
+      <strong>category_id </strong>:
+      <small>
+        required
+        
+          [ Parameter has to be Fixnum. ]
+      </small>
+      <p>Issue&#39;s category id</p>
+
+    </li>
+    
+</ul>
+
+      </div>
+      <hr/>
+
+      <h3 id="issues-destroy">
+      <a href='#issues'>Issues</a> / <a href='#issues-destroy'>destroy</a>
+      </h3>
+
+      <div>
+          <h4>
+              DELETE /issue/:id
+            <br>
+            <small>Delete one issue</small>
+          </h4>
+      </div>
+
+      <div>
+        <p>Deletes a issue on succes; return JSON with status code succes or bad request.</p>
+
+          <h4>Examples</h4>
+            <pre class="wiki">{ 
+    'status':{
+      'code':200,
+      'message':'Success'
+    }, 
+    'response': {
+    }
+}</pre>
+            <pre class="wiki">{ 
+    'status':{
+      'code': 404,
+      'message':'Not Found'
+    }, 
+    'response': {
+    }
+}</pre>
+
+          <h4>Errors</h4>
+            400
+            Bad Request
             <br>
 
       </div>
