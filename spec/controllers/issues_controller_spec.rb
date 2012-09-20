@@ -77,6 +77,49 @@ describe IssuesController do
     end
   end
 
+  describe "PUT #update" do
+    before :each do
+      @issue_title = "Gunoi in fata statiei de autobuz"
+      @issue_latitude = 45.323
+      @issue_longitude = 43.3232
+      @new_category = FactoryGirl.create(:category, :name => "Gunoi")
+      @edited_issue = FactoryGirl.attributes_for(:issue, :title => @issue_title, 
+                                                         :latitude => @issue_latitude,
+                                                         :longitude => @issue_longitude,
+                                                         :category_id => @new_category.id)
+    end
+
+    describe "with valid params and existing model" do
+      it "should modifiy the issue" do
+        put :update, :id => @issue, :issue => @edited_issue , :format => :json
+        @issue.reload
+        @issue.title.should == @issue_title
+        @issue.latitude.should == @issue_latitude
+        @issue.longitude.should == @issue_longitude
+        @issue.category_id.should == @new_category.id 
+      end
+
+      it "should return respone code 200" do
+        put :update, :id => @issue, :issue => @edited_issue, :format => :json
+        response_has_status(ApiStatus.OK_CODE)
+      end
+    end
+
+    describe "with bad params on existing model" do
+      it "should return response code 400(bad request)" do
+        put :update, :id => @issue, :issue => @foo_issue, :format => :json 
+        response_has_status(ApiStatus.BAD_REQUEST_CODE)
+      end
+    end
+
+    describe "updating inexistent model" do
+      it "should return response code 404(not found)" do
+        put :update, :id => 0, :issue => @foo_issue, :format => :json
+        response_has_status(ApiStatus.NOT_FOUND_CODE)
+      end
+    end
+  end
+
   describe "DELETE #destroy" do
     describe "deleting existing issue" do
       it "should delete issue" do

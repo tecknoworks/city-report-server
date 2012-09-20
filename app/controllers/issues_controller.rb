@@ -68,8 +68,63 @@ class IssuesController < ApplicationController
     end
   end
 
-  api :DELETE, "/issue/:id", "Delete one issue"
+  api :PUT, "/issue/:id", "Edit one issue"
   error :code => ApiStatus.BAD_REQUEST_CODE, :desc => ApiStatus.BAD_REQUEST
+  error :code => ApiStatus.NOT_FOUND_CODE, :desc => ApiStatus.NOT_FOUND
+  param :title, String, :desc => "new title", :required => false
+  param :latitude, Float, :desc => "new latitude", :required => false
+  param :longitude, Float, :desc => "new longitude", :required => false
+  param :category_id, Fixnum, :desc => "new category_id", :required => false
+  description "Edits a issue on succes; return JSON with status code succes or bad request."
+  formats ['json']
+  example "{ 
+    'status':{
+      'code':200,
+      'message':'Success'
+    }, 
+    'response': {
+    }
+}"
+  example "{ 
+    'status':{
+      'code': 400,
+      'message':'Bad Request'
+    }, 
+    'response': {
+    }
+}"
+  example "{ 
+    'status':{
+      'code':404,
+      'message':'Not Found'
+    }, 
+    'response': {
+    }
+}"
+  def update
+    if Issue.exists?(params[:id])
+      if !params[:issue].nil? && issue_can_be_updated?(params[:issue])
+        issue = Issue.find(params[:id])
+        issue.update_attributes(params[:issue])
+        issue.save
+        respond_to do |format|
+          format.json { render :json => render_response(ApiStatus.OK_CODE, ApiStatus.OK, nil) }
+        end
+      else
+        respond_to do |format|
+          format.json { render :json => render_response(ApiStatus.BAD_REQUEST_CODE, ApiStatus.BAD_REQUEST, nil) }
+        end
+      end
+    else
+      respond_to do |format|
+        format.json { render :json => render_response(ApiStatus.NOT_FOUND_CODE, ApiStatus.NOT_FOUND, nil) }
+      end
+    end
+  end
+
+
+  api :DELETE, "/issue/:id", "Delete one issue"
+  error :code => ApiStatus.NOT_FOUND_CODE, :desc => ApiStatus.NOT_FOUND
   description "Deletes a issue on succes; return JSON with status code succes or bad request."
   formats ['json']
   example "{ 
@@ -110,5 +165,15 @@ class IssuesController < ApplicationController
     return false if issue[:category_id].nil?
     return false if Category.find(issue[:category_id]).nil?
     return true
+  end
+
+  def issue_can_be_updated? issue
+    return true unless issue[:title].nil?
+    return true unless issue[:latitude].nil?
+    return true unless issue[:longitude].nil?
+    if issue[:category_id].present?
+      return true unless Category.find(issue[:category_id]).nil?
+    end
+    return false
   end
 end

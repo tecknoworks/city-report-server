@@ -115,7 +115,7 @@ class CategoriesController < ApplicationController
   end
 
   api :DELETE, "/category/:id", "Delete one category"
-  error :code => ApiStatus.BAD_REQUEST_CODE, :desc => ApiStatus.BAD_REQUEST
+  error :code => ApiStatus.NOT_FOUND_CODE, :desc => ApiStatus.NOT_FOUND
   description "Deletes a category on succes; return JSON with status code succes or bad request."
   formats ['json']
   example "{ 
