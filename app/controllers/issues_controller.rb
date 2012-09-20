@@ -1,4 +1,6 @@
 class IssuesController < ApplicationController
+  respond_to :json
+
   api :GET, "/issues", "Show all issues"
   description "returns a JSON containing all the issues available"
   formats ['json']
@@ -17,9 +19,7 @@ class IssuesController < ApplicationController
 }"
   def index
     issues = Issue.all
-    respond_to do |format|
-      format.json { render :json => render_response(ApiStatus.OK_CODE, ApiStatus.OK, {issues:issues}) }
-    end
+    respond_with render_response(ApiStatus.OK_CODE, ApiStatus.OK, {issues:issues})
   end
 
   api :POST, "/issues", "Create one issue"
