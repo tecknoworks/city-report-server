@@ -1,3 +1,7 @@
+  <h4><a href='#api'>Api</a></h4>
+  <ul>
+      <li><a href='#api-create_issue_auto_category'>create_issue_auto_category</a></li>
+  </ul>
   <h4><a href='#categories'>Categories</a></h4>
   <ul>
       <li><a href='#categories-index'>index</a></li>
@@ -14,6 +18,118 @@
   </ul>
 
 
+
+  <hr/>
+
+  <div>
+    <h2 id="api">
+      <a href='#api'>Api</a><br>
+      <small></small>
+    </h2>
+  </div>
+
+
+  <div>
+
+      <hr/>
+
+      <h3 id="api-create_issue_auto_category">
+      <a href='#api'>Api</a> / <a href='#api-create_issue_auto_category'>create_issue_auto_category</a>
+      </h3>
+
+      <div>
+          <h4>
+              POST /api/issues
+            <br>
+            <small>Create one issue with category on the fly</small>
+          </h4>
+      </div>
+
+      <div>
+        <p>Creates a issue plus a category on succes; return JSON with status code succes or bad request. Also, returns the created issue on success.</p>
+
+          <h4>Examples</h4>
+            <pre class="wiki">{
+    'status':{
+      'code':200,
+      'message':'Success'
+    },
+    'response': {
+      'issue': {
+          'id': 132,
+          'title': 'Groapa in fata teatrului din Cluj',
+          'latitude': 2.3232,
+          'longitude': 21.3232,
+          'category_id': 123,
+          'updated_at': '2012-09-13 15:14:33',
+          'created_at': '2012-09-13 15:06:33'
+        }
+    }
+}</pre>
+            <pre class="wiki">{
+    'status':{
+      'code': 400,
+      'message':'Bad Request'
+    },
+    'response': {
+    }
+}</pre>
+
+          <h4>Errors</h4>
+            400
+            Bad Request
+            <br>
+
+          <h4>Params</h4>
+          <ul>
+    <li>
+      <strong>title </strong>:
+      <small>
+        required
+        
+          [ Parameter has to be String. ]
+      </small>
+      <p>Title of the new issue</p>
+
+    </li>
+    
+    <li>
+      <strong>latitude </strong>:
+      <small>
+        required
+        
+          [ Parameter has to be Float. ]
+      </small>
+      <p>latitude of the new issue</p>
+
+    </li>
+    
+    <li>
+      <strong>longitude </strong>:
+      <small>
+        required
+        
+          [ Parameter has to be Float. ]
+      </small>
+      <p>longitude of the new issue</p>
+
+    </li>
+    
+    <li>
+      <strong>category_name </strong>:
+      <small>
+        required
+        
+          [ Parameter has to be String. ]
+      </small>
+      <p>Issue&#39;s category name. WARNING! this parameter must be separate from the issue hash</p>
+
+    </li>
+    
+</ul>
+
+      </div>
+  </div>
 
   <hr/>
 
@@ -226,8 +342,8 @@
 }</pre>
 
           <h4>Errors</h4>
-            400
-            Bad Request
+            404
+            Not Found
             <br>
 
       </div>
@@ -513,8 +629,8 @@
 }</pre>
 
           <h4>Errors</h4>
-            400
-            Bad Request
+            404
+            Not Found
             <br>
 
       </div>

@@ -1,6 +1,9 @@
 ReparClujul::Application.routes.draw do
   root :to => 'webpage#index'
 
+  post "/api/issues" => "api#create_issue_auto_category"
+  post "index" => "api#index"
+
   resources :categories
   resources :issues
 
