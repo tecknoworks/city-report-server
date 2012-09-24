@@ -1,8 +1,8 @@
 class ApiController < ApplicationController
   api :POST, "/api/issues", "Create one issue with category on the fly"
   error :code => ApiStatus.BAD_REQUEST_CODE, :desc => ApiStatus.BAD_REQUEST
-  param :title, String, :desc => "Title of the new issue; must be unde issue node", :required => true
-  param :latitude, Float, :desc => "latitude of the new issue; must be unde issue node", :required => true
+  param :title, String, :desc => "Title of the new issue; must be under issue node/hash", :required => true
+  param :latitude, Float, :desc => "latitude of the new issue; must be under issue node/hash", :required => true
   param :longitude, Float, :desc => "longitude of the new issue", :required => true
   param :category_name, String, :desc => "Issue's category name. WARNING! this parameter must be separate from the issue hash", :required => true
   description "Creates a issue plus a category on succes; return JSON with status code succes or bad request. Also, returns the created issue on success."
@@ -52,9 +52,9 @@ class ApiController < ApplicationController
   api :PUT, "api/issue/:id", "Edit one issue with creating category on the fly"
   error :code => ApiStatus.BAD_REQUEST_CODE, :desc => ApiStatus.BAD_REQUEST
   error :code => ApiStatus.NOT_FOUND_CODE, :desc => ApiStatus.NOT_FOUND
-  param :title, String, :desc => "new title; must be unde issue node", :required => false
-  param :latitude, Float, :desc => "new latitude; must be unde issue node", :required => false
-  param :longitude, Float, :desc => "new longitude; must be unde issue node", :required => false
+  param :title, String, :desc => "new title; must be under issue node/hash", :required => false
+  param :latitude, Float, :desc => "new latitude; must be under issue node/hash", :required => false
+  param :longitude, Float, :desc => "new longitude; must be under issue node/hash", :required => false
   param :category_name, Fixnum, :desc => "new category name to be created on the fly; must not be under the issue hash(node)", :required => false
   description "Edits a issue on succes plus creating a category if needed; return JSON with status code succes or bad request."
   formats ['json']

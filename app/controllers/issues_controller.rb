@@ -24,10 +24,10 @@ class IssuesController < ApplicationController
 
   api :POST, "/issues", "Create one issue"
   error :code => ApiStatus.BAD_REQUEST_CODE, :desc => ApiStatus.BAD_REQUEST
-  param :title, String, :desc => "Title of the new issue; must be unde issue node", :required => true
-  param :latitude, Float, :desc => "latitude of the new issue; must be unde issue node", :required => true
-  param :longitude, Float, :desc => "longitude of the new issue; must be unde issue node", :required => true
-  param :category_id, Fixnum, :desc => "Issue's category id; must be unde issue node", :required => true
+  param :title, String, :desc => "Title of the new issue; must be under issue node/hash", :required => true
+  param :latitude, Float, :desc => "latitude of the new issue; must be under issue node/hash", :required => true
+  param :longitude, Float, :desc => "longitude of the new issue; must be under issue node/hash", :required => true
+  param :category_id, Fixnum, :desc => "Issue's category id; must be under issue node/hash", :required => true
   description "Creates a issue on succes; return JSON with status code succes or bad request. Also, returns the created issue on success."
   formats ['json']
   example "{
@@ -71,10 +71,10 @@ class IssuesController < ApplicationController
   api :PUT, "/issue/:id", "Edit one issue"
   error :code => ApiStatus.BAD_REQUEST_CODE, :desc => ApiStatus.BAD_REQUEST
   error :code => ApiStatus.NOT_FOUND_CODE, :desc => ApiStatus.NOT_FOUND
-  param :title, String, :desc => "new title; must be unde issue node", :required => false
-  param :latitude, Float, :desc => "new latitude; must be unde issue node", :required => false
-  param :longitude, Float, :desc => "new longitude; must be unde issue node", :required => false
-  param :category_id, Fixnum, :desc => "new category_id; must be unde issue node", :required => false
+  param :title, String, :desc => "new title; must be under issue node/hash", :required => false
+  param :latitude, Float, :desc => "new latitude; must be under issue node/hash", :required => false
+  param :longitude, Float, :desc => "new longitude; must be under issue node/hash", :required => false
+  param :category_id, Fixnum, :desc => "new category_id; must be under issue node/hash", :required => false
   description "Edits a issue on succes; return JSON with status code succes or bad request."
   formats ['json']
   example "{ 
