@@ -48,11 +48,80 @@ class ApiController < ApplicationController
     end
   end
 
+
+  api :PUT, "api/issue/:id", "Edit one issue with creating category on the fly"
+  error :code => ApiStatus.BAD_REQUEST_CODE, :desc => ApiStatus.BAD_REQUEST
+  error :code => ApiStatus.NOT_FOUND_CODE, :desc => ApiStatus.NOT_FOUND
+  param :title, String, :desc => "new title", :required => false
+  param :latitude, Float, :desc => "new latitude", :required => false
+  param :longitude, Float, :desc => "new longitude", :required => false
+  param :category_name, Fixnum, :desc => "new category name to be created on the fly", :required => false
+  description "Edits a issue on succes plus creating a category if needed; return JSON with status code succes or bad request."
+  formats ['json']
+  example "{
+    'status':{
+      'code':200,
+      'message':'Success'
+    },
+    'response': {
+    }
+}"
+  example "{
+    'status':{
+      'code': 400,
+      'message':'Bad Request'
+    },
+    'response': {
+    }
+}"
+  example "{
+    'status':{
+      'code':404,
+      'message':'Not Found'
+    },
+    'response': {
+    }
+}"
+  def edit_issue_auto_category
+    if Issue.exists?(params[:id])
+      if issue_can_be_updated?(params[:issue]) || params[:category_name].present?
+        issue = Issue.find(params[:id])
+        if issue_can_be_updated?(params[:issue])
+          issue.update_attributes(params[:issue])
+        end
+        if params[:category_name].present?
+          category = Category.create(:name => params[:category_name])
+          issue.category_id = category.id
+        end
+        issue.save
+        respond_to do |format|
+          format.json { render :json => render_response(ApiStatus.OK_CODE, ApiStatus.OK, nil) }
+        end
+      else
+        respond_to do |format|
+          format.json { render :json => render_response(ApiStatus.BAD_REQUEST_CODE, ApiStatus.BAD_REQUEST, nil) }
+        end
+      end
+    else
+      respond_to do |format|
+        format.json { render :json => render_response(ApiStatus.NOT_FOUND_CODE, ApiStatus.NOT_FOUND, nil) }
+      end
+    end
+  end
+
   private
   def issue_params_valid? issue
     return false if issue[:title].nil?
     return false if issue[:latitude].nil?
     return false if issue[:longitude].nil?
     return true
+  end
+
+  def issue_can_be_updated? issue
+    return false if issue.nil?
+    return true unless issue[:title].nil?
+    return true unless issue[:latitude].nil?
+    return true unless issue[:longitude].nil?
+    return false
   end
 end
