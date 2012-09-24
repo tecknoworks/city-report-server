@@ -23,6 +23,7 @@
           <h4><a href='#api'>Api</a></h4>
   <ul>
       <li><a href='#api-create_issue_auto_category'>create_issue_auto_category</a></li>
+      <li><a href='#api-edit_issue_auto_category'>edit_issue_auto_category</a></li>
   </ul>
   <h4><a href='#categories'>Categories</a></h4>
   <ul>
@@ -139,7 +140,7 @@ in general.</p>
       </small>
     </td>
     <td>
-      <p>Title of the new issue</p>
+      <p>Title of the new issue; must be unde issue node</p>
 
         <br>
         Value: Parameter has to be String.
@@ -156,7 +157,7 @@ in general.</p>
       </small>
     </td>
     <td>
-      <p>latitude of the new issue</p>
+      <p>latitude of the new issue; must be unde issue node</p>
 
         <br>
         Value: Parameter has to be Float.
@@ -194,6 +195,147 @@ in general.</p>
 
         <br>
         Value: Parameter has to be String.
+    </td>
+  </tr>
+
+  
+
+            </tbody>
+          </table>
+      </div>
+      <hr>
+
+      <ul class='breadcrumb' id='api-edit_issue_auto_category'>
+        <li>
+          <a href='#'>Repara Clujul</a>
+          <span class='divider'>/</span>
+        </li>
+        <li>
+          <a href='#api'>Api</a>
+          <span class='divider'>/</span>
+        </li>
+        <li class='active'>edit_issue_auto_category</li>
+      </ul>
+
+      <div>
+          <h3>
+            <a href='#api-edit_issue_auto_category'>
+              PUT api/issue/:id
+            </a><br>
+            <small>Edit one issue with creating category on the fly</small>
+          </h3>
+      </div>
+
+      <div>
+        <p>Edits a issue on succes plus creating a category if needed; return JSON with status code succes or bad request.</p>
+
+          <h2>Examples</h2>
+            <pre>{
+    'status':{
+      'code':200,
+      'message':'Success'
+    },
+    'response': {
+    }
+}</pre>
+            <pre>{
+    'status':{
+      'code': 400,
+      'message':'Bad Request'
+    },
+    'response': {
+    }
+}</pre>
+            <pre>{
+    'status':{
+      'code':404,
+      'message':'Not Found'
+    },
+    'response': {
+    }
+}</pre>
+
+          <h2>Errors</h2>
+            400
+            Bad Request
+            <br>
+            404
+            Not Found
+            <br>
+
+          <h2>Params</h2>
+          <table class='table'>
+            <thead>
+              <tr>
+                <th>Param name</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+                <tr style='background-color:rgb(255,255,255);'>
+    <td>
+      <strong>title </strong><br>
+      <small>
+        optional
+        
+      </small>
+    </td>
+    <td>
+      <p>new title; must be unde issue node</p>
+
+        <br>
+        Value: Parameter has to be String.
+    </td>
+  </tr>
+
+  
+  <tr style='background-color:rgb(255,255,255);'>
+    <td>
+      <strong>latitude </strong><br>
+      <small>
+        optional
+        
+      </small>
+    </td>
+    <td>
+      <p>new latitude; must be unde issue node</p>
+
+        <br>
+        Value: Parameter has to be Float.
+    </td>
+  </tr>
+
+  
+  <tr style='background-color:rgb(255,255,255);'>
+    <td>
+      <strong>longitude </strong><br>
+      <small>
+        optional
+        
+      </small>
+    </td>
+    <td>
+      <p>new longitude; must be unde issue node</p>
+
+        <br>
+        Value: Parameter has to be Float.
+    </td>
+  </tr>
+
+  
+  <tr style='background-color:rgb(255,255,255);'>
+    <td>
+      <strong>category_name </strong><br>
+      <small>
+        optional
+        
+      </small>
+    </td>
+    <td>
+      <p>new category name to be created on the fly; must not be under the issue hash(node)</p>
+
+        <br>
+        Value: Parameter has to be Fixnum.
     </td>
   </tr>
 
@@ -335,7 +477,7 @@ in general.</p>
       </small>
     </td>
     <td>
-      <p>Name of the new category</p>
+      <p>Name of the new category; must be unde category node</p>
 
         <br>
         Value: Parameter has to be String.
@@ -425,7 +567,7 @@ in general.</p>
       </small>
     </td>
     <td>
-      <p>new name</p>
+      <p>new name; must be unde category node</p>
 
         <br>
         Value: Parameter has to be String.
@@ -623,7 +765,7 @@ in general.</p>
       </small>
     </td>
     <td>
-      <p>Title of the new issue</p>
+      <p>Title of the new issue; must be unde issue node</p>
 
         <br>
         Value: Parameter has to be String.
@@ -640,7 +782,7 @@ in general.</p>
       </small>
     </td>
     <td>
-      <p>latitude of the new issue</p>
+      <p>latitude of the new issue; must be unde issue node</p>
 
         <br>
         Value: Parameter has to be Float.
@@ -657,7 +799,7 @@ in general.</p>
       </small>
     </td>
     <td>
-      <p>longitude of the new issue</p>
+      <p>longitude of the new issue; must be unde issue node</p>
 
         <br>
         Value: Parameter has to be Float.
@@ -674,7 +816,7 @@ in general.</p>
       </small>
     </td>
     <td>
-      <p>Issue&#39;s category id</p>
+      <p>Issue&#39;s category id; must be unde issue node</p>
 
         <br>
         Value: Parameter has to be Fixnum.
@@ -764,7 +906,7 @@ in general.</p>
       </small>
     </td>
     <td>
-      <p>new title</p>
+      <p>new title; must be unde issue node</p>
 
         <br>
         Value: Parameter has to be String.
@@ -781,7 +923,7 @@ in general.</p>
       </small>
     </td>
     <td>
-      <p>new latitude</p>
+      <p>new latitude; must be unde issue node</p>
 
         <br>
         Value: Parameter has to be Float.
@@ -798,7 +940,7 @@ in general.</p>
       </small>
     </td>
     <td>
-      <p>new longitude</p>
+      <p>new longitude; must be unde issue node</p>
 
         <br>
         Value: Parameter has to be Float.
@@ -815,7 +957,7 @@ in general.</p>
       </small>
     </td>
     <td>
-      <p>new category_id</p>
+      <p>new category_id; must be unde issue node</p>
 
         <br>
         Value: Parameter has to be Fixnum.

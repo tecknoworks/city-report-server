@@ -110,7 +110,7 @@
       </small>
     </td>
     <td>
-      <p>Title of the new issue</p>
+      <p>Title of the new issue; must be unde issue node</p>
 
         <br>
         Value: Parameter has to be String.
@@ -127,7 +127,7 @@
       </small>
     </td>
     <td>
-      <p>latitude of the new issue</p>
+      <p>latitude of the new issue; must be unde issue node</p>
 
         <br>
         Value: Parameter has to be Float.
@@ -165,6 +165,145 @@
 
         <br>
         Value: Parameter has to be String.
+    </td>
+  </tr>
+
+  
+
+          </tbody>
+        </table>
+    </div>
+    <hr>
+    <div class='pull-right small'>
+      <a href='../apidoc/api/edit_issue_auto_category.html'> >>> </a>
+    </div>
+    <div>
+        <h2>
+          <a href='#description-edit_issue_auto_category'
+           class='accordion-toggle'
+           data-toggle='collapse'
+           data-parent='#accordion'>
+            PUT api/issue/:id
+          </a><br>
+          <small>Edit one issue with creating category on the fly</small>
+        </h2>
+    </div>
+
+
+    <div id='description-edit_issue_auto_category' class='collapse accordion-body'>
+      <p>Edits a issue on succes plus creating a category if needed; return JSON with status code succes or bad request.</p>
+
+
+        <h3>Supported Formats</h3>
+        json
+
+        <h3>Errors</h3>
+          400
+          Bad Request
+          <br>
+          404
+          Not Found
+          <br>
+
+        <h3>Examples</h3>
+          <pre>{
+    'status':{
+      'code':200,
+      'message':'Success'
+    },
+    'response': {
+    }
+}</pre>
+          <pre>{
+    'status':{
+      'code': 400,
+      'message':'Bad Request'
+    },
+    'response': {
+    }
+}</pre>
+          <pre>{
+    'status':{
+      'code':404,
+      'message':'Not Found'
+    },
+    'response': {
+    }
+}</pre>
+
+        <h3>Params</h3>
+        <table class='table'>
+          <thead>
+            <tr>
+              <th>Param name</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+              <tr style='background-color:rgb(255,255,255);'>
+    <td>
+      <strong>title </strong><br>
+      <small>
+        optional
+        
+      </small>
+    </td>
+    <td>
+      <p>new title; must be unde issue node</p>
+
+        <br>
+        Value: Parameter has to be String.
+    </td>
+  </tr>
+
+  
+  <tr style='background-color:rgb(255,255,255);'>
+    <td>
+      <strong>latitude </strong><br>
+      <small>
+        optional
+        
+      </small>
+    </td>
+    <td>
+      <p>new latitude; must be unde issue node</p>
+
+        <br>
+        Value: Parameter has to be Float.
+    </td>
+  </tr>
+
+  
+  <tr style='background-color:rgb(255,255,255);'>
+    <td>
+      <strong>longitude </strong><br>
+      <small>
+        optional
+        
+      </small>
+    </td>
+    <td>
+      <p>new longitude; must be unde issue node</p>
+
+        <br>
+        Value: Parameter has to be Float.
+    </td>
+  </tr>
+
+  
+  <tr style='background-color:rgb(255,255,255);'>
+    <td>
+      <strong>category_name </strong><br>
+      <small>
+        optional
+        
+      </small>
+    </td>
+    <td>
+      <p>new category name to be created on the fly; must not be under the issue hash(node)</p>
+
+        <br>
+        Value: Parameter has to be Fixnum.
     </td>
   </tr>
 

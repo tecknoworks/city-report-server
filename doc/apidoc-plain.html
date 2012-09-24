@@ -1,6 +1,7 @@
   <h4><a href='#api'>Api</a></h4>
   <ul>
       <li><a href='#api-create_issue_auto_category'>create_issue_auto_category</a></li>
+      <li><a href='#api-edit_issue_auto_category'>edit_issue_auto_category</a></li>
   </ul>
   <h4><a href='#categories'>Categories</a></h4>
   <ul>
@@ -89,7 +90,7 @@
         
           [ Parameter has to be String. ]
       </small>
-      <p>Title of the new issue</p>
+      <p>Title of the new issue; must be unde issue node</p>
 
     </li>
     
@@ -100,7 +101,7 @@
         
           [ Parameter has to be Float. ]
       </small>
-      <p>latitude of the new issue</p>
+      <p>latitude of the new issue; must be unde issue node</p>
 
     </li>
     
@@ -123,6 +124,106 @@
           [ Parameter has to be String. ]
       </small>
       <p>Issue&#39;s category name. WARNING! this parameter must be separate from the issue hash</p>
+
+    </li>
+    
+</ul>
+
+      </div>
+      <hr/>
+
+      <h3 id="api-edit_issue_auto_category">
+      <a href='#api'>Api</a> / <a href='#api-edit_issue_auto_category'>edit_issue_auto_category</a>
+      </h3>
+
+      <div>
+          <h4>
+              PUT api/issue/:id
+            <br>
+            <small>Edit one issue with creating category on the fly</small>
+          </h4>
+      </div>
+
+      <div>
+        <p>Edits a issue on succes plus creating a category if needed; return JSON with status code succes or bad request.</p>
+
+          <h4>Examples</h4>
+            <pre class="wiki">{
+    'status':{
+      'code':200,
+      'message':'Success'
+    },
+    'response': {
+    }
+}</pre>
+            <pre class="wiki">{
+    'status':{
+      'code': 400,
+      'message':'Bad Request'
+    },
+    'response': {
+    }
+}</pre>
+            <pre class="wiki">{
+    'status':{
+      'code':404,
+      'message':'Not Found'
+    },
+    'response': {
+    }
+}</pre>
+
+          <h4>Errors</h4>
+            400
+            Bad Request
+            <br>
+            404
+            Not Found
+            <br>
+
+          <h4>Params</h4>
+          <ul>
+    <li>
+      <strong>title </strong>:
+      <small>
+        optional
+        
+          [ Parameter has to be String. ]
+      </small>
+      <p>new title; must be unde issue node</p>
+
+    </li>
+    
+    <li>
+      <strong>latitude </strong>:
+      <small>
+        optional
+        
+          [ Parameter has to be Float. ]
+      </small>
+      <p>new latitude; must be unde issue node</p>
+
+    </li>
+    
+    <li>
+      <strong>longitude </strong>:
+      <small>
+        optional
+        
+          [ Parameter has to be Float. ]
+      </small>
+      <p>new longitude; must be unde issue node</p>
+
+    </li>
+    
+    <li>
+      <strong>category_name </strong>:
+      <small>
+        optional
+        
+          [ Parameter has to be Fixnum. ]
+      </small>
+      <p>new category name to be created on the fly; must not be under the issue hash(node)</p>
 
     </li>
     
@@ -232,7 +333,7 @@
         
           [ Parameter has to be String. ]
       </small>
-      <p>Name of the new category</p>
+      <p>Name of the new category; must be unde category node</p>
 
     </li>
     
@@ -299,7 +400,7 @@
         
           [ Parameter has to be String. ]
       </small>
-      <p>new name</p>
+      <p>new name; must be unde category node</p>
 
     </li>
     
@@ -453,7 +554,7 @@
         
           [ Parameter has to be String. ]
       </small>
-      <p>Title of the new issue</p>
+      <p>Title of the new issue; must be unde issue node</p>
 
     </li>
     
@@ -464,7 +565,7 @@
         
           [ Parameter has to be Float. ]
       </small>
-      <p>latitude of the new issue</p>
+      <p>latitude of the new issue; must be unde issue node</p>
 
     </li>
     
@@ -475,7 +576,7 @@
         
           [ Parameter has to be Float. ]
       </small>
-      <p>longitude of the new issue</p>
+      <p>longitude of the new issue; must be unde issue node</p>
 
     </li>
     
@@ -486,7 +587,7 @@
         
           [ Parameter has to be Fixnum. ]
       </small>
-      <p>Issue&#39;s category id</p>
+      <p>Issue&#39;s category id; must be unde issue node</p>
 
     </li>
     
@@ -553,7 +654,7 @@
         
           [ Parameter has to be String. ]
       </small>
-      <p>new title</p>
+      <p>new title; must be unde issue node</p>
 
     </li>
     
@@ -564,7 +665,7 @@
         
           [ Parameter has to be Float. ]
       </small>
-      <p>new latitude</p>
+      <p>new latitude; must be unde issue node</p>
 
     </li>
     
@@ -575,7 +676,7 @@
         
           [ Parameter has to be Float. ]
       </small>
-      <p>new longitude</p>
+      <p>new longitude; must be unde issue node</p>
 
     </li>
     
@@ -586,7 +687,7 @@
         
           [ Parameter has to be Fixnum. ]
       </small>
-      <p>new category_id</p>
+      <p>new category_id; must be unde issue node</p>
 
     </li>
     

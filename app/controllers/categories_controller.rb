@@ -24,7 +24,7 @@ class CategoriesController < ApplicationController
 
   api :POST, "/categories", "Create one category"
   error :code => ApiStatus.BAD_REQUEST_CODE, :desc => ApiStatus.BAD_REQUEST
-  param :name, String, :desc => "Name of the new category", :required => true
+  param :name, String, :desc => "Name of the new category; must be unde category node", :required => true
   description "Creates a category on succes; return JSON with status code succes or bad request. Also, returns the created category on success."
   formats ['json']
   example "{ 
@@ -66,7 +66,7 @@ class CategoriesController < ApplicationController
   api :PUT, "/category/:id", "Edit one category"
   error :code => ApiStatus.BAD_REQUEST_CODE, :desc => ApiStatus.BAD_REQUEST
   error :code => ApiStatus.NOT_FOUND_CODE, :desc => ApiStatus.NOT_FOUND
-  param :name, String, :desc => "new name", :required => true
+  param :name, String, :desc => "new name; must be unde category node", :required => true
   description "Edits a category on succes; return JSON with status code succes or bad request."
   formats ['json']
   example "{ 
