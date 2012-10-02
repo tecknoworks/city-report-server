@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-	<%= csrf_meta_tags %>
+    <%= csrf_meta_tags %>
     <meta charset="utf-8">
     <title>Repara Clujul</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -16,7 +16,7 @@
 
     <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
-      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
   </head>
 
@@ -26,25 +26,15 @@
       <div class="navbar navbar-square">
         <div class="navbar-inner">
           <div class="container">
-            
-            
+
+
             <ul class="nav">
               <%= menu_items %>
             </ul>
 
-            <ul class="nav pull-right">
-              <li class="dropdown">
-                <a id="categorii" href="#" role="button" class="dropdown-toggle" data-toggle="dropdown">Categorii <b class="caret"></b></a>
-
-                <ul class="dropdown-menu" role="menu" aria-labelledby="categorii">
-                  <li><a tabindex="-1" href="#">Trafic</a></li>
-                  <li><a tabindex="-1" href="#">Gunoi</a></li>
-                  <li><a tabindex="-1" href="#">Parcuri</a></li>
-                  <li class="divider"></li>
-                  <li><a tabindex="-1" href="#">Arata toate</a></li>
-                </ul>
-              </li>
-            </ul>
+            <% if current_uri == root_path %>
+              <%= render :partial => "layouts/categories_dropdown" %>
+            <% end %>
 
             <a class="brand-center" id="logo-main" href="#">
               <img src="/assets/logo.png" alt="Repar Clujul" />
@@ -56,7 +46,7 @@
     </div>
 
     <div class="container container-main">
-		  
+
       <%= yield %>
 
     </div>
@@ -65,11 +55,11 @@
     </div>
 
     <footer class="footer">
-      <div class="container">
-        <div class="span12">
-          Footers are cool.
-        </div>    
-      </div>
+    <div class="container">
+      <div class="span12">
+        Footers are cool.
+      </div>    
+    </div>
     </footer>
 
   </body>
