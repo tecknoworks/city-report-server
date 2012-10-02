@@ -5,6 +5,7 @@ module ApplicationHelper
               "acasa"  => root_path,
               "despre" => about_path,
               "contact" => contact_path,
+              "API" => apipie_path,
             }
 
     result = ""

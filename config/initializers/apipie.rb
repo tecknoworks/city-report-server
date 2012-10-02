@@ -8,7 +8,8 @@ Apipie.configure do |config|
   config.reload_controllers = true
   config.api_controllers_matcher = File.join(Rails.root, "app", "controllers", "**","*.rb")
   config.app_info = <<-DOC
-    This is where you can inform user about your application and API
-    in general.
+    This is the "repara clujul" API documentation. The API is in a relatively primitive state
+    but we hope to make great progress in time. If you find any issues, please contact one of
+    the developers (ex: cristian.ilea [at] smarttech2000.com ).
   DOC
 end
