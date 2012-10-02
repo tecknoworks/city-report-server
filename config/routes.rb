@@ -1,5 +1,7 @@
 ReparClujul::Application.routes.draw do
-  root :to => 'webpage#index'
+  root :to => "webpage#index"
+  get "/despre" => "webpage#about", :as => :about
+  get "/contact" => "webpage#contact", :as => :contact
 
   post "/api/issues" => "api#create_issue_auto_category"
   put "/api/issue/:id" => "api#edit_issue_auto_category"
