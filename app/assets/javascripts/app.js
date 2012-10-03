@@ -18,7 +18,20 @@ define([
 ], 
 
 // After loading
+
 function($, _, Backbone, Maps) {
+
+  var loadPinpoints = function() {
+    var map = $('#map-main');
+    $.get("/issues", function(data) {
+      $.each(data["response"]["issues"], function(index, value) {
+        var location = '{latitude},{longitude}';
+        location = location.replace('{latitude}', value['latitude']);
+        location = location.replace('{longitude}', value['longitude']);
+        map.gmap('addMarker',{'position':location, 'bounds':false});
+      });
+    });
+  }
 
 	// Initialize the main application module
 	var initialize = function() {
@@ -44,10 +57,14 @@ function($, _, Backbone, Maps) {
 			$('#map-main').gmap('addMarker', {'position': '46.784076, 23.603388', 'bounds': false});
 		});
 
+    // Load all pinpoints
+    loadPinpoints();
+
 	}
+
 
 	// Make the initialization publicly available
 	return {
-		initialize: initialize
+		initialize: initialize,
 	};
 });
