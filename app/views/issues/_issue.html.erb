@@ -6,6 +6,9 @@
     <%= issue.latitude %>
     <%= issue.longitude %>
     <%= issue.category.name %>
+    <% if issue.attachment.present? %>
+      <%= image_tag issue.attachment.image.url %>
+    <% end %>
   </p>
   </li>
 </a>

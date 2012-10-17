@@ -1,0 +1,9 @@
+<div class="ro row-map-offset">
+  <div class="span12">
+    <%= form_for @attachment, :html => { :multipart => true } do |f| %>
+      <%= f.file_field :image %>
+      <%= f.select :issue_id, Issue.all.collect {|i| [i.title, i.id] } %>  
+      <%= f.submit "go" %>
+    <% end %>
+  </div>
+</div>

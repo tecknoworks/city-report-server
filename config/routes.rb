@@ -1,4 +1,5 @@
 ReparClujul::Application.routes.draw do
+
   root :to => "webpage#index"
   get "/despre" => "webpage#about", :as => :about
   get "/contact" => "webpage#contact", :as => :contact
@@ -8,6 +9,7 @@ ReparClujul::Application.routes.draw do
 
   resources :categories
   resources :issues
+  resources :attachments
 
   apipie
 
