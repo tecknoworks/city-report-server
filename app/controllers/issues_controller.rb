@@ -59,6 +59,9 @@ class IssuesController < ApplicationController
     if !params[:issue].nil? && issue_params_valid?(params[:issue])
       @issue = Issue.create(params[:issue])
       respond_to do |format|
+        if params[:image].present? && params[:image_name].present?
+          @issue.add_attachment(params[:image], params[:image_name])
+        end
         format.json { render :json => render_response(ApiStatus.OK_CODE, ApiStatus.OK, {issue:@issue}) }
       end
     else
@@ -104,11 +107,14 @@ class IssuesController < ApplicationController
   def update
     if Issue.exists?(params[:id])
       if !params[:issue].nil? && issue_can_be_updated?(params[:issue])
-        issue = Issue.find(params[:id])
-        issue.update_attributes(params[:issue])
-        issue.save
+        @issue = Issue.find(params[:id])
+        @issue.update_attributes(params[:issue])
+        @issue.save
         respond_to do |format|
-          format.json { render :json => render_response(ApiStatus.OK_CODE, ApiStatus.OK, nil) }
+          if params[:image].present? && params[:image_name].present?
+            @issue.add_attachment(params[:image], params[:image_name])
+          end
+          format.json { render :json => render_response(ApiStatus.OK_CODE, ApiStatus.OK, {issue:@issue}) }
         end
       else
         respond_to do |format|
@@ -145,7 +151,9 @@ class IssuesController < ApplicationController
 }"
   def destroy
     if Issue.exists?(params[:id])
-      Issue.delete(params[:id])
+      @issue = Issue.find(params[:id])
+      @issue.attachment.image.destroy if @issue.attachment.present?
+      @issue.delete
       respond_to do |format|
         format.json { render :json => render_response(ApiStatus.OK_CODE, ApiStatus.OK, nil) }
       end

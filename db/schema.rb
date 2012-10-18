@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121017131449) do
+ActiveRecord::Schema.define(:version => 20121018135413) do
 
   create_table "attachments", :force => true do |t|
     t.integer  "issue_id"
@@ -36,6 +36,7 @@ ActiveRecord::Schema.define(:version => 20121017131449) do
     t.integer  "category_id"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
+    t.string   "image_url"
   end
 
 end
