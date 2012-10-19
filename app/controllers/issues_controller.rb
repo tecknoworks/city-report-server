@@ -43,6 +43,7 @@ class IssuesController < ApplicationController
           'title': 'Groapa in fata teatrului din Cluj',
           'latitude': 2.3232,
           'longitude': 21.3232,
+          'image_url': '/system/attachments/images/000/000/027/original/asdf.jpeg?1350564603',
           'category_id': 123,
           'updated_at': '2012-09-13 15:14:33',
           'created_at': '2012-09-13 15:06:33'

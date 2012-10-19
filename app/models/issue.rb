@@ -2,7 +2,6 @@ class Issue < ActiveRecord::Base
   attr_accessible :category_id, :latitude, :longitude, :title, :attachment
   belongs_to :category
   has_one :attachment
-  after_save :update_url
 
   scope :in_area, lambda{ |upleft_latitude, downright_latitude, upleft_longitude, downright_longitude|
     where("latitude <= ? AND latitude >= ? AND longitude >= ? AND longitude <= ?",
@@ -18,13 +17,16 @@ class Issue < ActiveRecord::Base
     @attachment.image = image
     self.attachment = @attachment
     self.save
+    self.update_url
     File.delete(image_name)
+
   end
 
   private
   def update_url
     if self.attachment.present?
       self.image_url = self.attachment.image.url
+      self.save
     end
   end
 end
