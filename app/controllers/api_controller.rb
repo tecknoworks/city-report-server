@@ -109,6 +109,13 @@ class ApiController < ApplicationController
     end
   end
 
+  def issues_within_region
+    issues = Issue.in_area(params[:upleft_latitude], params[:downright_latitude], params[:upleft_longitude], params[:downright_longitude]);
+    respond_to do |format|
+      format.json { render :json => render_response(ApiStatus.OK_CODE, ApiStatus.OK, {issues:issues}) }
+    end
+  end
+
   private
   def issue_params_valid? issue
     return false if issue[:title].nil?

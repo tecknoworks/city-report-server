@@ -6,6 +6,14 @@ ReparClujul::Application.routes.draw do
 
   post "/api/issues" => "api#create_issue_auto_category"
   put "/api/issue/:id" => "api#edit_issue_auto_category"
+  get "/api/issues_within_region/:upleft_latitude/:downright_latitude/:upleft_longitude/:downright_longitude" => "api#issues_within_region",
+    :constraints => {
+                      :upleft_latitude => /\-?\d+.\d+/,
+                      :upleft_longitude => /\-?\d+.\d+/,
+                      :downright_latitude => /\-?\d+.\d+/,
+                      :downright_longitude => /\-?\d+.\d+/
+                    }
+
 
   resources :categories
   resources :issues

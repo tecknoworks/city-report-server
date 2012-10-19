@@ -4,6 +4,11 @@ class Issue < ActiveRecord::Base
   has_one :attachment
   after_save :update_url
 
+  scope :in_area, lambda{ |upleft_latitude, downright_latitude, upleft_longitude, downright_longitude|
+    where("latitude <= ? AND latitude >= ? AND longitude >= ? AND longitude <= ?",
+          upleft_latitude, downright_latitude, upleft_longitude, downright_longitude);
+  }
+
   def add_attachment(image_base64, image_name)
     File.open(image_name, "wb") do |file|
       file.write(ActiveSupport::Base64.decode64(image_base64))
