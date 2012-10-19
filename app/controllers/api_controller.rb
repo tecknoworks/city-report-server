@@ -109,6 +109,51 @@ class ApiController < ApplicationController
     end
   end
 
+
+  api :GET, "/api/issues_within_region/:upleft_latitude/:downright_latitude/:upleft_longitude/:downright_longitude", "Show all issues within a rectangular region"
+  description "returns a JSON containing all the issues in a specified region"
+  formats ['json']
+  example "http://localhost:3000/api/issues_within_region/46.75191555354491/46.737273512691395/23.6344909662148/23.668007850064896.json
+{
+  status: {
+  code: 200,
+  message: 'Ok'
+  },
+  response: {
+    issues: [
+      {
+        category_id: 83,
+        created_at: '2012-10-03T08:31:06Z',
+        id: 32,
+        image_url: null,
+        latitude: 46.743584635911226,
+        longitude: 23.649591426571824,
+        title: 'test',
+        updated_at: '2012-10-03T08:37:23Z'
+      },
+      {
+        category_id: 83,
+        created_at: '2012-10-03T08:31:08Z',
+        id: 42,
+        image_url: null,
+        latitude: 46.75175395245134,
+        longitude: 23.647101449427335,
+        title: 'test',
+        updated_at: '2012-10-03T08:37:24Z'
+      },
+      {
+        category_id: 83,
+        created_at: '2012-10-03T08:31:14Z',
+        id: 78,
+        image_url: null,
+        latitude: 46.7464391738859,
+        longitude: 23.636744318722624,
+        title: 'test',
+        updated_at: '2012-10-03T08:37:30Z'
+      }
+    ]
+  }
+}"
   def issues_within_region
     issues = Issue.in_area(params[:upleft_latitude], params[:downright_latitude], params[:upleft_longitude], params[:downright_longitude]);
     respond_to do |format|
