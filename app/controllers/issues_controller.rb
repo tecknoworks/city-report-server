@@ -28,6 +28,8 @@ class IssuesController < ApplicationController
   param :latitude, Float, :desc => "latitude of the new issue; must be under issue node/hash", :required => true
   param :longitude, Float, :desc => "longitude of the new issue; must be under issue node/hash", :required => true
   param :category_id, Fixnum, :desc => "Issue's category id; must be under issue node/hash", :required => true
+  param :image, String, :desc => "Base64 encoded image string format; not under issue node/hash", :required => false
+  param :image_name, String, :desc => "the name of the image you upload; not under issue node/hash", :required => false
   description "Creates a issue on succes; return JSON with status code succes or bad request. Also, returns the created issue on success."
   formats ['json']
   example "{
@@ -78,6 +80,8 @@ class IssuesController < ApplicationController
   param :latitude, Float, :desc => "new latitude; must be under issue node/hash", :required => false
   param :longitude, Float, :desc => "new longitude; must be under issue node/hash", :required => false
   param :category_id, Fixnum, :desc => "new category_id; must be under issue node/hash", :required => false
+  param :image, String, :desc => "Base64 encoded image string format; not under issue node/hash", :required => false
+  param :image_name, String, :desc => "the name of the image you upload; not under issue node/hash", :required => false
   description "Edits a issue on succes; return JSON with status code succes or bad request."
   formats ['json']
   example "{ 
