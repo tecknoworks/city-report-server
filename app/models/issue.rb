@@ -22,7 +22,6 @@ class Issue < ActiveRecord::Base
 
   end
 
-  private
   def update_url
     if self.attachment.present?
       self.image_url = self.attachment.image.url
