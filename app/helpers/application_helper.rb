@@ -11,4 +11,9 @@ module ApplicationHelper
     return result.html_safe
   end
 
+  # TODO use translations
+  def current_category
+    Category.find_by_id(params[:id]).try(:name) || "Toate categoriile"
+  end
+
 end
