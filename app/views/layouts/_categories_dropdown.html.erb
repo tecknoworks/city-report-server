@@ -1,11 +1,11 @@
 <ul class="nav pull-right">
   <li class="dropdown">
-  <a id="categorii" href="#" role="button" class="dropdown-toggle" data-toggle="dropdown">Categorii <b class="caret"></b></a>
+  <a id="categorii" href="#" role="button" class="dropdown-toggle" data-toggle="dropdown"><%= Category.find_by_id(params[:id]).try(:name) || "Toate categoriile"%> <b class="caret"></b></a>
 
   <ul class="dropdown-menu" role="menu" aria-labelledby="categorii">
     <%= dropdown_list @categories %> 
     <li class="divider"></li>
-    <li><a tabindex="-1" href="#">Arata toate</a></li>
+    <li><a tabindex="-1" href="<%= root_path %>">Toate categoriile</a></li>
   </ul>
   </li>
 </ul>

@@ -5,7 +5,7 @@ module ApplicationHelper
 
     items.each do |item|
       #TODO speak with catalin about the href. use ajax backgroud requests?
-      result += "<li><a tabindex='-1' href='#'>#{item.name}</a></li>"
+      result += "<li>" + link_to(item.name, show_cat_path(item.id)) + "</li>"
     end
 
     return result.html_safe
