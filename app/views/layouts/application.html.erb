@@ -27,16 +27,13 @@
         <div class="navbar-inner">
           <div class="container">
 
-
             <ul class="nav">
-              <%= menu_items %>
+              <li><%= link_to 'Documentatie', apipie_path, :target => '_blank' %></li>
             </ul>
 
-            <% if current_uri == root_path %>
-              <%= render :partial => "layouts/categories_dropdown" %>
-            <% end %>
+            <%= render :partial => "layouts/categories_dropdown" %>
 
-            <a class="brand-center" id="logo-main" href="#">
+            <a class="brand-center" id="logo-main" href="/">
               <img src="/assets/logo.png" alt="Repar Clujul" />
             </a>
 
