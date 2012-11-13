@@ -2,10 +2,7 @@ module ApplicationHelper
 
   def menu_items
     items = {
-              "acasa"  => root_path,
-              "despre" => about_path,
-              "contact" => contact_path,
-              "API" => apipie_path,
+              "documentatie" => apipie_path,
             }
 
     result = ""
