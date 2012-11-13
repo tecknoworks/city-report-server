@@ -6,7 +6,7 @@ FactoryGirl.define do
     f.latitude 1.5
     f.longitude 1.5
     f.category { FactoryGirl.create(:category) }
-    f.attachment FactoryGirl.create(:attachment)
+    f.attachment { FactoryGirl.create(:attachment) }
   end
   factory :issue_no_category, :class => Issue do |f|
     f.title "Groapa in mijlocul centrului"
