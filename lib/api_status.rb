@@ -56,6 +56,13 @@ class ApiStatus
     500
   end
 
+  def self.CORUPTED_REQUEST_DATA_OR_INTERNAL_SERVER_ERROR
+    "Corupted request data or internal server error"
+  end
+  def self.CORUPTED_REQUEST_DATA_OR_INTERNAL_SERVER_ERROR_CODE
+    501
+  end
+
   def self.BAD_GATEWAY
     "Bad Gateway"
   end

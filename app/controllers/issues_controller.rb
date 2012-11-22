@@ -62,10 +62,19 @@ class IssuesController < ApplicationController
     if !params[:issue].nil? && issue_params_valid?(params[:issue])
       @issue = Issue.create(params[:issue])
       respond_to do |format|
+        begin
         if params[:image].present? && params[:image_name].present?
           @issue.add_attachment(params[:image], params[:image_name])
         end
         format.json { render :json => render_response(ApiStatus.OK_CODE, ApiStatus.OK, {issue:@issue}) }
+        rescue
+          format.json { render :json => render_response(
+                                          ApiStatus.CORUPTED_REQUEST_DATA_OR_INTERNAL_SERVER_ERROR_CODE,
+                                          ApiStatus.CORUPTED_REQUEST_DATA_OR_INTERNAL_SERVER_ERROR,
+                                          nil) 
+                        @issue.delete
+          }
+        end
       end
     else
       respond_to do |format|
