@@ -1,3 +1,3 @@
 thin stop
-git pull
+git pull origin sinatra
 thin -C thin.yml start
