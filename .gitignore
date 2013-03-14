@@ -1,0 +1,7 @@
+*.swp
+Gemfile.lock
+
+*~
+
+log/*
+tmp/*
