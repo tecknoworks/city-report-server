@@ -17,10 +17,10 @@ get '/' do
   end
 end
 
-post '/issue' do
+post '/issues' do
   content_type :json
   db['issues'].insert params
 end
 
-post '/image' do
+post '/images' do
 end
