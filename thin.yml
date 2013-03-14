@@ -10,7 +10,7 @@ max_conns: 1024
 max_persistent_conns: 512
 require: []
 wait: 5
-daemonize: false
+daemonize: true
 db_host: localhost
 db_port: 27017
 db_name: repara-clujul
