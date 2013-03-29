@@ -17,6 +17,11 @@ get '/' do
   end
 end
 
+get '/issues' do
+  content_type :json
+  db['issues'].find.collect{ |row| row }.to_s
+end
+
 post '/issues' do
   content_type :json
   db['issues'].insert params
