@@ -21,6 +21,3 @@ post '/issues' do
   content_type :json
   db['issues'].insert params
 end
-
-post '/images' do
-end

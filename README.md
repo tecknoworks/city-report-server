@@ -1,2 +1,5 @@
-hello world
+Api documentation
 
+GET '/issues'
+
+POST '/issues'
