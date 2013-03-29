@@ -15,4 +15,5 @@ gem 'rvm-capistrano'
 group :development do
   gem 'rspec'
   gem 'guard-rspec'
+  gem 'rb-inotify'
 end
