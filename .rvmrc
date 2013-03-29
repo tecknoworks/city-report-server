@@ -1,1 +1,1 @@
-rvm use 1.9.3@repara-clujul-sinatra --create
+rvm use 1.9.3@repara-clujul2 --create

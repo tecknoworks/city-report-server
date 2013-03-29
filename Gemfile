@@ -9,6 +9,9 @@ gem 'thin'
 gem 'mongo'
 gem 'bson_ext'
 
+gem 'capistrano'
+gem 'rvm-capistrano'
+
 group :development do
   gem 'rspec'
   gem 'guard-rspec'
