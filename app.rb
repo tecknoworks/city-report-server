@@ -4,7 +4,6 @@ require 'json'
 require 'yaml'
 require 'mongo'
 
-Sinatra::Application.register Sinatra::RespondTo
 config = YAML.load_file('thin.yml')
 client = Mongo::MongoClient.new(config['db_host'], config['db_port'])
 db = client[config['db_name']]
