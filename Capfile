@@ -16,11 +16,16 @@ set :deploy_to, '/home/anakin/repara-clujul'
 # after "deploy:restart", "deploy:cleanup"
 
 namespace :repara do
-  task :test2, :roles => :app do
-    run 'whoami'
-    run 'pwd'
-    run 'cd repara-clujul/current/; gem list'
+  task :start, :roles => :app do
+    run 'cd repara-clujul/current/; thin -C thin.yml start'
+  end
+
+  task :stop, :roles => :app do
+    run 'cd repara-clujul/current/; thin stop'
   end
 end
+
+before 'deploy', 'repara:stop'
+after 'deploy', 'repara:start'
 
 require 'rvm/capistrano'
