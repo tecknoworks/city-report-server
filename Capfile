@@ -25,7 +25,7 @@ namespace :repara do
   end
 end
 
-# before 'deploy', 'repara:stop'
-# after 'deploy', 'repara:start'
+before 'deploy', 'repara:stop'
+after 'deploy', 'repara:start'
 
 require 'rvm/capistrano'
