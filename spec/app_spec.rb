@@ -32,6 +32,6 @@ describe "api" do
 
   it "should return what was created" do
     post '/issues', { :lat => 0.0, :lon => 0.0, :title => 'hello world'}
-    JSON.parse(last_response.body).first['title'].should == 'hello world'
+    JSON.parse(last_response.body)['title'].should == 'hello world'
   end
 end
