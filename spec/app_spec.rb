@@ -29,4 +29,9 @@ describe "api" do
       last_response.status.should == 200
     }.to change{ JSON.parse(get('/issues').body).count }.by 1
   end
+
+  it "should return what was created" do
+    post '/issues', { :lat => 0.0, :lon => 0.0, :title => 'hello world'}
+    JSON.parse(last_response.body)['title'].should == 'hello world'
+  end
 end
