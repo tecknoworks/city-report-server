@@ -5,6 +5,10 @@ describe DbWrapper do
     @db_wrap = DbWrapper.new 'spec/config.yml'
   end
 
+  after :each do
+    @db_wrap.db['issues'].remove
+  end
+
   it "should load the test yml file" do
     @db_wrap.config['environment'].should  == 'test'
   end
@@ -18,5 +22,12 @@ describe DbWrapper do
       params = {:lat => 0.0, :lon => 0.0, :title => 'problem'}
       @db_wrap.create_issue(params)
     }.to change{@db_wrap.issues.count}.by 1
+  end
+
+  it "should return a valid list of json objects" do
+    params = {:lat => 0.0, :lon => 0.0, :title => 'problem'}
+    @db_wrap.create_issue(params)
+    @db_wrap.issues.last['id'].should_not == nil
+    @db_wrap.issues.last['_id'].should == nil
   end
 end
