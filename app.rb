@@ -5,7 +5,7 @@ require 'yaml'
 require 'mongo'
 require './db_wrapper'
 
-db = DbWrapper.new('thin.yml')
+db_wrap = DbWrapper.new('thin.yml')
 
 get '/' do
   haml :index
@@ -13,10 +13,10 @@ end
 
 get '/issues' do
   content_type :json
-  db.issues
+  db_wrap.issues
 end
 
 post '/issues' do
   content_type :json
-  db.insert params
+  db_wrap.insert params
 end

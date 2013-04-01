@@ -8,7 +8,7 @@ class DbWrapper
   end
 
   def issues
-    @db['issues'].find.collect{ |row| row }.to_s
+    @db['issues'].find.collect{ |row| row }
   end
 
   def create_issue params
