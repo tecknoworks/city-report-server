@@ -25,6 +25,7 @@ class DbWrapper
 
   def create_issue params
     params.delete(:image)
-    @db['issues'].insert params
+    result = @db['issues'].insert(params)
+    @db['issues'].find({:_id => result}).to_api
   end
 end

@@ -29,7 +29,5 @@ post '/issues' do
   end
 
   content_type :json
-  db_wrap.create_issue params
-
-  do_render('success')
+  db_wrap.create_issue(params).to_json
 end
