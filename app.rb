@@ -13,7 +13,7 @@ end
 
 get '/issues' do
   content_type :json
-  db_wrap.issues.to_s
+  db_wrap.issues.to_json
 end
 
 post '/issues' do
