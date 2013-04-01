@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "Wpp" do
+describe "api" do
   it "should work" do
     get '/'
     last_response.should be_ok
@@ -12,5 +12,19 @@ describe "Wpp" do
     expect {
       JSON.parse(last_response.body)
     }.to_not raise_error
+  end
+
+  it "should ensure required params are set" do
+    post '/issues'
+    last_response.status.should == 400
+
+    post '/issues', { :lat => 0.0 }
+    last_response.status.should == 400
+
+    post '/issues', { :lat => 0.0, :lon => 0.0 }
+    last_response.status.should == 400
+
+    post '/issues', { :lat => 0.0, :lon => 0.0, :title => 'hello world'}
+    last_response.status.should == 200
   end
 end

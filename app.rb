@@ -7,6 +7,10 @@ require './db_wrapper'
 
 db_wrap = DbWrapper.new('thin.yml')
 
+def render_error msg, code=400
+  return {'code' => code, 'message' => msg}.to_json
+end
+
 get '/' do
   haml :index
 end
@@ -17,6 +21,13 @@ get '/issues' do
 end
 
 post '/issues' do
+  ['lat', 'lon', 'title'].each do |param|
+    unless params[param]
+      status 400
+      return render_error "#{param} param missing"
+    end
+  end
+
   content_type :json
-  db_wrap.insert params
+  db_wrap.create_issue params
 end
