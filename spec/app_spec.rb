@@ -24,7 +24,9 @@ describe "api" do
     post '/issues', { :lat => 0.0, :lon => 0.0 }
     last_response.status.should == 400
 
-    post '/issues', { :lat => 0.0, :lon => 0.0, :title => 'hello world'}
-    last_response.status.should == 200
+    expect {
+      post '/issues', { :lat => 0.0, :lon => 0.0, :title => 'hello world'}
+      last_response.status.should == 200
+    }.to change{ JSON.parse(get('/issues').body).count }.by 1
   end
 end
