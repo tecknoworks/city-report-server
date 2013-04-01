@@ -15,7 +15,7 @@ class DbWrapper
 
   def initialize config_file
     @config = YAML.load_file(config_file)
-    client = Mongo::MongoClient.new(config['db_host'], config['db_port'])
+    client = Mongo::MongoClient.new(config[:db_host], config[:db_port])
     @db = client[config['db_name']]
   end
 
@@ -24,6 +24,7 @@ class DbWrapper
   end
 
   def create_issue params
+    params.delete(:image)
     @db['issues'].insert params
   end
 end

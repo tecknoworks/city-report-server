@@ -30,4 +30,11 @@ describe DbWrapper do
     @db_wrap.issues.last['id'].should_not == nil
     @db_wrap.issues.last['_id'].should == nil
   end
+
+  it "should not save the 'image' param" do
+    params = { :lat => 0.0, :image => 'asd' }
+    @db_wrap.create_issue(params)
+    @db_wrap.issues.last['image'].should == nil
+    @db_wrap.issues.last['lat'].should_not == nil
+  end
 end
