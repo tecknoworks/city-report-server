@@ -1,3 +1,6 @@
+NOTE: make sure you set Content-Type:application/json header whenever you
+make a request
+
 GET '/issues'
 [
   {
