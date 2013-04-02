@@ -4,6 +4,9 @@ require 'json'
 require 'yaml'
 require 'mongo'
 require './db_wrapper'
+require 'rack/parser'
+
+use Rack::Parser
 
 db_wrap = DbWrapper.new('thin.yml')
 
