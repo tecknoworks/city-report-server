@@ -34,4 +34,9 @@ describe "api" do
     post '/issues', { :lat => 0.0, :lon => 0.0, :title => 'hello world'}
     JSON.parse(last_response.body)['title'].should == 'hello world'
   end
+
+  it "should only expose the delete method in production" do
+    delete '/issues'
+    last_response.should_not be_ok
+  end
 end
