@@ -1,9 +1,30 @@
 require 'spec_helper'
 
+def issue_count
+  JSON.parse(get('/issues').body).count
+end
+
 describe "api" do
   it "should work" do
     get '/'
     last_response.should be_ok
+  end
+
+  it "should not allow titles bigger than 141 characters" do
+    expect {
+      post '/issues', { :lat => 0.0, :lon => 0.0, :title => 'hello world'}
+      last_response.status.should == 200
+    }.to change{ issue_count }.by 1
+
+    expect {
+      post '/issues', { :lat => 0.0, :lon => 0.0, :title => 'a' * 141}
+      last_response.status.should == 200
+    }.to change{ issue_count }.by 1
+
+    expect {
+      post '/issues', { :lat => 0.0, :lon => 0.0, :title => 'a' * 142}
+      last_response.status.should == 400
+    }.to change{ issue_count }.by 0
   end
 
   it "should return valid json" do
@@ -27,7 +48,7 @@ describe "api" do
     expect {
       post '/issues', { :lat => 0.0, :lon => 0.0, :title => 'hello world'}
       last_response.status.should == 200
-    }.to change{ JSON.parse(get('/issues').body).count }.by 1
+    }.to change{ issue_count }.by 1
   end
 
   it "should return what was created" do
@@ -39,4 +60,5 @@ describe "api" do
     delete '/issues'
     last_response.should_not be_ok
   end
+
 end

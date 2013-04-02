@@ -31,6 +31,10 @@ post '/issues' do
     end
   end
 
+  if params['title'].length > 141
+    return do_render("title can not be longer than 141 chars", 400)
+  end
+
   content_type :json
   db_wrap.create_issue(params).to_json
 end
