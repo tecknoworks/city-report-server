@@ -1,5 +1,6 @@
 NOTE: make sure you set Content-Type:application/json header whenever you
 make a request
+NOTE: HTTP status codes matter. 200 means ok
 
 GET '/issues'
 [
@@ -30,4 +31,5 @@ on error:
     "message":"error message"
   }
 
-Note: also HTTP status code will be 400 in case of error
+DELETE '/issues'
+deletes all the issues. only availiable when env = development
