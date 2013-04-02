@@ -17,10 +17,10 @@ set :deploy_to, '/home/anakin/repara-clujul'
 
 namespace :repara do
   task :start, :roles => :app do
-    run 'cd repara-clujul/current/; thin -C thin.yml start'
+    run 'cd repara-clujul/current/; bundle install; thin -C thin.yml start'
   end
 
-  task :stop, :roles => :app do
+  task :stop, :roles => :app, :on_error => :continue do
     run 'cd repara-clujul/current/; thin stop'
   end
 end
