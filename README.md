@@ -18,8 +18,8 @@ POST '/issues'
 requires 'lat', 'lon', 'title'
 on success:
   {
-    "code":200,
-    "message":"success"
+    "id": "your id"
+    "all": "your attributes"
   }
 on error:
   {
