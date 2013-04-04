@@ -1,26 +1,33 @@
-var loadPinpoints = function() {
-  var map = $('#map-main');
-  $.get("/issues", function(data) {
-    console.log(data);
-    // $.each(data["response"]["issues"], function(index, value) {
-    //   var location = '{latitude},{longitude}';
-    //   location = location.replace('{latitude}', value['latitude']);
-    //   location = location.replace('{longitude}', value['longitude']);
-    //   map.gmap('addMarker',{'position':location, 'bounds':false});
-    // });
-  });
-}
-
 $(document).ready(function() {
+  var mapDiv = $('#map-main')[0];
+  var mapCenter = new google.maps.LatLng(46.768322, 23.595002);
+  var mapOptions = {
+    zoom: 14,
+    center: mapCenter,
+    mapTypeId: google.maps.MapTypeId.ROADMAP,
+    scrollwheel: false
+  }
+  var map = new google.maps.Map(mapDiv, mapOptions);
+
   $.get('/issues', function(data) {
-    console.log('foo');
-  });
+    for (var pin in data) {
+      var issue = data[pin];
+      var marker = new google.maps.Marker({
+        map: map,
+        position: new google.maps.LatLng(issue['lat'], issue['lon']),
+        title: issue['title'],
+        icon: '/images/marker.png'
+      });
 
-  var map = $('#map-main');
-  map.gmap({
-    'center': '46.768322, 23.595002',
-    'scrollwheel': false, 
-  });
+      google.maps.event.addListener(marker, 'click', (function(marker, issue) {
+        return function() {
 
-  map.gmap('option', 'zoom', 13);
+          var infowindow = new google.maps.InfoWindow({
+            content: "<div>" + issue['title'] + "</div>"
+          });
+          infowindow.open(map, marker);
+        }
+      })(marker, issue));
+    }
+  });
 });
