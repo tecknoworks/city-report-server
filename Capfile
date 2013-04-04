@@ -21,7 +21,7 @@ namespace :repara do
   end
 
   task :stop, :roles => :app, :on_error => :continue do
-    run 'cd repara-clujul/current/; thin stop'
+    run 'cd repara-clujul/current/;thin -C thin.yml stop'
   end
 end
 
