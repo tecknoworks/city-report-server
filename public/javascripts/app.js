@@ -2,7 +2,7 @@ $(document).ready(function() {
   var mapDiv = $('#map-main')[0];
   var mapCenter = new google.maps.LatLng(46.768322, 23.595002);
   var mapOptions = {
-    zoom: 4,
+    zoom: 14,
     center: mapCenter,
     mapTypeId: google.maps.MapTypeId.ROADMAP,
     scrollwheel: false
@@ -15,7 +15,8 @@ $(document).ready(function() {
       var marker = new google.maps.Marker({
         map: map,
         position: new google.maps.LatLng(issue['lat'], issue['lon']),
-        title: issue['title']
+        title: issue['title'],
+        icon: '/images/marker.png'
       });
 
       google.maps.event.addListener(marker, 'click', (function(marker, issue) {
