@@ -9,8 +9,8 @@ $(document).ready(function() {
   }
   var map = new google.maps.Map(mapDiv, mapOptions);
 
-  google.maps.event.addListener(map, "click", function (e) {
-    console.log(e);
+  google.maps.event.addListener(map, 'click', function(data) {
+    console.log(data.latLng);
   });
 
   $.get('/issues', function(data) {
