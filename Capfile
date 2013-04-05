@@ -8,7 +8,6 @@ set :user, "anakin"
 set :use_sudo, false
 ssh_options[:forward_agent] = true
 set :rvm_ruby_string, '1.9.3@repara-clujul2'
-set :branch, "staging"
 
 server "192.168.0.51", :app, :primary => true
 set :deploy_to, '/home/anakin/repara-clujul'
