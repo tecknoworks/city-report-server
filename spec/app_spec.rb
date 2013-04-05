@@ -13,6 +13,7 @@ describe "api" do
   it "should not allow titles bigger than 141 characters" do
     expect {
       post '/issues', { :lat => 46.768322, :lon => 23.595002, :title => 'for aiur'}
+
       last_response.status.should == 200
     }.to change{ issue_count }.by 1
 

@@ -25,6 +25,7 @@ get '/issues' do
 end
 
 post '/issues' do
+  puts params
   ['lat', 'lon', 'title'].each do |param|
     unless params[param]
       return do_render("#{param} param missing", 400)
@@ -37,6 +38,10 @@ post '/issues' do
 
   content_type :json
   db_wrap.create_issue(params).to_json
+end
+
+get '/upload' do
+  haml :upload
 end
 
 delete '/issues' do

@@ -9,6 +9,10 @@ $(document).ready(function() {
   }
   var map = new google.maps.Map(mapDiv, mapOptions);
 
+  google.maps.event.addListener(map, 'click', function(data) {
+    console.log(data.latLng);
+  });
+
   $.get('/issues', function(data) {
     for (var pin in data) {
       var issue = data[pin];
