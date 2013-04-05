@@ -62,4 +62,10 @@ describe "api" do
     last_response.should_not be_ok
   end
 
+  it "should save files when posting to /issues" do
+    file = Rack::Test::UploadedFile.new('spec/logo.png', 'image/png')
+    post '/issues', { :lat => 0.0, :lon => 0.0, :title => 'with image', :image => file }
+    last_response.should be_ok
+  end
+
 end

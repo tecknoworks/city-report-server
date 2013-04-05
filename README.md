@@ -2,6 +2,22 @@ NOTE: make sure you set Content-Type:application/json header whenever you
 make a request
 NOTE: HTTP status codes matter. 200 means ok
 
+Sample issue:
+
+{
+  "lat": "0.0",
+  "lon": "0.0",
+  "title": "groapa in centru",
+  "categories": [
+    "fixed", "groapa"
+  ],
+  "youtube": [
+  ],
+  "images": [
+    "http://reparaclujul.st2k.net/images/foo.png"
+  ]
+}
+
 GET '/issues'
 [
   {

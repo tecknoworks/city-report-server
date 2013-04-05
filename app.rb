@@ -3,8 +3,9 @@ require 'sinatra/reloader' if development?
 require 'json'
 require 'yaml'
 require 'mongo'
-require './db_wrapper'
 require 'rack/parser'
+
+require './db_wrapper'
 
 use Rack::Parser
 
@@ -25,7 +26,6 @@ get '/issues' do
 end
 
 post '/issues' do
-  puts params
   ['lat', 'lon', 'title'].each do |param|
     unless params[param]
       return do_render("#{param} param missing", 400)
@@ -34,6 +34,13 @@ post '/issues' do
 
   if params['title'].length > 141
     return do_render("title can not be longer than 141 chars", 400)
+  end
+
+  if params['image']
+    tempfile = params['image'][:tempfile]
+    puts tempfile
+
+    params['images'] = [ 'http://cool' ]
   end
 
   content_type :json
