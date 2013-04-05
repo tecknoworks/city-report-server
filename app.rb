@@ -16,6 +16,7 @@ def do_render msg, code=200
 end
 
 get '/' do
+  p 'asd'
   haml :index
 end
 
