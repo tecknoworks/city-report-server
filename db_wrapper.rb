@@ -35,16 +35,16 @@ class DbWrapper
   def save_image params
     if params['image']
       tempfile = params['image'][:tempfile]
+      fp = file_path
 
-      iup = config['image_upload_path']
-      FileUtils.copy_file(tempfile.path, filename)
-      params['images'] = [ '' ]
+      FileUtils.copy_file(tempfile.path, fp)
+      params['images'] = [ fp.gsub('/public','') ]
     end
   end
 
   private
 
-  def filename
+  def file_path
     iup = config['image_upload_path']
     count = Dir[File.join(iup, '*')].count.to_s
     File.join(iup, count + '.png')

@@ -72,7 +72,7 @@ describe "api" do
     file = Rack::Test::UploadedFile.new('spec/logo.png', 'image/png')
     post '/issues', { :lat => 0.0, :lon => 0.0, :title => 'with image', :image => file }
     last_response.should be_ok
-    # JSON.parse(last_response.body)['issues'].include 'asd'
+    JSON.parse(last_response.body)['images'].count.should == 1
   end
 
 end
