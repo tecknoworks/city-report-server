@@ -37,4 +37,21 @@ describe DbWrapper do
     @db_wrap.issues.last['image'].should == nil
     @db_wrap.issues.last['lat'].should_not == nil
   end
+
+  it "should have image_upload_path loaded for test env" do
+    @db_wrap.config['image_upload_path'].should == 'spec/public/system/uploads'
+  end
+
+  it "should save an image" do
+    expect {
+      @db_wrap.save_image({
+        'image' => {
+          :tempfile => Rack::Test::UploadedFile.new('spec/logo.png', 'image/png')
+        }
+      })
+    }.to change{
+      iup = File.join(@db_wrap.config['image_upload_path'], '*')
+      Dir[iup].count
+    }.by 1
+  end
 end

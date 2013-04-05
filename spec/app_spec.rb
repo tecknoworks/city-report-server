@@ -4,7 +4,13 @@ def issue_count
   JSON.parse(get('/issues').body).count
 end
 
+
 describe "api" do
+  before :each do
+    config_file = DbWrapper.read_config('spec/config.yml')
+    DbWrapper.any_instance.stub(:config).and_return(config_file)
+  end
+
   it "should work" do
     get '/'
     last_response.should be_ok
@@ -57,7 +63,7 @@ describe "api" do
     JSON.parse(last_response.body)['title'].should == 'hello world'
   end
 
-  it "should only expose the delete method in production" do
+  it "should only expose the delete method in development" do
     delete '/issues'
     last_response.should_not be_ok
   end
@@ -66,6 +72,7 @@ describe "api" do
     file = Rack::Test::UploadedFile.new('spec/logo.png', 'image/png')
     post '/issues', { :lat => 0.0, :lon => 0.0, :title => 'with image', :image => file }
     last_response.should be_ok
+    # JSON.parse(last_response.body)['issues'].include 'asd'
   end
 
 end

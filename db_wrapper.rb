@@ -14,9 +14,10 @@ class DbWrapper
   attr_reader :db, :config
 
   def initialize config_file
-    @config = YAML.load_file(config_file)
-    client = Mongo::MongoClient.new(config[:db_host], config[:db_port])
-    @db = client[config['db_name']]
+    @config = DbWrapper.read_config config_file
+
+    client = Mongo::MongoClient.new(@config['db_host'], @config['db_port'])
+    @db = client[@config['db_name']]
   end
 
   def issues
@@ -29,5 +30,27 @@ class DbWrapper
 
     result = @db['issues'].insert(params)
     @db['issues'].find({'_id' => result}).to_api.first
+  end
+
+  def save_image params
+    if params['image']
+      tempfile = params['image'][:tempfile]
+
+      iup = config['image_upload_path']
+      FileUtils.copy_file(tempfile.path, filename)
+      params['images'] = [ '' ]
+    end
+  end
+
+  private
+
+  def filename
+    iup = config['image_upload_path']
+    count = Dir[File.join(iup, '*')].count.to_s
+    File.join(iup, count + '.png')
+  end
+
+  def self.read_config config_file
+    YAML.load_file config_file
   end
 end

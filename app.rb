@@ -26,6 +26,8 @@ get '/issues' do
 end
 
 post '/issues' do
+  content_type :json
+
   ['lat', 'lon', 'title'].each do |param|
     unless params[param]
       return do_render("#{param} param missing", 400)
@@ -36,14 +38,7 @@ post '/issues' do
     return do_render("title can not be longer than 141 chars", 400)
   end
 
-  if params['image']
-    tempfile = params['image'][:tempfile]
-    puts tempfile
-
-    params['images'] = [ 'http://cool' ]
-  end
-
-  content_type :json
+  db_wrap.save_image(params)
   db_wrap.create_issue(params).to_json
 end
 
