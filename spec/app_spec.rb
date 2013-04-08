@@ -68,4 +68,12 @@ describe "api" do
     last_response.should be_ok
     JSON.parse(last_response.body)['images'].count.should == 1
   end
+
+  it "should update an issue" do
+    post '/issues', { :lat => 1.0, :lon => 2.0, :title => 'super mario'}
+    issue = JSON.parse(last_response.body)
+    
+    put '/issues', { :lat => 4.0, :lon => 3.3, :title => 'super mario' }
+    last_response.should be_ok
+  end
 end

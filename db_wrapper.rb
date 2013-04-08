@@ -25,9 +25,7 @@ class DbWrapper
   end
 
   def create_issue params
-    params.delete(:image)
-    params.delete('image')
-
+    delete_image_params params
     result = @db['issues'].insert(params)
     @db['issues'].find({'_id' => result}).to_api.first
   end
@@ -53,6 +51,11 @@ class DbWrapper
   end
 
   private
+
+  def delete_image_params params
+    params.delete(:image)
+    params.delete('image')
+  end
 
   def self.read_config config_file
     YAML.load_file config_file
