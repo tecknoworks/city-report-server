@@ -33,6 +33,11 @@ end
 
 put '/issues' do
   content_type :json
+
+  validation_error = valid?(params, :put)
+  return validation_error if validation_error.class != TrueClass
+
+  db_wrap.update_issue(params).to_json
 end
 
 get '/upload' do

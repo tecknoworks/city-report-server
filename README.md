@@ -49,4 +49,9 @@ on error:
     "message":"error message"
   }
 
+PUT '/issues'
+require 'lat', 'lon', 'title', 'id'
+same responses as POST
+
+
 DELETE '/issues'

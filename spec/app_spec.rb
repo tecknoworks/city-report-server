@@ -74,6 +74,10 @@ describe "api" do
     issue = JSON.parse(last_response.body)
     
     put '/issues', { :lat => 4.0, :lon => 3.3, :title => 'super mario' }
-    last_response.should be_ok
+    last_response.should_not be_ok
+
+    put '/issues', { :lat => 4.0, :lon => 3.3, :title => 'super mario', 'id' => issue['id'] }
+    issue = JSON.parse(last_response.body)
+    issue['lat'].should == "4.0"
   end
 end
