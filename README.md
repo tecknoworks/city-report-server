@@ -18,6 +18,8 @@ Sample issue:
   ]
 }
 
+REQUESTS ======================================================================
+
 GET '/issues'
 [
   {
@@ -48,4 +50,3 @@ on error:
   }
 
 DELETE '/issues'
-deletes all the issues. only availiable when env = development
