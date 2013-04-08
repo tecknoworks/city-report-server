@@ -41,6 +41,15 @@ put '/issues' do
   db_wrap.update_issue(params).to_json
 end
 
+post '/images' do
+  content_type :json
+
+  return do_render('image param missing', 400) unless params['image']
+
+  image_url = db_wrap.save_image(params)['images'][0]
+  { :url => image_url }.to_json
+end
+
 get '/upload' do
   haml :upload
 end

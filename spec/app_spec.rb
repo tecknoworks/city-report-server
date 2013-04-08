@@ -8,6 +8,11 @@ describe "api" do
   before :each do
     config_file = DbWrapper.read_config('spec/thin.yml')
     DbWrapper.any_instance.stub(:config).and_return(config_file)
+
+    # keep spec upload folder clean
+    Dir[config_file['image_upload_path'] + '/*.png'].each do |i|
+      `rm #{i}`
+    end
   end
 
   it "should work" do
@@ -79,5 +84,11 @@ describe "api" do
     put '/issues', { :lat => 4.0, :lon => 3.3, :title => 'super mario', 'id' => issue['id'] }
     issue = JSON.parse(last_response.body)
     issue['lat'].should == "4.0"
+  end
+
+  it "should post an image" do
+    file = Rack::Test::UploadedFile.new('spec/logo.png', 'image/png')
+    post '/images', { :image => file }
+    JSON.parse(last_response.body)['url'].should == "/system/uploads/0.png"
   end
 end
