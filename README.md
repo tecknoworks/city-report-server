@@ -18,7 +18,7 @@ Sample issue:
   ]
 }
 
-REQUESTS ======================================================================
+ISSUE REQUESTS =================================================================
 
 GET '/issues'
 [
@@ -55,3 +55,15 @@ same responses as POST
 
 
 DELETE '/issues'
+
+IMAGE UPLOAD REQUESTS ==========================================================
+
+POST '/images'
+requires 'image'
+on success:
+  { "url": "/system/uploads/1.png" }
+on error:
+  {
+    "code":400,
+    "message":"error message"
+  }
