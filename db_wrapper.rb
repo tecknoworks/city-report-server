@@ -35,20 +35,24 @@ class DbWrapper
   def save_image params
     if params['image']
       tempfile = params['image'][:tempfile]
-      fp = file_path
+      fp = image_path
 
       FileUtils.copy_file(tempfile.path, fp)
-      params['images'] = [ fp.gsub('/public','') ]
+      params['images'] = [ image_url_path(fp) ]
     end
   end
 
-  private
+  def image_url_path img_path
+    img_path.gsub('public/', '')
+  end
 
-  def file_path
+  def image_path
     iup = config['image_upload_path']
     count = Dir[File.join(iup, '*')].count.to_s
     File.join(iup, count + '.png')
   end
+
+  private
 
   def self.read_config config_file
     YAML.load_file config_file

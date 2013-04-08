@@ -3,6 +3,11 @@ require 'spec_helper'
 describe DbWrapper do
   before :each do
     @db_wrap = DbWrapper.new 'spec/config.yml'
+
+    # keep spec upload folder clean
+    Dir[@db_wrap.config['image_upload_path'] + '/*.png'].each do |i|
+      `rm #{i}`
+    end
   end
 
   after :each do
@@ -40,6 +45,18 @@ describe DbWrapper do
 
   it "should have image_upload_path loaded for test env" do
     @db_wrap.config['image_upload_path'].should == 'spec/public/system/uploads'
+  end
+
+  it "should correctly show image_path" do
+    iup = @db_wrap.config['image_upload_path']
+    count = Dir[File.join(iup, '*')].count.to_s
+    img_path = File.join(iup, count + '.png')
+    img_path == @db_wrap.image_path
+  end
+
+  it "should convert from image_path to image_url_path" do
+    image_path = @db_wrap.image_path
+    @db_wrap.image_url_path(image_path).should == "spec/system/uploads/0.png"
   end
 
   it "should save an image" do

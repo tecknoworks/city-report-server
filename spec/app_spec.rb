@@ -69,5 +69,4 @@ describe "api" do
     last_response.should be_ok
     JSON.parse(last_response.body)['images'].count.should == 1
   end
-
 end

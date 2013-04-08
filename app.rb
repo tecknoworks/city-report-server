@@ -46,8 +46,6 @@ get '/upload' do
   haml :upload
 end
 
-if development?
-  delete '/issues' do
-    db_wrap.db['issues'].remove
-  end
+delete '/issues' do
+  db_wrap.db['issues'].remove
 end
