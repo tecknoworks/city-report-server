@@ -4,7 +4,6 @@ def issue_count
   JSON.parse(get('/issues').body).count
 end
 
-
 describe "api" do
   before :each do
     config_file = DbWrapper.read_config('spec/thin.yml')

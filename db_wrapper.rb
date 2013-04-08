@@ -43,7 +43,7 @@ class DbWrapper
   end
 
   def image_url_path img_path
-    img_path.gsub('public/', '')
+    '/' + img_path.split('/').delete_if{|e| e == 'public' || e == 'spec'}.join('/')
   end
 
   def image_path

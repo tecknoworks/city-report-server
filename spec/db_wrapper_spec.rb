@@ -56,7 +56,9 @@ describe DbWrapper do
 
   it "should convert from image_path to image_url_path" do
     image_path = @db_wrap.image_path
-    @db_wrap.image_url_path(image_path).should == "spec/system/uploads/0.png"
+    @db_wrap.image_url_path(image_path).should == "/system/uploads/0.png"
+    @db_wrap.image_url_path("spec/public/system/uploads/0.png").should == "/system/uploads/0.png"
+    @db_wrap.image_url_path("public/system/uploads/0.png").should == "/system/uploads/0.png"
   end
 
   it "should save an image" do
