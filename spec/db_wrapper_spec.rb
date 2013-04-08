@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe DbWrapper do
   before :each do
-    @db_wrap = DbWrapper.new 'spec/config.yml'
+    @db_wrap = DbWrapper.new 'spec/thin.yml'
 
     # keep spec upload folder clean
     Dir[@db_wrap.config['image_upload_path'] + '/*.png'].each do |i|

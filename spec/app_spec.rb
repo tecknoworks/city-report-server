@@ -7,7 +7,7 @@ end
 
 describe "api" do
   before :each do
-    config_file = DbWrapper.read_config('spec/config.yml')
+    config_file = DbWrapper.read_config('spec/thin.yml')
     DbWrapper.any_instance.stub(:config).and_return(config_file)
   end
 
