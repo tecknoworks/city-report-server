@@ -24,10 +24,22 @@ class DbWrapper
     @db['issues'].find.to_api
   end
 
+  def find_issue id
+    @db['issues'].find({'_id' => BSON::ObjectId(id.to_s)}).to_api.first
+  end
+
   def create_issue params
     delete_image_params params
-    result = @db['issues'].insert(params)
-    @db['issues'].find({'_id' => result}).to_api.first
+    id = @db['issues'].insert(params)
+    find_issue id
+  end
+
+  def update_issue params
+    id = params['id']
+    delete_image_params params
+
+    @db['issues'].update({'_id' => BSON::ObjectId(id.to_s)}, params)
+    find_issue id
   end
 
   def save_image params
@@ -53,8 +65,9 @@ class DbWrapper
   private
 
   def delete_image_params params
-    params.delete(:image)
+    params.delete('id')
     params.delete('image')
+    params.delete(:image)
   end
 
   def self.read_config config_file

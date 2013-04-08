@@ -73,4 +73,20 @@ describe DbWrapper do
       Dir[iup].count
     }.by 1
   end
+
+  it "should find an issue by id" do
+    params = { :lat => 4.0, :image => 'asd' }
+    issue = @db_wrap.create_issue(params)
+
+    @db_wrap.find_issue(issue['id'])['lat'].should == 4.0
+  end
+
+  it "should update an issue" do
+    params = { 'lat' => 1.0, 'image' => 'asd' }
+    issue = @db_wrap.create_issue(params)
+
+    new_params = { 'lat' => 2.0, 'id' => issue['id'] }
+    updated_issue = @db_wrap.update_issue(new_params)
+    updated_issue['lat'].should == 2.0
+  end
 end
