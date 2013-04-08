@@ -63,11 +63,6 @@ describe "api" do
     JSON.parse(last_response.body)['title'].should == 'hello world'
   end
 
-  it "should only expose the delete method in development" do
-    delete '/issues'
-    last_response.should_not be_ok
-  end
-
   it "should save files when posting to /issues" do
     file = Rack::Test::UploadedFile.new('spec/logo.png', 'image/png')
     post '/issues', { :lat => 0.0, :lon => 0.0, :title => 'with image', :image => file }
