@@ -46,11 +46,8 @@ get '/upload' do
   haml :upload
 end
 
-delete '/issues' do
-  if development?
+if development?
+  delete '/issues' do
     db_wrap.db['issues'].remove
-    return do_render("done")
-  else
-    return do_render("method not allowed", 405)
   end
 end
