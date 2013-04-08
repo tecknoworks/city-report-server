@@ -89,4 +89,13 @@ describe DbWrapper do
     updated_issue = @db_wrap.update_issue(new_params)
     updated_issue['lat'].should == 2.0
   end
+
+  it "should add an image to the array" do
+    file = Rack::Test::UploadedFile.new('spec/logo.png', 'image/png')
+    params = { 'lat' => 1.0, 'image' => { :tempfile => file } }
+
+    params = @db_wrap.save_image(params)
+    @db_wrap.save_image(params)['images'].length.should == 2
+  end
+
 end

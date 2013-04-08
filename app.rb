@@ -37,6 +37,7 @@ put '/issues' do
   validation_error = valid?(params, :put)
   return validation_error if validation_error.class != TrueClass
 
+  db_wrap.save_image(params)
   db_wrap.update_issue(params).to_json
 end
 

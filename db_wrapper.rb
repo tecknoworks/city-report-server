@@ -46,10 +46,15 @@ class DbWrapper
     if params['image']
       tempfile = params['image'][:tempfile]
       fp = image_path
-
       FileUtils.copy_file(tempfile.path, fp)
-      params['images'] = [ image_url_path(fp) ]
+
+      unless params.has_key? 'images'
+        params['images'] = []
+      end
+
+      params['images'] << image_url_path(fp)
     end
+    params
   end
 
   def image_url_path img_path
