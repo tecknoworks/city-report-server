@@ -24,12 +24,34 @@ $(document).ready(function() {
       });
 
       google.maps.event.addListener(marker, 'click', (function(marker, issue) {
-        return function() {
+        var infoWindowContent = $("<div>");
+        var opened = false;
 
-          var infowindow = new google.maps.InfoWindow({
-            content: "<div>" + issue['title'] + "</div>"
-          });
-          infowindow.open(map, marker);
+        var title = $("<h3>").html(issue['title']);
+        infoWindowContent.append(title);
+
+        var lat = $("<p>").html("Latitude: " + issue['lat']);
+        infoWindowContent.append(lat);
+        var lon = $("<p>").html("Longitude: " + issue['lon']);
+        infoWindowContent.append(lon);
+
+        if (issue.hasOwnProperty('images')) {
+          if (issue['images'].length > 0) {
+            var img = $("<img>").attr('src', issue['images'][0]).addClass('small');
+            infoWindowContent.append(img);
+          }
+        }
+
+        var infoWindow = new google.maps.InfoWindow({
+          content: infoWindowContent.html()
+        });
+
+        return function() {
+          if (infoWindow.getMap()!=null) {
+            infoWindow.close();
+          } else {
+            infoWindow.open(map, marker);
+          }
         }
       })(marker, issue));
     }
