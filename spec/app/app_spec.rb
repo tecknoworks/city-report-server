@@ -5,16 +5,6 @@ def issue_count
 end
 
 describe "api" do
-  before :each do
-    config_file = DbWrapper.read_config('spec/thin.yml')
-    DbWrapper.any_instance.stub(:config).and_return(config_file)
-
-    # keep spec upload folder clean
-    Dir[config_file['image_upload_path'] + '/*.png'].each do |i|
-      `rm #{i}`
-    end
-  end
-
   it "should work" do
     get '/'
     last_response.should be_ok

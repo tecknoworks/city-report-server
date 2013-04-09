@@ -3,15 +3,6 @@ require 'spec_helper'
 describe DbWrapper do
   before :each do
     @db_wrap = DbWrapper.new 'spec/thin.yml'
-
-    # keep spec upload folder clean
-    Dir[@db_wrap.config['image_upload_path'] + '/*.png'].each do |i|
-      `rm #{i}`
-    end
-  end
-
-  after :each do
-    @db_wrap.db['issues'].remove
   end
 
   it "should load the test yml file" do
@@ -24,13 +15,13 @@ describe DbWrapper do
 
   it "should create an issue" do
     expect {
-      params = {:lat => 0.0, :lon => 0.0, :title => 'problem'}
+      params = {:lat => 30.0, :lon => 30.0, :title => 'problem'}
       @db_wrap.create_issue(params)
     }.to change{@db_wrap.issues.count}.by 1
   end
 
   it "should return a valid list of json objects" do
-    params = {:lat => 0.0, :lon => 0.0, :title => 'problem'}
+    params = {:lat => 31.0, :lon => 31.0, :title => 'problem'}
     @db_wrap.create_issue(params)
     @db_wrap.issues.last['id'].should_not == nil
     @db_wrap.issues.last['_id'].should == nil
