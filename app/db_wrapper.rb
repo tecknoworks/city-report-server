@@ -17,14 +17,22 @@ class DbWrapper
   end
 
   def create_issue params
-    delete_image_params params
+    delete_unwanted_params params
     id = @db['issues'].insert(params)
     find_issue id
   end
 
   def update_issue params
     id = params['id']
-    delete_image_params params
+    delete_unwanted_params params
+
+    history = find_issue id
+    history.delete('id')
+    old_issue = history
+    old_issue.delete('history')
+    if old_issue != params
+      params['history'] = history
+    end
 
     @db['issues'].update({'_id' => BSON::ObjectId(id.to_s)}, params)
     find_issue id
@@ -57,7 +65,7 @@ class DbWrapper
 
   private
 
-  def delete_image_params params
+  def delete_unwanted_params params
     params.delete('id')
     params.delete('image')
     params.delete(:image)

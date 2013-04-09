@@ -89,4 +89,26 @@ describe DbWrapper do
     @db_wrap.save_image(params)['images'].length.should == 2
   end
 
+  it "should keep change history" do
+    params = { 'lat' => 1.0, 'lon' => 1.0 }
+    issue = @db_wrap.create_issue(params)
+    issue['lat'] = 2.0
+    id = issue['id']
+
+    updated_issue = @db_wrap.update_issue(issue)
+    updated_issue['history'].should_not == nil
+    history = updated_issue['history']
+    history['lat'].should == 1.0
+
+    new_issue = @db_wrap.find_issue(id)
+    updated_new_issue = @db_wrap.update_issue(new_issue)
+  end
+
+  it "should store history only if params are different" do
+    params = { 'lat' => 1.0, 'lon' => 1.0 }
+    issue = @db_wrap.create_issue(params)
+
+    updated_issue = @db_wrap.update_issue(issue)
+    updated_issue.keys.include?('history').should be_false
+  end
 end
