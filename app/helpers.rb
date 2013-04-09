@@ -1,3 +1,7 @@
+def db_wrap
+   DbWrapper.new('thin.yml')
+end
+
 def do_render msg, code=200
   status code
   return {'code' => code, 'message' => msg}.to_json

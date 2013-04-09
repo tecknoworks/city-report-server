@@ -1,5 +1,3 @@
-db_wrap = DbWrapper.new('thin.yml')
-
 get '/' do
   haml :index
 end

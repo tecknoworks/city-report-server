@@ -18,7 +18,7 @@ describe "api" do
     }.to change{ issue_count }.by 1
 
     expect {
-      post '/issues', { :lat => 0.0, :lon => 0.0, :title => 'a' * 141}
+      post '/issues', { :lat => 46.868322, :lon => 23.695002, :title => 'a' * 141}
       last_response.status.should == 200
     }.to change{ issue_count }.by 1
 
