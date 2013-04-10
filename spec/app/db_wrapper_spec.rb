@@ -101,7 +101,9 @@ describe DbWrapper do
     history['lat'].should == 1.0
 
     new_issue = @db_wrap.find_issue(id)
+    new_issue['foo'] = 'bar'
     updated_new_issue = @db_wrap.update_issue(new_issue)
+    updated_new_issue['history']['history'].should_not == nil
   end
 
   it "should store history only if params are different" do

@@ -26,9 +26,10 @@ class DbWrapper
     id = params['id']
     delete_unwanted_params params
 
+    # keeping track of history
     history = find_issue id
     history.delete('id')
-    old_issue = history
+    old_issue = history.clone
     old_issue.delete('history')
     if old_issue != params
       params['history'] = history
