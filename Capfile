@@ -6,6 +6,7 @@ set :application, "repara-clujul"
 set :repository,  "git@simpson:repara-clujul"
 set :user, "croco"
 set :use_sudo, false
+set :branch, "staging"
 ssh_options[:forward_agent] = true
 set :rvm_ruby_string, '1.9.3@repara-clujul2'
 

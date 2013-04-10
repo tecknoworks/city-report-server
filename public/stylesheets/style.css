@@ -25,3 +25,8 @@
   position:absolute;
   bottom: 10px;
 }
+
+.small {
+  width: 320px;
+  height: auto;
+}

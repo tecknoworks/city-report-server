@@ -2,6 +2,24 @@ NOTE: make sure you set Content-Type:application/json header whenever you
 make a request
 NOTE: HTTP status codes matter. 200 means ok
 
+Sample issue:
+
+{
+  "lat": "0.0",
+  "lon": "0.0",
+  "title": "groapa in centru",
+  "categories": [
+    "fixed", "groapa"
+  ],
+  "youtube": [
+  ],
+  "images": [
+    "http://reparaclujul.st2k.net/images/foo.png"
+  ]
+}
+
+ISSUE REQUESTS =================================================================
+
 GET '/issues'
 [
   {
@@ -31,5 +49,21 @@ on error:
     "message":"error message"
   }
 
+PUT '/issues'
+require 'lat', 'lon', 'title', 'id'
+same responses as POST
+
+
 DELETE '/issues'
-deletes all the issues. only availiable when env = development
+
+IMAGE UPLOAD REQUESTS ==========================================================
+
+POST '/images'
+requires 'image'
+on success:
+  { "url": "/system/uploads/1.png" }
+on error:
+  {
+    "code":400,
+    "message":"error message"
+  }

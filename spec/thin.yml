@@ -1,0 +1,6 @@
+---
+environment: test
+db_host: localhost
+db_port: 27017
+db_name: reparaclujultest
+image_upload_path: spec/public/system/uploads
