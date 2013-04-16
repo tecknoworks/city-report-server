@@ -81,4 +81,8 @@ describe "api" do
     post '/images', { :image => file }
     JSON.parse(last_response.body)['url'].should == "/system/uploads/0.png"
   end
+
+  it "should return issues near me" do
+    get '/near_me'
+  end
 end

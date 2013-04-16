@@ -22,18 +22,20 @@ class DbWrapper
     find_issue id
   end
 
-  def update_issue params
+  def update_issue params, keep_history=false
     id = params['id']
     delete_unwanted_params params
 
     # keeping track of history
-    # history = find_issue id
-    # history.delete('id')
-    # old_issue = history.clone
-    # old_issue.delete('history')
-    # if old_issue != params
-    #   params['history'] = history
-    # end
+    if keep_history
+      history = find_issue id
+      history.delete('id')
+      old_issue = history.clone
+      old_issue.delete('history')
+      if old_issue != params
+        params['history'] = history
+      end
+    end
 
     @db['issues'].update({'_id' => BSON::ObjectId(id.to_s)}, params)
     find_issue id

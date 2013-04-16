@@ -95,14 +95,14 @@ describe DbWrapper do
     issue['lat'] = 2.0
     id = issue['id']
 
-    updated_issue = @db_wrap.update_issue(issue)
+    updated_issue = @db_wrap.update_issue(issue, true)
     updated_issue['history'].should_not == nil
     history = updated_issue['history']
     history['lat'].should == 1.0
 
     new_issue = @db_wrap.find_issue(id)
     new_issue['foo'] = 'bar'
-    updated_new_issue = @db_wrap.update_issue(new_issue)
+    updated_new_issue = @db_wrap.update_issue(new_issue, true)
     updated_new_issue['history']['history'].should_not == nil
   end
 
@@ -110,7 +110,7 @@ describe DbWrapper do
     params = { 'lat' => 1.0, 'lon' => 1.0 }
     issue = @db_wrap.create_issue(params)
 
-    updated_issue = @db_wrap.update_issue(issue)
+    updated_issue = @db_wrap.update_issue(issue, true)
     updated_issue.keys.include?('history').should be_false
   end
 end
