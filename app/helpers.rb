@@ -1,5 +1,5 @@
 def db_wrap
-   DbWrapper.new('thin.yml')
+  DbWrapper.new('thin.yml')
 end
 
 def do_render msg, code=200
