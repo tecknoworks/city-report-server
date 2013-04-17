@@ -15,7 +15,9 @@ Sample issue:
   ],
   "images": [
     "http://reparaclujul.st2k.net/images/foo.png"
-  ]
+  ],
+  "created_at": "2013-04-17 16:27:05 +0300",
+  "updated_at": "2013-04-17 16:27:05 +0300"
 }
 
 ISSUE REQUESTS =================================================================
@@ -67,3 +69,11 @@ on error:
     "code":400,
     "message":"error message"
   }
+
+ATTRIBUTES REQUEST ============================================================
+GET '/attributes'
+returns json
+{
+  "attributes" => ["id", "lat", "lon", "etc"]
+  "categories" => ["gunoi", "groapa"]
+}

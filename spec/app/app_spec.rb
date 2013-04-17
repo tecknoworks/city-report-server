@@ -10,6 +10,15 @@ describe "api" do
     last_response.should be_ok
   end
 
+  it "should return valid attributes" do
+    get '/attributes'
+    last_response.should be_ok
+    r = JSON.parse(last_response.body)
+    r['attributes'].class.should == Array
+    r['attributes'].include?('id').should be_true
+    r['categories'].should_not be_nil
+  end
+
   it "should not allow titles bigger than 141 characters" do
     expect {
       post '/issues', { :lat => 46.768322, :lon => 23.595002, :title => 'for aiur'}
