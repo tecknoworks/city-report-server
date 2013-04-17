@@ -18,17 +18,22 @@ class DbWrapper
 
   def create_issue params
     delete_unwanted_params params
+    params['created_at'] = Time.now.to_s
+    params['updated_at'] = Time.now.to_s
+
     id = @db['issues'].insert(params)
     find_issue id
   end
 
   def update_issue params, keep_history=false
     id = params['id']
-    delete_unwanted_params params
+    history = find_issue id
 
-    # keeping track of history
+    delete_unwanted_params params
+    params['created_at'] = history['created_at'] if history['created_at']
+    params['updated_at'] = Time.now.to_s
+
     if keep_history
-      history = find_issue id
       history.delete('id')
       old_issue = history.clone
       old_issue.delete('history')

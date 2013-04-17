@@ -113,4 +113,10 @@ describe DbWrapper do
     updated_issue = @db_wrap.update_issue(issue, true)
     updated_issue.keys.include?('history').should be_false
   end
+
+  it "should have created_at" do
+    params = { 'lat' => 1.0, 'lon' => 1.0 }
+    issue = @db_wrap.create_issue(params)
+    issue['created_at'].should_not be_nil
+  end
 end
