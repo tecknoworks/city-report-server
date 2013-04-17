@@ -69,3 +69,11 @@ on error:
     "code":400,
     "message":"error message"
   }
+
+ATTRIBUTES REQUEST ============================================================
+GET '/attributes'
+returns json
+{
+  "attributes" => ["id", "lat", "lon", "etc"]
+  "categories" => ["gunoi", "groapa"]
+}

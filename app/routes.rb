@@ -2,6 +2,19 @@ get '/' do
   haml :index
 end
 
+get '/attributes' do
+  content_type :json
+
+  # TODO evaluate inconsistency of youtube videos - should be called youtubes
+  # or youtube_videos
+  attributes = %w(id lat lon title categories youtube images description comments created_at updated_at)
+  categories = %w[gunoi groapa bordura_stricata mysterious_blue_box]
+  {
+    'attributes' => attributes,
+    'categories' => categories
+  }.to_json
+end
+
 get '/issues' do
   content_type :json
   db_wrap.issues.to_json
