@@ -8,7 +8,7 @@ get '/attributes' do
   # TODO evaluate inconsistency of youtube videos - should be called youtubes
   # or youtube_videos
   attributes = %w(id lat lon title categories youtube images description comments created_at updated_at)
-  categories = %w[gunoi groapa bordura_stricata mysterious_blue_box]
+  categories = %w(altele groapa gunoi rutiere vandalism)
   {
     'attributes' => attributes,
     'categories' => categories
