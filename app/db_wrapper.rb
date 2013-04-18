@@ -1,4 +1,6 @@
 class DbWrapper
+  include ImageHandling
+
   attr_reader :db, :config
 
   def initialize config_file
@@ -20,6 +22,9 @@ class DbWrapper
     delete_unwanted_params params
     params['created_at'] = Time.now.to_s
     params['updated_at'] = Time.now.to_s
+
+    address = Geocoder.kung_foo params['lat'], params['lon']
+    params['address'] = address if address != ''
 
     id = @db['issues'].insert(params)
     find_issue id
@@ -46,35 +51,11 @@ class DbWrapper
     find_issue id
   end
 
-  def save_image params
-    if params['image']
-      tempfile = params['image'][:tempfile]
-      fp = image_path
-      FileUtils.copy_file(tempfile.path, fp)
-
-      unless params.has_key? 'images'
-        params['images'] = []
-      end
-
-      params['images'] << image_url_path(fp)
-    end
-    params
-  end
-
-  def image_url_path img_path
-    '/' + img_path.split('/').delete_if{|e| e == 'public' || e == 'spec'}.join('/')
-  end
-
-  def image_path
-    iup = config['image_upload_path']
-    count = Dir[File.join(iup, '*')].count.to_s
-    File.join(iup, count + '.png')
-  end
-
   private
 
   def delete_unwanted_params params
     params.delete('id')
+    params.delete(:id)
     params.delete('image')
     params.delete(:image)
   end
