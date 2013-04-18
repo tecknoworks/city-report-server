@@ -8,10 +8,14 @@ Sample issue:
   "lat": "0.0",
   "lon": "0.0",
   "title": "groapa in centru",
+  "description": "bla bla bla description",
+  "comments": [
+    "bla bla this is bad", "yea this is bad"
+  ],
   "categories": [
     "fixed", "groapa"
   ],
-  "youtube": [
+  "youtube_videos": [
   ],
   "images": [
     "http://reparaclujul.st2k.net/images/foo.png"
