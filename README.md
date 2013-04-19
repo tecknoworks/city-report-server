@@ -16,7 +16,7 @@ Sample issue:
   "categories": [
     "fixed", "groapa"
   ],
-  "youtube_videos": [
+  "videos": [
   ],
   "images": [
     "http://reparaclujul.st2k.net/images/foo.png"
