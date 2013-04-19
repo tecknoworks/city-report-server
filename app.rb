@@ -5,6 +5,7 @@ require 'yaml'
 require 'mongo'
 require 'rack/parser'
 require 'httparty'
+require 'rdiscount'
 
 use Rack::Parser
 

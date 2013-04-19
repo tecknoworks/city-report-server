@@ -10,6 +10,7 @@ gem 'thin'
 gem 'mongo'
 gem 'bson_ext'
 gem 'httparty'
+gem 'rdiscount'
 
 gem 'capistrano'
 gem 'rvm-capistrano'

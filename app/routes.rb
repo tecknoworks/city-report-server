@@ -2,6 +2,10 @@ get '/' do
   haml :index
 end
 
+get '/doc' do
+  markdown File.read('README.md')
+end
+
 get '/attributes' do
   content_type :json
 
