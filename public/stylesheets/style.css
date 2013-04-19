@@ -11,19 +11,21 @@
 
 #map-overlay {
   z-index: 30;
+  background-color: white;
 
   position: absolute;
-  float: left;
-  bottom: 10px
+  float: right;
+
+  right: 0px;
+  top: 0px;
+  bottom: 0px;
+
 }
 
 .container-map {
 }
 
 #map-overlay img {
-  float: left;
-  position:absolute;
-  bottom: 10px;
 }
 
 .small {

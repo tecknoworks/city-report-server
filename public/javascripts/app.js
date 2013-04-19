@@ -34,6 +34,34 @@ $(document).ready(function() {
         return '/images/icons/altele.png';
     }
   }
+  
+  var issueToPopup = function (issue) {
+    var infoWindowContent = $("<div>");
+    var title = $("<h3>").html(issue['title']);
+    infoWindowContent.append(title);
+  
+    if (issue.hasOwnProperty('images')) {
+      if (issue['images'].length > 0) {
+        var img = $("<img>").attr('src', issue['images'][0]).addClass('small');
+        infoWindowContent.append(img);
+      }
+    }
+
+    var lat = $("<p>").html(issue['lat'] + " - " + issue['lon']);
+    infoWindowContent.append(lat);
+  
+    if (issue.hasOwnProperty('address')) {
+      var address = $("<p>").html(issue['address']);
+      infoWindowContent.append(address);
+    }
+
+    if (issue.hasOwnProperty('description')) {
+      var description = $("<p>").html(issue['description']);
+      infoWindowContent.append(description);
+    }
+
+    return infoWindowContent.html();
+  }
 
   $.get('/issues', function(data) {
     for (var pin in data) {
@@ -46,26 +74,9 @@ $(document).ready(function() {
       });
 
       google.maps.event.addListener(marker, 'click', (function(marker, issue) {
-        var infoWindowContent = $("<div>");
         var opened = false;
-
-        var title = $("<h3>").html(issue['title']);
-        infoWindowContent.append(title);
-
-        var lat = $("<p>").html("Latitude: " + issue['lat']);
-        infoWindowContent.append(lat);
-        var lon = $("<p>").html("Longitude: " + issue['lon']);
-        infoWindowContent.append(lon);
-
-        if (issue.hasOwnProperty('images')) {
-          if (issue['images'].length > 0) {
-            var img = $("<img>").attr('src', issue['images'][0]).addClass('small');
-            infoWindowContent.append(img);
-          }
-        }
-
         var infoWindow = new google.maps.InfoWindow({
-          content: infoWindowContent.html()
+          content: issueToPopup(issue)
         });
 
         return function() {
