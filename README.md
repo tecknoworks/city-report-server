@@ -1,6 +1,7 @@
 NOTE: make sure you set Content-Type:application/json header whenever you
 make a request
 NOTE: HTTP status codes matter. 200 means ok
+NOTE: when creating an issue, if lat and lon are set (and != 0 ), address gets geocoded
 
 Sample issue:
 
@@ -15,7 +16,7 @@ Sample issue:
   "categories": [
     "fixed", "groapa"
   ],
-  "youtube_videos": [
+  "videos": [
   ],
   "images": [
     "http://reparaclujul.st2k.net/images/foo.png"
