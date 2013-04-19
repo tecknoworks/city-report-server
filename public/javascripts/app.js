@@ -5,14 +5,34 @@ $(document).ready(function() {
     zoom: 14,
     center: mapCenter,
     mapTypeId: google.maps.MapTypeId.ROADMAP,
-    disableDefaultUI: true,
-    scrollwheel: true
+    scrollwheel: false
   }
   var map = new google.maps.Map(mapDiv, mapOptions);
 
   google.maps.event.addListener(map, 'click', function(data) {
     console.log(data.latLng);
   });
+
+  var getMarkerIcon = function (issue) {
+    if (issue.categories === undefined) {
+      return '/images/icons/altele.png';
+    }
+    if (issue.categories[0] === undefined) {
+      return '/images/icons/altele.png';
+    }
+    switch (issue.categories[0]) {
+      case 'gunoi':
+        return '/images/icons/gunoi.png';
+      case 'groapa':
+        return '/images/icons/groapa.png';
+      case 'rutiere':
+        return '/images/icons/rutiere.png';
+      case 'vandalism':
+        return '/images/icons/vandalism.png';
+      default:
+        return '/images/icons/altele.png';
+    }
+  }
 
   $.get('/issues', function(data) {
     for (var pin in data) {
@@ -21,7 +41,7 @@ $(document).ready(function() {
         map: map,
         position: new google.maps.LatLng(issue['lat'], issue['lon']),
         title: issue['title'],
-        icon: '/images/marker.png'
+        icon: getMarkerIcon(issue)
       });
 
       google.maps.event.addListener(marker, 'click', (function(marker, issue) {
