@@ -5,7 +5,8 @@ $(document).ready(function() {
     zoom: 14,
     center: mapCenter,
     mapTypeId: google.maps.MapTypeId.ROADMAP,
-    scrollwheel: false
+    scrollwheel: true,
+    disableDefaultUI: true
   }
   var map = new google.maps.Map(mapDiv, mapOptions);
 
