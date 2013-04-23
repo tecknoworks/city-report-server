@@ -29,9 +29,12 @@
   width: 30px;
   height: 30px;
 
-
   top: 0px;
   left: 0px;
+}
+
+#map-toggle:hover {
+  cursor: pointer;
 }
 
 .container-map {
@@ -45,6 +48,17 @@
   margin: auto;
   width: 381px;
   text-align: center;
+  padding-bottom: 20px;
+}
+
+#map-overlay div.content {
+  text-align: justify;
+  padding: 30px;
+  width: 321px;
+}
+
+.subtle-border {
+  border-bottom: 1px solid #EBEBEB;
 }
 
 .pull-bottom {
@@ -63,4 +77,8 @@
 .small {
   width: 320px;
   height: auto;
+}
+
+a {
+  text-decoration: none;
 }
