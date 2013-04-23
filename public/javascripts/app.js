@@ -1,4 +1,12 @@
 $(document).ready(function() {
+  $('#map-toggle').click(function() {
+    $('#map-overlay').animate({
+      height: 'toggle'
+    }, 500, function() {
+      $('#map-toggle img').toggleClass('rotate180');
+    });
+  });
+
   var mapDiv = $('#map-main')[0];
   var mapCenter = new google.maps.LatLng(46.768322, 23.595002);
   var mapOptions = {

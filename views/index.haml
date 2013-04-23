@@ -1,10 +1,14 @@
 #map-main.container-map
+#map-toggle
+  %img.rotate180{:src => '/images/arrow.png'}
 #map-overlay.container-map
-  %img{:src => '/images/logo.png'}
-  %br
-  %center
+  %div
+    %img{:src => '/images/logo.png'}
+  %div
     %img{:src => '/images/icons/altele.png', :alt => 'altele'}
     %img{:src => '/images/icons/groapa.png', :alt => 'groapa'}
     %img{:src => '/images/icons/gunoi.png', :alt => 'gunoi'}
     %img{:src => '/images/icons/rutiere.png', :alt => 'rutiere'}
     %img{:src => '/images/icons/vandalism.png', :alt => 'vandalism'}
+  %div.pull-bottom{:style => 'background-color: white'}
+    %img{:src => '/images/st2k.png'}
