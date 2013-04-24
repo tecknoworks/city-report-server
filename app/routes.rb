@@ -51,10 +51,6 @@ post '/images' do
   { :url => image_url }.to_json
 end
 
-get '/upload' do
-  haml :upload
-end
-
 delete '/issues' do
   db_wrap.db['issues'].remove
 end
