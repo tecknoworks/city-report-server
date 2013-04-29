@@ -1,3 +1,5 @@
+require 'time'
+
 get '/' do
   haml :index
 end
@@ -19,7 +21,7 @@ end
 
 get '/issues' do
   content_type :json
-  db_wrap.issues.to_json
+  db_wrap.issues.sort{ |a,b| Time.parse(a['created_at']) <=> Time.parse(b['created_at']) }.reverse.to_json
 end
 
 post '/issues' do
