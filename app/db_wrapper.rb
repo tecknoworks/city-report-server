@@ -23,8 +23,10 @@ class DbWrapper
     params['created_at'] = Time.now.to_s
     params['updated_at'] = Time.now.to_s
 
-    address = Geocoder.kung_foo params['lat'], params['lon']
-    params['address'] = address if address != ''
+    if params['address'] == '' || params['address'] == nil
+      address_found = Geocoder.kung_foo params['lat'], params['lon']
+      params['address'] = address_found if address_found != ''
+    end
 
     id = @db['issues'].insert(params)
     find_issue id
