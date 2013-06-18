@@ -53,6 +53,22 @@ class DbWrapper
     find_issue id
   end
 
+  def add_to id, key, value
+    issue = find_issue id
+    delete_unwanted_params issue
+
+    if issue.has_key?(key)
+      if (issue[key].class == Array)
+        issue[key] << value
+      end
+    else
+      issue[key] = [value]
+    end
+
+    @db['issues'].update({'_id' => BSON::ObjectId(id.to_s)}, issue)
+    find_issue id
+  end
+
   private
 
   def delete_unwanted_params params

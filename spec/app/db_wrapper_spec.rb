@@ -119,4 +119,18 @@ describe DbWrapper do
     issue = @db_wrap.create_issue(params)
     issue['created_at'].should_not be_nil
   end
+
+  it "should add to an issue array element" do
+    params = { 'lat' => 1.0, 'lon' => 1.0, 'key' => [] }
+    issue = @db_wrap.create_issue(params)
+
+    new_issue = @db_wrap.add_to(issue['id'], 'key', 'value')
+    new_issue['key'].should == ['value']
+
+    new_issue = @db_wrap.add_to(issue['id'], 'non_key', 'value2')
+    new_issue['non_key'].should == ['value2']
+
+    new_issue = @db_wrap.add_to(issue['id'], 'lat', 'value')
+    new_issue['lat'].should == 1.0
+  end
 end

@@ -94,4 +94,23 @@ describe "api" do
   it "should return issues near me" do
     get '/near_me'
   end
+
+  it "should be able to add an item to an array" do
+    post '/issues', { :lat => 0.0, :lon => 0.0, :title => 'super mario bros'}
+    issue = JSON.parse(last_response.body)
+
+    post '/add_to', {}
+    last_response.status.should == 400
+
+    post '/add_to', {:id => issue['id'] }
+    last_response.status.should == 400
+
+    post '/add_to', {:id => issue['id'], :key => 'key'}
+    last_response.status.should == 400
+
+    post '/add_to', {:id => issue['id'], :key => 'key', :value => 'value' }
+    last_response.status.should == 200
+    new_issue = JSON.parse(last_response.body)
+    new_issue['key'].should == ['value']
+  end
 end
