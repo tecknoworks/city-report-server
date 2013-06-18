@@ -99,16 +99,16 @@ describe "api" do
     post '/issues', { :lat => 0.0, :lon => 0.0, :title => 'super mario bros'}
     issue = JSON.parse(last_response.body)
 
-    post '/add_to', {}
+    put '/add_to', {}
     last_response.status.should == 400
 
-    post '/add_to', {:id => issue['id'] }
+    put '/add_to', {:id => issue['id'] }
     last_response.status.should == 400
 
-    post '/add_to', {:id => issue['id'], :key => 'key'}
+    put '/add_to', {:id => issue['id'], :key => 'key'}
     last_response.status.should == 400
 
-    post '/add_to', {:id => issue['id'], :key => 'key', :value => 'value' }
+    put '/add_to', {:id => issue['id'], :key => 'key', :value => 'value' }
     last_response.status.should == 200
     new_issue = JSON.parse(last_response.body)
     new_issue['key'].should == ['value']

@@ -51,7 +51,7 @@ post '/images' do
   { :url => image_url }.to_json
 end
 
-post '/add_to' do
+put '/add_to' do
   content_type :json
 
   return do_render('id missing', 400) unless params['id']
