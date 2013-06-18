@@ -60,6 +60,16 @@ PUT '/issues'
 require 'lat', 'lon', 'title', 'id'
 same responses as POST
 
+POST '/add_to'
+requires 'id', 'key', 'value'
+on success:
+  the issue as json
+on error:
+  {
+    "code":400,
+    "message":"error message"
+  }
+
 
 DELETE '/issues'
 
