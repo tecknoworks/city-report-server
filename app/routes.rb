@@ -36,11 +36,7 @@ end
 
 post '/images' do
   content_type :json
-
-  return do_render('image param missing', 400) unless params['image']
-
-  image_url = db_wrap.save_image(params)['images'][0]
-  { :url => image_url }.to_json
+  handle_issue_arrays 'image'
 end
 
 put '/add_to' do

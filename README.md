@@ -96,7 +96,7 @@ __DELETE '/issues'__
 ---
 
 __POST '/images'__
-_requires 'image'_
+_requires 'image', 'id'_
 
   { "url": "/system/uploads/1.png" }
 

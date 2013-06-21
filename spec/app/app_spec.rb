@@ -11,7 +11,7 @@ describe "api" do
   end
 
   it "should return valid attributes" do
-    get '/attributes'
+    get '/meta'
     last_response.should be_ok
     r = JSON.parse(last_response.body)
     r['attributes'].class.should == Array
@@ -85,10 +85,37 @@ describe "api" do
     issue['lat'].should == "4.0"
   end
 
-  it "should post an image" do
+  it "should require params for uploading images" do
+    post '/images', {}
+    last_response.status.should == 400
+
     file = Rack::Test::UploadedFile.new('spec/logo.png', 'image/png')
     post '/images', { :image => file }
-    JSON.parse(last_response.body)['url'].should == "/system/uploads/0.png"
+    last_response.status.should == 400
+  end
+
+  it "needs a valid issue id when posting an image" do
+    post '/issues', { :lat => 1.0, :lon => 2.0, :title => 'super mario'}
+    issue = JSON.parse(last_response.body)
+
+    file = Rack::Test::UploadedFile.new('spec/logo.png', 'image/png')
+    post '/images', { :image => file, :id => 'invalid_id' }
+    last_response.status.should == 400
+  end
+
+  it "should post an image" do
+    post '/issues', { :lat => 1.0, :lon => 2.0, :title => 'super mario'}
+    issue = JSON.parse(last_response.body)
+
+    file = Rack::Test::UploadedFile.new('spec/logo.png', 'image/png')
+    post '/images', { :image => file, :id => issue['id'] }
+    last_response.status.should == 200
+    img = JSON.parse(last_response.body)
+    img['url'].should == "/system/uploads/0.png"
+
+    get '/issues', { :id => issue['id'] }
+    issue = JSON.parse(last_response.body)[0]
+    issue['images'][0].should == img['url']
   end
 
   it "should return issues near me" do
