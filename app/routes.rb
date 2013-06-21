@@ -6,15 +6,9 @@ get '/doc' do
   markdown File.read('README.md')
 end
 
-get '/attributes' do
+get '/meta' do
   content_type :json
-
-  attributes = %w(id lat lon title description categories videos images comments created_at updated_at)
-  categories = %w(altele groapa gunoi rutiere vandalism)
-  {
-    'attributes' => attributes,
-    'categories' => categories
-  }.to_json
+  Util.meta.to_json
 end
 
 get '/issues' do

@@ -1,3 +1,14 @@
+class Util
+  def self.meta
+    attributes = %w(id lat lon title description categories videos images comments created_at updated_at)
+    categories = %w(altele groapa gunoi rutiere vandalism)
+    {
+      'attributes' => attributes,
+      'categories' => categories
+    }
+  end
+end
+
 module Mongo
   class Cursor
     def to_api
