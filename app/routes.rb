@@ -6,15 +6,9 @@ get '/doc' do
   markdown File.read('README.md')
 end
 
-get '/attributes' do
+get '/meta' do
   content_type :json
-
-  attributes = %w(id lat lon title description categories videos images comments created_at updated_at)
-  categories = %w(altele groapa gunoi rutiere vandalism)
-  {
-    'attributes' => attributes,
-    'categories' => categories
-  }.to_json
+  Util.meta.to_json
 end
 
 get '/issues' do
@@ -28,7 +22,6 @@ post '/issues' do
   validation_error = valid? params
   return validation_error if validation_error.class != TrueClass
 
-  db_wrap.save_image(params)
   db_wrap.create_issue(params).to_json
 end
 
@@ -38,17 +31,22 @@ put '/issues' do
   validation_error = valid?(params, :put)
   return validation_error if validation_error.class != TrueClass
 
-  db_wrap.save_image(params)
   db_wrap.update_issue(params).to_json
 end
 
 post '/images' do
   content_type :json
+  handle_issue_arrays 'image'
+end
 
-  return do_render('image param missing', 400) unless params['image']
+put '/add_to' do
+  content_type :json
 
-  image_url = db_wrap.save_image(params)['images'][0]
-  { :url => image_url }.to_json
+  return do_render('id missing', 400) unless params['id']
+  return do_render('key missing', 400) unless params['key']
+  return do_render('value missing', 400) unless params['value']
+
+  db_wrap.add_to(params['id'], params['key'], params['value']).to_json
 end
 
 delete '/issues' do
