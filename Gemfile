@@ -12,6 +12,7 @@ gem 'bson_ext'
 gem 'httparty'
 gem 'rdiscount'
 
+gem 'passenger'
 gem 'capistrano'
 gem 'rvm-capistrano'
 
