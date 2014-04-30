@@ -3,7 +3,7 @@ load 'deploy'
 default_run_options[:pty] = true
 
 set :application, "repara-clujul"
-set :repository,  "git@simpson:repara-clujul"
+set :repository,  "git@gitlab.st.st2k.ro:repara/repara-clujul.git"
 set :user, "croco"
 set :use_sudo, false
 set :branch, "master"
@@ -18,11 +18,11 @@ set :deploy_to, '/home/croco/repara-clujul'
 
 namespace :repara do
   task :start, :roles => :app do
-    run 'cd repara-clujul/current/; bundle install; thin -C thin.yml start'
+    # run 'cd repara-clujul/current/; bundle install; thin -C thin.yml start'
   end
 
   task :stop, :roles => :app, :on_error => :continue do
-    run 'cd repara-clujul/current/;thin -C thin.yml stop'
+    # run 'cd repara-clujul/current/;thin -C thin.yml stop'
   end
 end
 
