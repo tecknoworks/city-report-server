@@ -1,0 +1,13 @@
+development: &common_settings
+  env: 'development'
+  meta:
+    categories: ['groapă', 'gunoi', 'vandalism', 'altele']
+    zones: ['Andrei Mureșanu', 'Bulgaria', 'Bună Ziua', 'Centru']
+
+test:
+  <<: *common_settings
+  env: 'test'
+
+production:
+  <<: *common_settings
+  env: 'production'
