@@ -8,7 +8,7 @@ describe Geocoder do
   # TODO write a real test
   it "should geocode stuff" do
     geo = Geocoder.kung_foo 46.7569358, 23.597322
-    geo.should == 'Calea Turzii, Cluj-Napoca, Romania'
+    geo.should == 'Calea Turzii 113, Cluj-Napoca 400000, Romania'
   end
 
   it "should not geocode if lat or lon == 0" do
@@ -20,6 +20,6 @@ describe Geocoder do
   it "should geocode upon creating" do
     params = { 'lat' => 46.7569358, 'lon' => 23.597322 }
     issue = @db_wrap.create_issue(params)
-    issue['address'].should == 'Calea Turzii, Cluj-Napoca, Romania'
+    issue['address'].should == 'Calea Turzii 113, Cluj-Napoca 400000, Romania'
   end
 end
