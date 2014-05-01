@@ -1,12 +1,5 @@
 require 'spec_helper'
 
-describe BaseController do
-  it 'should run in test env' do
-    app.settings.environment.should == :test
-    app.settings.config['env'].should == 'test'
-  end
-end
-
 describe WelcomeController do
   it "should allow accessing the home page" do
     get '/'
