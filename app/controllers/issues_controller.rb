@@ -1,6 +1,6 @@
 class IssuesController < BaseController
   get '/' do
-    'issues'
+    json Issue.all
   end
 
   post '/' do
