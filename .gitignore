@@ -1,8 +1,8 @@
 *.swp
-Gemfile.lock
 
 *~
 
 log/*
 tmp/*
-spec/public/system/uploads/*.png
+
+public/images/uploads/*.png

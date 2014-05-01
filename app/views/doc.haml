@@ -1,3 +1,12 @@
 .doc
-  %h1 Hello
-  %p world
+  %h1 Repara Clujul API Doc
+  %p The API has two main components. The Image Upload Service and the Issue Reporting Service
+  %h2 Image Upload Service
+  %p <b>POST</b> /upload with 'image' param
+  %p Examples:
+  %p curl -X POST -F "image=@public/images/logo.png" http://localhost:9292/upload
+  %p
+    %a{:href => '/up'} form example
+  %p Sample response:
+  %p= generate_upload_response 'image.png'
+  %h2 Issue Reporting Service

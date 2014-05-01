@@ -12,9 +12,6 @@ class ImagesController < BaseController
     FileUtils::cp(tempfile.path, storage_path)
 
     content_type :json
-    {
-      url: settings.config['base_url'] + 'images/uploads/' + storage_filename,
-      thumb_url: settings.config['base_url'] + 'images/uploads/' + storage_filename
-    }.to_json
+    generate_upload_response storage_filename
   end
 end
