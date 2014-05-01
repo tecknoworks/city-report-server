@@ -11,6 +11,6 @@ map '/issues' do
   run IssuesController
 end
 
-map '/images' do
+map '/upload' do
   run ImagesController
 end

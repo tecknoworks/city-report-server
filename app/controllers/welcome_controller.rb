@@ -7,7 +7,7 @@ class WelcomeController < BaseController
     haml :doc
   end
 
-  get '/upload' do
+  get '/up' do
     haml :upload
   end
 

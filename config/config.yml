@@ -1,5 +1,6 @@
 development: &common_settings
   env: 'development'
+  base_url: 'http://localhost:9292/'
   meta:
     categories: ['groapă', 'gunoi', 'vandalism', 'altele']
     zones: ['Andrei Mureșanu', 'Bulgaria', 'Bună Ziua', 'Centru']
