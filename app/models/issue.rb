@@ -5,14 +5,14 @@ class Issue
   field :lat, type: Float, default: 0.0
   field :lon, type: Float, default: 0.0
   field :address, type: String, default: ''
-  field :category, type: String, default: ''
+  field :category, type: String
   field :images, type: Array, default: []
 
   validates :name, presence: true
   validates :category, presence: true
 
   validate :coordinates
-  validate :category_item
+  validate :allowed_category
 
   protected
 
@@ -24,7 +24,7 @@ class Issue
     -180.0 < self.lon && self.lon < 180
   end
 
-  def category_item
+  def allowed_category
     self.errors.add(:category, 'invalid category') unless
     Repara.config['meta']['categories'].include? self.category
   end
