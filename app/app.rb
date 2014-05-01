@@ -24,11 +24,16 @@ class WelcomeController < BaseController
     haml :index
   end
 
-  get '/meta' do
-    settings.config['meta'].to_json
+  get '/doc' do
+    haml :doc
   end
 
-  get '/doc' do
+  get '/upload' do
+    haml :upload
+  end
+
+  get '/meta' do
+    settings.config['meta'].to_json
   end
 end
 
