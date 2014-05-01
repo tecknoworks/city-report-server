@@ -6,6 +6,7 @@ require 'mongoid'
 require 'sinatra/base'
 require 'sinatra/reloader'
 require 'sinatra/config_file'
+require 'sinatra/json'
 
 require './app/models/issue'
 require './app/repara_helper'
@@ -20,4 +21,5 @@ class Repara
   end
 end
 
+I18n.enforce_available_locales = false
 Mongoid.load!("config/mongoid.yml")

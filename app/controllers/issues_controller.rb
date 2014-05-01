@@ -4,6 +4,12 @@ class IssuesController < BaseController
   end
 
   post '/' do
-    'issues'
+    issue = Issue.new(params)
+    issue.save
+    if issue.valid?
+      json issue
+    else
+      json issue.errors
+    end
   end
 end

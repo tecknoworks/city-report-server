@@ -17,12 +17,15 @@ class Issue
   protected
 
   def coordinates
-    self.errors.add(:base, 'invalid lat or lon') unless
-    -90.0 < self.lat && self.lat < 90.0 && -180.0 < self.lon && self.lon < 180
+    self.errors.add(:lat, 'invalid lat') unless
+    -90.0 < self.lat && self.lat < 90.0
+
+    self.errors.add(:lon, 'invalid lon') unless
+    -180.0 < self.lon && self.lon < 180
   end
 
   def category_item
-    self.errors.add(:base, 'invalid category') unless
+    self.errors.add(:category, 'invalid category') unless
     Repara.config['meta']['categories'].include? self.category
   end
 end
