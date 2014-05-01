@@ -13,7 +13,6 @@ describe ImagesController do
 
     post '/', { 'image' => Rack::Test::UploadedFile.new('spec/assets/logo.png', 'image/png') }
     File.exists?(path_to_file).should be_true
-    p last_response.body
 
     # cleanup
     File.delete(path_to_file)

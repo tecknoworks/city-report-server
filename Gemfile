@@ -3,6 +3,7 @@ source 'https://rubygems.org'
 gem 'sinatra'
 gem 'sinatra-contrib'
 gem 'haml'
+gem 'mongoid'
 
 gem 'capistrano'
 gem 'rvm-capistrano'
