@@ -8,10 +8,22 @@
   %p
     %a{:href => '/up'} form example
   %p Sample response:
-  %p= generate_upload_response 'image.png'
+  %pre= pretty_json(generate_upload_response('image.png'))
   %h2 Issue Reporting Service
-  %p All requests should have the Content-Type header set to application/json
+  %p All requests should have the Content-Type header set to <b>application/json</b>
   %p Example issue
-  %pre
-    {
-    }
+  %pre= pretty_json Issue.first.to_json
+  %p <b>GET</b> /meta
+  %p
+    %a{:href => '/meta'} Example
+  %p <b>GET</b> /issues
+  %p <b>POST</b> /issues
+  %p curl -X POST -H 'Content-Type: application/json' -d '{"name":"hello", "category":"altele"}' http://localhost:9292/issues
+  %p Required params: name, category
+  %p
+    Valid categories:
+    = settings.config['meta']['categories']
+  %p <b>PUT</b> /issues
+  %p <b>PUT</b> /issues/:id/add_to_set
+  %p required body
+  %pre= pretty_json({'images' => ['url1', 'url2'] }.to_json)

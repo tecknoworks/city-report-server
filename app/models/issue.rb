@@ -1,5 +1,6 @@
 class Issue
   include Mongoid::Document
+  include Mongoid::Timestamps
 
   field :name, type: String
   field :lat, type: Float, default: 0.0

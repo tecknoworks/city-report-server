@@ -6,6 +6,10 @@ class BaseController < Sinatra::Base
         thumbUrl: settings.config['base_url'] + 'images/uploads/' + storage_filename
       }.to_json
     end
+
+    def pretty_json h
+      JSON.pretty_generate(JSON.parse(h))
+    end
   end
 
   configure do

@@ -19,6 +19,10 @@ class Repara
   def self.config
     BaseController::CONFIG
   end
+
+  def self.categories
+    self.config['meta']['categories']
+  end
 end
 
 I18n.enforce_available_locales = false
