@@ -42,7 +42,10 @@ describe IssuesController do
       issue = JSON.parse(last_response.body)
 
       issue['images'].should be_empty
-      put "/#{issue['_id']}/add_to_set", :images => ['http://www.google.com']
+      put "/#{issue['_id']}/add_to_set", 'images' => ['http://www.google.com']
+
+      issue = Issue.find(issue['_id'])
+      issue['images'].should_not be_empty
     end
   end
 end

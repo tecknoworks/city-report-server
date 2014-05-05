@@ -35,11 +35,17 @@ class IssuesController < BaseController
     params.delete('captures')
 
     issue = Issue.find(params[:id])
+    # TODO test for issue not found
     params['images'].each do |s|
       issue.add_to_set(:images, s)
     end
     issue.save
 
-    json issue
+    if issue.valid?
+      json issue
+    else
+      status 400
+      json issue.errors
+    end
   end
 end
