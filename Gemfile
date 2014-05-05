@@ -7,7 +7,6 @@ gem 'mongoid'
 gem 'rack-parser', :require => 'rack/parser'
 
 gem 'capistrano'
-gem 'rvm-capistrano'
 gem 'passenger'
 
 group :development do
