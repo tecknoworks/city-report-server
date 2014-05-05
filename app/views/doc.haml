@@ -21,9 +21,10 @@
   %p
     %a{:href => '/meta'} Example
   %p <b>GET</b> /issues
+  %p Optional query params limit (default 10) and skip (default 0)
   %p <b>POST</b> /issues
   %p curl -X POST -H 'Content-Type: application/json' -d '{"name":"hello", "category":"altele"}' #{base_url}issues
-  %p Required params: name, category
+  %p Required body params: name, category
   %p
     Valid categories:
     = settings.config['meta']['categories']

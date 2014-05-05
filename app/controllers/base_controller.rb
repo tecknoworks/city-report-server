@@ -2,8 +2,7 @@ class BaseController < Sinatra::Base
   helpers do
     def generate_upload_response storage_filename
       {
-        url: base_url + 'images/uploads/' + storage_filename,
-        thumbUrl: base_url + 'images/uploads/' + storage_filename
+        url: base_url + 'images/uploads/' + storage_filename
       }.to_json
     end
 
