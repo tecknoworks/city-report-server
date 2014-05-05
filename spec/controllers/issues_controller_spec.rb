@@ -31,10 +31,26 @@ describe IssuesController do
       issue['name'].should == 'foo'
 
       put "/#{issue['_id']}", name: 'bar'
-      issue2 = Issue.find(issue['_id'])
-      issue2['name'].should == 'bar'
-      issue2['splat'].should be_nil
-      issue2['captures'].should be_nil
+      issue = Issue.find(issue['_id'])
+      issue['name'].should == 'bar'
+
+      issue['splat'].should be_nil
+      issue['captures'].should be_nil
+    end
+
+    it 'returns error when updating with invalid object id' do
+      post '/', name: 'foo', category: category
+      issue = JSON.parse(last_response.body)
+
+      put "/invalid_id", name: 'bar'
+      last_response.status.should == 404
+    end
+
+    it 'returns error when updating a field with an invalid value' do
+      post '/', name: 'foo', category: category
+      issue = JSON.parse(last_response.body)
+      put "/#{issue['_id']}", category: 'bar'
+      last_response.status.should == 400
     end
 
     it 'adds an image url to images' do

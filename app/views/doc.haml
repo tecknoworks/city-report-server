@@ -2,6 +2,7 @@
   %h1 Repara Clujul API Doc
   %p The API has two main components. The Image Upload Service and the Issue Reporting Service
   %h2 Image Upload Service
+  %p Used to upload images to the server. Will return a public url for the image
   %p <b>POST</b> /upload with 'image' param
   %p Examples:
   %p curl -X POST -F "image=@public/images/logo.png" #{base_url}upload
@@ -13,6 +14,9 @@
   %p All requests should have the Content-Type header set to <b>application/json</b>
   %p Example issue
   %pre= pretty_json Issue.first.to_json
+  %p Example error
+  %pre= pretty_json(generate_error_without_changing_status(400, 'description', []).to_json)
+  %h3 Requests
   %p <b>GET</b> /meta
   %p
     %a{:href => '/meta'} Example

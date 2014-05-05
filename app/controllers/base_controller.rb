@@ -14,6 +14,20 @@ class BaseController < Sinatra::Base
     def pretty_json h
       JSON.pretty_generate(JSON.parse(h))
     end
+
+    def generate_error code, desc, errors=nil
+      status code
+      json(generate_error_without_changing_status(code, desc, errors))
+    end
+
+    def generate_error_without_changing_status code, desc, errors=nil
+      errors = desc if errors.nil?
+      {
+        'code' => code,
+        'desc' => desc,
+        'errors' => errors
+      }
+    end
   end
 
   configure do
