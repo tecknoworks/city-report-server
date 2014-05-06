@@ -11,6 +11,8 @@ class ImagesController < BaseController
     # FileUtils::Verbose::cp
     FileUtils::cp(tempfile.path, storage_path)
 
+    ThumbnailWorker.perform_async(storage_path)
+
     render_response(generate_upload_response(storage_filename))
   end
 end
