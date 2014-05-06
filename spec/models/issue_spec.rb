@@ -8,6 +8,10 @@ describe Issue do
     Mongoid.default_session.options[:database].should == 'repara-test'
   end
 
+  it 'knows if it is invalid before save' do
+    Issue.new(name: 'foo', category: category, lat: 0, lon: 0).valid?.should be_false
+  end
+
   it 'should create an issue' do
     expect {
       i = Issue.new(name: 'foo', category: category, lat: 0, lon: 0, images: ['foo'])

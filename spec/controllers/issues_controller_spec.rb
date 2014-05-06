@@ -24,6 +24,12 @@ describe IssuesController do
       last_response.status.should == 200
     end
 
+    it 'sends the correct error code' do
+      post '/', name: 'foo', lon: 0, lat: 0, category: category
+      last_response.status.should == 400
+      JSON.parse(last_response.body)['code'].should == 400004
+    end
+
     it 'requires category to be valid' do
       post '/', name: 'foo', category: 'foo', lat: 0, lon: 0, images: ['foo']
       last_response.status.should == 400
@@ -31,12 +37,19 @@ describe IssuesController do
       post '/', name: 'foo', category: category, lat: 0, lon: 0, images: ['foo']
       last_response.status.should == 200
     end
+
+    it 'returns nicely formatted json' do
+      post '/', name: 'foo', category: category, lat: 0, lon: 0, images: ['foo']
+      last_response.status.should == 200
+      json = JSON.parse(last_response.body)
+      json['code'].should_not be_nil
+    end
   end
 
   context 'update' do
     it 'updates an attribute' do
       post '/', name: 'foo', category: category, lat: 0, lon: 0, images: ['foo']
-      issue = JSON.parse(last_response.body)
+      issue = JSON.parse(last_response.body)['body']
       issue['name'].should == 'foo'
 
       put "/#{issue['_id']}", name: 'bar'
@@ -57,14 +70,14 @@ describe IssuesController do
 
     it 'returns error when updating a field with an invalid value' do
       post '/', name: 'foo', category: category, lat: 0, lon: 0, images: ['foo']
-      issue = JSON.parse(last_response.body)
+      issue = JSON.parse(last_response.body)['body']
       put "/#{issue['_id']}", category: 'bar'
       last_response.status.should == 400
     end
 
     it 'adds an image url to images' do
       post '/', name: 'foo', category: category, lat: 0, lon: 0, images: ['foo']
-      issue = JSON.parse(last_response.body)
+      issue = JSON.parse(last_response.body)['body']
 
       issue['images'].count.should be 1
       put "/#{issue['_id']}/add_to_set", 'images' => ['http://www.google.com']

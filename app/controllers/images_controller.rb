@@ -11,7 +11,6 @@ class ImagesController < BaseController
     # FileUtils::Verbose::cp
     FileUtils::cp(tempfile.path, storage_path)
 
-    content_type :json
-    generate_upload_response storage_filename
+    render_response(generate_upload_response(storage_filename))
   end
 end

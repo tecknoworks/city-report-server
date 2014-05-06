@@ -20,6 +20,7 @@ class Issue
 
   protected
 
+  # check that image url is valid
   def minimum_one_image
     self.errors.add(:images, 'requires at least one image') unless
     !self.images.empty?

@@ -1,11 +1,5 @@
 class BaseController < Sinatra::Base
   helpers do
-    def generate_upload_response storage_filename
-      {
-        url: base_url + 'images/uploads/' + storage_filename
-      }.to_json
-    end
-
     def base_url
       settings.config['base_url']
     end
@@ -14,17 +8,22 @@ class BaseController < Sinatra::Base
       JSON.pretty_generate(JSON.parse(h))
     end
 
-    def generate_error code, desc, errors=nil
-      status code
-      json(generate_error_without_changing_status(code, desc, errors))
+    def generate_upload_response storage_filename
+      {
+        url: base_url + 'images/uploads/' + storage_filename
+      }
     end
 
-    def generate_error_without_changing_status code, desc, errors=nil
-      errors = desc if errors.nil?
+    def render_response body, code=200, status_code=nil
+      status_code ||= code
+      status status_code
+      json(render_response_without_changing_status(body, code))
+    end
+
+    def render_response_without_changing_status body, code=200
       {
-        'code' => code,
-        'desc' => desc,
-        'errors' => errors
+        code: code,
+        body: body
       }
     end
   end

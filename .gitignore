@@ -5,4 +5,4 @@
 log/*
 tmp/*
 
-public/images/uploads/*.png
+public/images/uploads/*
