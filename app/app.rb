@@ -15,6 +15,8 @@ require './app/controllers/welcome_controller'
 require './app/controllers/issues_controller'
 require './app/controllers/images_controller'
 
+require './app/workers/thumbnail_worker'
+
 class Repara
   def self.config
     BaseController::CONFIG
