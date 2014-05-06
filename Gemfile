@@ -6,6 +6,7 @@ gem 'haml'
 gem 'mongoid'
 gem 'rack-parser', :require => 'rack/parser'
 gem 'sidekiq'
+gem 'httparty'
 
 gem 'capistrano'
 gem 'passenger'
