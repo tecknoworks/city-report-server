@@ -10,6 +10,7 @@ gem 'httparty'
 
 gem 'capistrano'
 gem 'passenger'
+gem 'foreman'
 
 group :development do
   gem 'rspec'
