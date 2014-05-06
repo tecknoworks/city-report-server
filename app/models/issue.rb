@@ -3,14 +3,16 @@ class Issue
   include Mongoid::Timestamps
 
   field :name, type: String
-  field :lat, type: Float, default: 0.0
-  field :lon, type: Float, default: 0.0
+  field :lat, type: Float
+  field :lon, type: Float
   field :address, type: String, default: ''
   field :category, type: String
   field :images, type: Array, default: []
 
   validates :name, presence: true
   validates :category, presence: true
+  validates :lat, presence: true
+  validates :lon, presence: true
 
   validate :coordinates
   validate :allowed_category
@@ -19,10 +21,10 @@ class Issue
 
   def coordinates
     self.errors.add(:lat, 'invalid lat') unless
-    -90.0 < self.lat && self.lat < 90.0
+    self.lat.nil? || -90.0 < self.lat && self.lat < 90.0
 
     self.errors.add(:lon, 'invalid lon') unless
-    -180.0 < self.lon && self.lon < 180
+    self.lon.nil? || -180.0 < self.lon && self.lon < 180
   end
 
   def allowed_category

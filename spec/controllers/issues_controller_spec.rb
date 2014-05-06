@@ -11,22 +11,28 @@ describe IssuesController do
       post '/', name: 'foo'
       last_response.status.should == 400
 
-      post '/', name: 'foo', category: category
+      post '/', name: 'foo', lat: 0
+      last_response.status.should == 400
+
+      post '/', name: 'foo', lon: 0
+      last_response.status.should == 400
+
+      post '/', name: 'foo', category: category, lat: 0, lon: 0
       last_response.status.should == 200
     end
 
     it 'requires category to be valid' do
-      post '/', name: 'foo', category: 'foo'
+      post '/', name: 'foo', category: 'foo', lat: 0, lon: 0
       last_response.status.should == 400
 
-      post '/', name: 'foo', category: category
+      post '/', name: 'foo', category: category, lat: 0, lon: 0
       last_response.status.should == 200
     end
   end
 
   context 'update' do
     it 'updates an attribute' do
-      post '/', name: 'foo', category: category
+      post '/', name: 'foo', category: category, lat: 0, lon: 0
       issue = JSON.parse(last_response.body)
       issue['name'].should == 'foo'
 
@@ -47,14 +53,14 @@ describe IssuesController do
     end
 
     it 'returns error when updating a field with an invalid value' do
-      post '/', name: 'foo', category: category
+      post '/', name: 'foo', category: category, lat: 0, lon: 0
       issue = JSON.parse(last_response.body)
       put "/#{issue['_id']}", category: 'bar'
       last_response.status.should == 400
     end
 
     it 'adds an image url to images' do
-      post '/', name: 'foo', category: category
+      post '/', name: 'foo', category: category, lat: 0, lon: 0
       issue = JSON.parse(last_response.body)
 
       issue['images'].should be_empty

@@ -10,7 +10,7 @@ describe Issue do
 
   it 'should create an issue' do
     expect {
-      i = Issue.new(name: 'foo', category: category)
+      i = Issue.new(name: 'foo', category: category, lat: 0, lon: 0)
       i.save
       i.lat.should == 0
       i.lon.should == 0
