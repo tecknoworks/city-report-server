@@ -5,6 +5,7 @@ gem 'sinatra-contrib'
 gem 'haml'
 gem 'mongoid'
 gem 'rack-parser', :require => 'rack/parser'
+gem 'sidekiq'
 
 gem 'capistrano'
 gem 'passenger'
