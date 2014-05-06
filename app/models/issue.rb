@@ -16,8 +16,14 @@ class Issue
 
   validate :coordinates
   validate :allowed_category
+  validate :minimum_one_image
 
   protected
+
+  def minimum_one_image
+    self.errors.add(:images, 'requires at least one image') unless
+    !self.images.empty?
+  end
 
   def coordinates
     self.errors.add(:lat, 'invalid lat') unless

@@ -10,11 +10,11 @@ describe Issue do
 
   it 'should create an issue' do
     expect {
-      i = Issue.new(name: 'foo', category: category, lat: 0, lon: 0)
+      i = Issue.new(name: 'foo', category: category, lat: 0, lon: 0, images: ['foo'])
       i.save
       i.lat.should == 0
       i.lon.should == 0
-      i.images.should be_empty
+      i.images.should_not be_empty
       i.errors.should be_empty
     }.to change{ Issue.count }.by 1
   end
