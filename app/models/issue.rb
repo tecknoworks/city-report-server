@@ -29,6 +29,6 @@ class Issue
 
   def allowed_category
     self.errors.add(:category, 'invalid category') unless
-    Repara.config['meta']['categories'].include? self.category
+    Repara.categories.include? self.category
   end
 end
