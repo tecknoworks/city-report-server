@@ -16,6 +16,7 @@ require './app/controllers/issues_controller'
 require './app/controllers/images_controller'
 
 require './app/workers/thumbnail_worker'
+require './app/workers/geocode_worker'
 
 class Repara
   def self.config
