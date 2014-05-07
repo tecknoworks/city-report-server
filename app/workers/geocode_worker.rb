@@ -4,6 +4,17 @@ class GeocodeWorker
   # sidekiq_options retry: false
 
   def perform issue_id
-    # do stuff here
+    issue = Issue.find(issue_id)
+
+    if issue.nil?
+      puts "issue with id #{issue_id} not found"
+      return
+    end
+
+    address = Geocoder.kung_foo issue[:lat], issue[:lon]
+    puts "geocoded #{issue[:lat]} and #{issue[:lon]} to #{address}"
+
+    issue[:address] = address
+    issue.save
   end
 end

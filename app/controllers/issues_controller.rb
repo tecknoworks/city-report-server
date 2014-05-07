@@ -28,6 +28,9 @@ class IssuesController < BaseController
     issue = Issue.new(params)
     if issue.valid?
       issue.save
+
+      GeocodeWorker.perform_async issue[:_id].to_s
+
       render_response issue
     else
       render_response('invalid params', get_error_code(issue), 400)
