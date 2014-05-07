@@ -7,6 +7,7 @@ gem 'mongoid'
 gem 'rack-parser', :require => 'rack/parser'
 gem 'sidekiq'
 gem 'httparty'
+gem 'micro_magick'
 
 gem 'capistrano'
 gem 'passenger'

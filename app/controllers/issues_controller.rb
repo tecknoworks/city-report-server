@@ -1,4 +1,6 @@
 class IssuesController < BaseController
+  include ErrorCodes
+
   get '/' do
     limit = params['limit'].nil? ? 10 : params['limit']
     skip = params['skip'].nil? ? 0 : params['skip']
@@ -11,15 +13,15 @@ class IssuesController < BaseController
     key = issue.errors.first.first
     case key
     when :name
-      code = 400001
+      code = MISSING_NAME
     when :lat, :lon
-      code = 400002
+      code = INVALID_COORDINATES
     when :category
-      code = 400003
+      code = INVALID_CATEGORY
     when :images
-      code = 400004
+      code = REQUIRES_AT_LEAST_ONE_IMAGE
     else
-      code = 400000
+      code = UNKNOWN_ERROR
     end
     code
   end

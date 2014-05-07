@@ -4,6 +4,7 @@ class ThumbnailWorker
   # sidekiq_options retry: false
 
   def perform image_path
-    # do stuff here
+    img = MicroMagick::Image.new(image_path)
+    img.strip.quality(85).resize("256x256").write("640x480.png")
   end
 end

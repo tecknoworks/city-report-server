@@ -51,6 +51,7 @@ GEM
       rb-inotify (>= 0.9)
     lumberjack (1.0.5)
     method_source (0.8.2)
+    micro_magick (0.0.7)
     mongoid (3.1.6)
       activemodel (~> 3.2)
       moped (~> 1.4)
@@ -133,6 +134,7 @@ DEPENDENCIES
   guard-rspec
   haml
   httparty
+  micro_magick
   mongoid
   passenger
   rack-parser

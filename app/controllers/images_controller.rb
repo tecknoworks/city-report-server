@@ -1,11 +1,12 @@
 class ImagesController < BaseController
   include ReparaHelper
+  include ErrorCodes
 
   post '/' do
     tempfile = params[:image][:tempfile]
     filename = params[:image][:filename]
     unless image?(filename)
-      return render_response('only png images allowed', 400020, 400)
+      return render_response('only png images allowed', INVALID_IMAGE_FORMAT, 400)
     end
 
     storage_filename = serialize_filename filename
