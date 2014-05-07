@@ -33,6 +33,11 @@ class BaseController < Sinatra::Base
     CONFIG = settings.config
     set :public_folder, 'public'
     set :root, File.join(File.dirname(__FILE__), '..')
+
+    enable :logging
+    file = File.new("#{Dir.pwd}/log/#{settings.environment}.log", 'a+')
+    file.sync = true
+    use Rack::CommonLogger, file
   end
 
   configure :development do
