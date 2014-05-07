@@ -10,7 +10,7 @@ class ImagesController < BaseController
     end
 
     storage_filename = serialize_filename filename
-    storage_path = File.join('public/images/uploads', storage_filename)
+    storage_path = File.join('public/images/uploads/original/', storage_filename)
     thumb_path = File.join('public/images/uploads/thumbs/', storage_filename)
 
     # todo manage logging to a file and add verbose copy
