@@ -3,6 +3,7 @@ require 'json'
 require 'haml'
 require 'mongoid'
 require 'httparty'
+require 'sidekiq'
 
 require 'sinatra/base'
 require 'sinatra/reloader'
