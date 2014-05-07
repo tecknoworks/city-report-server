@@ -1,6 +1,11 @@
 .doc
   %h1 Repara Clujul API Doc
-  %p The API has two main components. The Image Upload Service and the Issue Reporting Service
+  %p
+    The API has two main components. The Image Upload Service and the Issue Reporting Service. There is an
+    %a{:href => '/eula'} eula page
+    and an
+    %a{:href => '/about'} about page
+
   %p All requests will be surrounded with
   %pre= pretty_json(render_response_without_changing_status('this is where the content will be').to_json)
 
