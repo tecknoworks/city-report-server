@@ -16,6 +16,7 @@ class ImagesController < BaseController
     # todo manage logging to a file and add verbose copy
     # FileUtils::Verbose::cp
     FileUtils::cp(tempfile.path, storage_path)
+    File.chmod(0755, storage_path)
     FileUtils::cp('public/images/placeholder.png', thumb_path)
 
     ThumbnailWorker.perform_async(storage_path)
