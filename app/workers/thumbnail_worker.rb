@@ -4,7 +4,6 @@ class ThumbnailWorker
   # sidekiq_options retry: false
 
   def perform image_path
-    puts 'hello world'
     # do stuff here
   end
 end

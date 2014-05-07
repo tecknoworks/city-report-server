@@ -10,7 +10,8 @@ class BaseController < Sinatra::Base
 
     def generate_upload_response storage_filename
       {
-        url: base_url + 'images/uploads/' + storage_filename
+        url: base_url + 'images/uploads/' + storage_filename,
+        thumbUrl: base_url + 'images/uploads/thumbs/' + storage_filename
       }
     end
 

@@ -5,7 +5,7 @@
   %pre= pretty_json(render_response_without_changing_status('this is where the content will be').to_json)
 
   %h2 Image Upload Service
-  %p Used to upload images to the server. Will return a public url for the image
+  %p Used to upload <b>png</b> images to the server. Will return a public url for the image
   %p <b>POST</b> /upload with 'image' param
   %p Examples:
   %p curl -X POST -F "image=@public/images/logo.png" #{base_url}upload
@@ -61,3 +61,4 @@
   %p <b>400002</b> - invalid coordinates
   %p <b>400003</b> - invalid category
   %p <b>400004</b> - requires at least one image
+  %p <b>400020</b> - invalid image extension. png only
