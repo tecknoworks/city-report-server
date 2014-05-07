@@ -11,6 +11,14 @@ class WelcomeController < BaseController
     haml :upload
   end
 
+  get '/eula' do
+    haml :eula
+  end
+
+  get '/about' do
+    haml :about
+  end
+
   get '/meta' do
     settings.config['meta'].to_json
   end
