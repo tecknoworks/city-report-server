@@ -4,7 +4,7 @@ module BaseHelper
   end
 
   def doc_issue
-    Issue.new(name: 'name', address: '', lat: 0, lon: 0, created_at: Time.now, updated_at: Time.now, category: Repara.categories.last)
+    Issue.new(name: 'name', address: '', lat: 0, lon: 0, created_at: Time.now, updated_at: Time.now, category: Repara.categories.last, images: ["#{base_url}images/logo.png"])
   end
 
   def pretty_json h
