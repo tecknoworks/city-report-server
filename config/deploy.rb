@@ -6,7 +6,7 @@ set :repo_url, 'git@gitlab.st.st2k.ro:repara/repara-clujul-server.git'
 
 # Default branch is :master
 # ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }.call
-ask :branch, 'v3'
+set :branch, 'dev'
 
 # Default deploy_to directory is /var/www/my_app
 set :deploy_to, '/home/croco/repara-clujul-server'
