@@ -65,7 +65,5 @@
 
   %br
   %h3 Request codes
-  %p <b>200</b> - ok
-  %p <b>404</b> - not found
-  - ErrorCodes.constants.each do |ec|
-    %p <b>#{ErrorCodes.const_get(ec)}</b> #{ec.to_s.gsub('_', ' ').downcase}
+  - RequestCodes.constants.each do |rc|
+    %p <b>#{RequestCodes.const_get(rc)}</b> #{rc.to_s.gsub('_', ' ').downcase}

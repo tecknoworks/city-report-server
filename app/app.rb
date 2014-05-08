@@ -17,7 +17,7 @@ require './app/models/issue'
 require './app/helpers/base_helper'
 require './app/helpers/repara_helper'
 
-require './app/error_codes'
+require './app/request_codes'
 
 require './app/controllers/base_controller'
 require './app/controllers/meta_controller'

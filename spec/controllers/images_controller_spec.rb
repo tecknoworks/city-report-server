@@ -25,6 +25,6 @@ describe ImagesController do
     path_to_file = "public/images/uploads/#{non_png_filename}"
     post '/', { 'image' => Rack::Test::UploadedFile.new('spec/assets/' + non_png_filename) }
     last_response.status.should == 400
-    JSON.parse(last_response.body)['code'].should == ErrorCodes::INVALID_IMAGE_FORMAT
+    JSON.parse(last_response.body)['code'].should == RequestCodes::INVALID_IMAGE_FORMAT
   end
 end

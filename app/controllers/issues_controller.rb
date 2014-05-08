@@ -1,5 +1,5 @@
 class IssuesController < BaseController
-  include ErrorCodes
+  include RequestCodes
 
   get '/' do
     limit = params['limit'].nil? ? 10 : params['limit']

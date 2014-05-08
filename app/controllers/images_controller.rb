@@ -1,6 +1,6 @@
 class ImagesController < BaseController
   include ReparaHelper
-  include ErrorCodes
+  include RequestCodes
 
   post '/' do
     tempfile = params[:image][:tempfile]
