@@ -1,6 +1,6 @@
 module BaseHelper
   def base_url
-    settings.config['base_url']
+    Repara.config['base_url']
   end
 
   def doc_issue
