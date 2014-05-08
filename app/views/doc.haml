@@ -23,9 +23,9 @@
   %p All requests should have the Content-Type header set to <b>application/json</b>
   %p If no address is specified, the issue will be geocoded from lat and lon
   %p Example issue
-  %pre= pretty_json Issue.first.to_json
+  %pre= pretty_json doc_issue.to_json
   %p Example response
-  %pre= pretty_json(render_response_without_changing_status(Issue.first).to_json)
+  %pre= pretty_json(render_response_without_changing_status(doc_issue).to_json)
   %p Example error
   %pre= pretty_json(render_response_without_changing_status('issue with id bla not found', 404).to_json)
   %h3 Requests
@@ -49,11 +49,11 @@
 
   %br
   %p <b>PUT</b> /issues/:id
-  %p curl -X PUT -H 'Content-Type: application/json' -d '{"name":"test2"}' #{base_url}issues/#{Issue.first['_id']}
+  %p curl -X PUT -H 'Content-Type: application/json' -d '{"name":"test2"}' #{base_url}issues/#{doc_issue['_id']}
 
   %br
   %p <b>PUT</b> /issues/:id/add_to_set
-  %p curl -X PUT -H 'Content-Type: application/json' -d '{"images":["http://foo.png","http://bar.png"]}' #{base_url}issues/#{Issue.first['_id']}/add_to_set
+  %p curl -X PUT -H 'Content-Type: application/json' -d '{"images":["http://foo.png","http://bar.png"]}' #{base_url}issues/#{doc_issue['_id']}/add_to_set
   %p required body
   %pre= pretty_json({'images' => ['url1', 'url2'] }.to_json)
 

@@ -13,8 +13,12 @@ require 'sinatra/json'
 
 require './app/geocoder'
 require './app/models/issue'
-require './app/repara_helper'
+
+require './app/helpers/base_helper'
+require './app/helpers/repara_helper'
+
 require './app/error_codes'
+
 require './app/controllers/base_controller'
 require './app/controllers/meta_controller'
 require './app/controllers/welcome_controller'

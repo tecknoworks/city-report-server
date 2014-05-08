@@ -1,38 +1,6 @@
 class BaseController < Sinatra::Base
   helpers do
-    def base_url
-      settings.config['base_url']
-    end
-
-    def pretty_json h
-      JSON.pretty_generate(JSON.parse(h))
-    end
-
-    def generate_upload_response storage_filename
-      {
-        url: base_url + 'images/uploads/original/' + storage_filename,
-        thumbUrl: base_url + 'images/uploads/thumbs/' + storage_filename
-      }
-    end
-
-    def generate_delete_response items_deleted
-      {
-        deletedIssuesCount: items_deleted
-      }
-    end
-
-    def render_response body, code=200, status_code=nil
-      status_code ||= code
-      status status_code
-      json(render_response_without_changing_status(body, code))
-    end
-
-    def render_response_without_changing_status body, code=200
-      {
-        code: code,
-        body: body
-      }
-    end
+    include BaseHelper
   end
 
   configure do
