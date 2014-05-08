@@ -57,6 +57,12 @@
   %p required body
   %pre= pretty_json({'images' => ['url1', 'url2'] }.to_json)
 
+  - if Repara.config['allow_delete_all_issues']
+    %br
+    %p <b>DELETE</b> /issues
+    %p example response:
+    %pre= pretty_json(render_response_without_changing_status(generate_delete_response(42)).to_json)
+
   %br
   %h3 Request codes
   %p <b>200</b> - ok

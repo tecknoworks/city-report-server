@@ -15,6 +15,12 @@ class BaseController < Sinatra::Base
       }
     end
 
+    def generate_delete_response items_deleted
+      {
+        deletedIssuesCount: items_deleted
+      }
+    end
+
     def render_response body, code=200, status_code=nil
       status_code ||= code
       status status_code
