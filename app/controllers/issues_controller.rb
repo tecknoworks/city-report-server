@@ -68,11 +68,15 @@ class IssuesController < BaseController
     case key
     when :name
       code = MISSING_NAME
-    when :lat, :lon
+    when :invalid_lat, :invalid_lon
       code = INVALID_COORDINATES
-    when :category
+    when :invalid_category
       code = INVALID_CATEGORY
-    when :images
+    when :invalid_image_url
+      code = INVALID_IMAGE_URL
+    when :invalid_image_format
+      code = INVALID_IMAGE_FORMAT
+    when :minimum_one_image_required
       code = REQUIRES_AT_LEAST_ONE_IMAGE
     else
       code = UNKNOWN_ERROR

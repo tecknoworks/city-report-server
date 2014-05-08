@@ -1,3 +1,4 @@
+require 'uri'
 require 'yaml'
 require 'json'
 require 'haml'
@@ -11,11 +12,11 @@ require 'sinatra/reloader'
 require 'sinatra/config_file'
 require 'sinatra/json'
 
-require './app/geocoder'
-require './app/models/issue'
-
 require './app/helpers/base_helper'
 require './app/helpers/repara_helper'
+
+require './app/geocoder'
+require './app/models/issue'
 
 require './app/request_codes'
 

@@ -14,7 +14,7 @@ describe Issue do
 
   it 'should create an issue' do
     expect {
-      i = Issue.new(name: 'foo', category: category, lat: 0, lon: 0, images: ['foo'])
+      i = Issue.new(name: 'foo', category: category, lat: 0, lon: 0, images: ['http://www.foo.com:80/bar.png'])
       i.save
       i.lat.should == 0
       i.lon.should == 0
