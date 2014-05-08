@@ -12,6 +12,10 @@ map '/' do
   run WelcomeController
 end
 
+map '/meta' do
+  run MetaController
+end
+
 map '/issues' do
   run IssuesController
 end
