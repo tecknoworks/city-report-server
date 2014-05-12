@@ -9,7 +9,7 @@ describe Issue do
   end
 
   it 'uses factory girl' do
-    p build(:issue)
+    build(:issue).should_not be_nil
   end
 
   it 'knows if it is invalid before save' do
