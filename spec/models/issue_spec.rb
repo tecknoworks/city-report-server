@@ -63,15 +63,23 @@ describe Issue do
     issue.vote_counter.should == 2
   end
 
-  it 'should add_params_to_sets' do
+  it 'should add_params_to_set' do
     issue = create(:issue)
     expect {
-      issue.add_params_to_sets({
+      issue.add_params_to_set({
         'images' => [{url: 'http://www.bew.one/pic.png'}],
         'comments' => ['noice']
       })
       issue.reload
     }.to change {issue.images.count + issue.comments.count}.by 2
+  end
+
+  it 'checks for a valid comment format' do
+    issue = create(:issue)
+    issue.add_params_to_set({
+      'comments' => [{foo: 'noice'}]
+    })
+    issue.valid?.should be_false
   end
 
   it 'searches' do

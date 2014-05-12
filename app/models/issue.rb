@@ -18,6 +18,7 @@ class Issue < BaseModel
   validate :allowed_category
   validate :minimum_one_image
   validate :image_urls
+  validate :comments_format
 
   before_save :set_thumbnails
   before_validation :downcase_category
@@ -30,7 +31,7 @@ class Issue < BaseModel
     })
   end
 
-  def add_params_to_sets params
+  def add_params_to_set params
     # params = params.clone.with_indifferent_access
     ['images', 'comments'].each do |key|
       if params.has_key?(key)
@@ -57,6 +58,13 @@ class Issue < BaseModel
 
   def downcase_category
     self.category = self.category.downcase unless self.category.nil?
+  end
+
+  def comments_format
+    self.comments.each do |comment|
+      self.errors.add(:invalid_comment_format, 'string only') unless
+      comment.class == String
+    end
   end
 
   def set_thumbnails

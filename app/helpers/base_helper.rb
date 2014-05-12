@@ -6,9 +6,9 @@ module BaseHelper
   end
 
   def doc_issue
-    issue = Issue.new(name: 'name', address: '', lat: 0, lon: 0, created_at: Time.now, updated_at: Time.now, category: Repara.categories.last, images: [{url: "#{base_url}images/logo.png"}])
+    issue = Issue.new(name: 'name', address: '', lat: 0, lon: 0, created_at: Time.now, updated_at: Time.now, category: Repara.categories.last, images: [{url: "#{base_url}images/logo.png"}], comments: ['nice'] )
     # checking for this in the /doc request
-    raise 'shame on the developer' unless issue.valid?
+    raise 'issue example in documentation out of date' unless issue.valid?
     issue
   end
 

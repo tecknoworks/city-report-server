@@ -55,8 +55,8 @@
   %br
   %p <b>PUT</b> /issues/:id/add_to_set
   %p curl -X PUT -H 'Content-Type: application/json' -d '{"images":[{"url":"#{base_url}images/logo2.png"}]}' #{base_url}issues/#{doc_issue['_id']}/add_to_set
-  %p required body
-  %pre= pretty_json({'images' => ['url1', 'url2'] }.to_json)
+  %p a request with the body set as shown below will add url1 and ulr2 to issue.images and comment1 to issue.comments if they are not already there
+  %pre= pretty_json({images: [{url: 'url1'}, {url: 'url2'}], comments: ['comment1'] }.to_json)
 
   %br
   %p <b>POST</b> /issues/:id/vote

@@ -52,7 +52,7 @@ class IssuesController < BaseController
     issue = Issue.find(params[:id])
     return render_response("issue with id #{params[:id]} not found", NOT_FOUND) if issue.nil?
 
-    issue.add_params_to_sets(params)
+    issue.add_params_to_set(params)
 
     if issue.valid?
       render_response issue
@@ -76,6 +76,7 @@ class IssuesController < BaseController
     render_response(generate_delete_response(Issue.delete_all))
   end
 
+  # TODO move this in the correct place
   def error_desc_for issue
     issue.errors.first.join(' ')
   end
@@ -97,6 +98,8 @@ class IssuesController < BaseController
       code = REQUIRES_AT_LEAST_ONE_IMAGE
     when :invalid_image_hash_format
       code = INVALID_IMAGE_HASH_FORMAT
+    when :invalid_comment_format
+      code = INVALID_COMMENT_FORMAT
     else
       code = UNKNOWN_ERROR
     end

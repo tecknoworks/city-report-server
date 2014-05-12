@@ -152,7 +152,33 @@ describe IssuesController do
       issue.reload
       issue['images'].count.should be 2
 
-      last_response.status.should == 200
+      last_response.status.should == RequestCodes::SUCCESS
+    end
+
+    it 'adds a comment to comments' do
+      issue = create(:issue)
+
+      issue['comments'].count.should be 0
+      put "/#{issue['_id']}/add_to_set", comments: ['comment']
+      issue = Issue.find(issue['_id'])
+      issue.reload
+      issue['comments'].count.should be 1
+
+      last_response.status.should == RequestCodes::SUCCESS
+    end
+
+    it 'does not add invalid comments' do
+      issue = create(:issue)
+
+      issue['comments'].count.should be 0
+      put "/#{issue['_id']}/add_to_set", comments: [{asd: 'comment'}]
+      issue = Issue.find(issue['_id'])
+      issue.reload
+      issue['comments'].count.should be 1
+      issue.valid?.should be_false
+
+      last_response.status.should == RequestCodes::BAD_REQUEST
+      JSON.parse(last_response.body)['code'].should == RequestCodes::INVALID_COMMENT_FORMAT
     end
   end
 end
