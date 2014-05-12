@@ -23,6 +23,8 @@ GEM
     daemon_controller (1.2.0)
     diff-lcs (1.2.5)
     dotenv (0.7.0)
+    factory_girl (4.4.0)
+      activesupport (>= 3.0.0)
     ffi (1.9.3)
     foreman (0.66.0)
       dotenv (~> 0.7.0)
@@ -130,6 +132,7 @@ PLATFORMS
 
 DEPENDENCIES
   capistrano
+  factory_girl
   foreman
   guard-rspec
   haml

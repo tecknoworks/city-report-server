@@ -8,6 +8,10 @@ describe Issue do
     Mongoid.default_session.options[:database].should == 'repara-test'
   end
 
+  it 'uses factory girl' do
+    p build(:issue)
+  end
+
   it 'knows if it is invalid before save' do
     Issue.new(name: 'foo', category: category, lat: 0, lon: 0).valid?.should be_false
   end

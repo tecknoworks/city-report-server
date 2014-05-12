@@ -16,4 +16,5 @@ gem 'foreman'
 group :development do
   gem 'rspec'
   gem 'guard-rspec'
+  gem 'factory_girl'
 end

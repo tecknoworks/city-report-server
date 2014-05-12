@@ -1,4 +1,5 @@
 require 'rack/test'
+require 'factory_girl'
 
 ENV['RACK_ENV'] = 'test'
 
@@ -23,6 +24,11 @@ RSpec.configure do |config|
   config.run_all_when_everything_filtered = true
   config.filter_run :focus
   config.include RSpecMixin
+  config.include FactoryGirl::Syntax::Methods
+  config.before(:suite) do
+    FactoryGirl.find_definitions
+    FactoryGirl.lint
+  end
 
   I18n.config.enforce_available_locales = true
 
