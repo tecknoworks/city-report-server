@@ -18,7 +18,7 @@ class ImagesController < BaseController
     File.chmod(0755, image.storage_path)
     FileUtils::cp('public/images/placeholder.png', image.storage_thumb_path)
 
-    ThumbnailWorker.perform_async(image.storage_path, image.storage_thumb_path)
+    ThumbnailWorker.perform_async(image.id.to_s)
 
     render_response(image.to_api)
   end
