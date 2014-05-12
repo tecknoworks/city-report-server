@@ -24,10 +24,10 @@ class Image < BaseModel
     self.storage_filename = serialize_filename(self.original_filename)
 
     self.storage_path = File.join('public/images/uploads/original/', self.storage_filename)
-    self.storage_thumb_path = File.join('public/images/uploads/thumbs/', self.storage_filename)
+    self.storage_thumb_path = File.join('public/images/uploads/thumb/', self.storage_filename)
 
     self.url = Repara.base_url + 'images/uploads/original/' + self.storage_filename
-    self.thumb_url = Repara.base_url + 'images/uploads/thumbs/' + self.storage_filename
+    self.thumb_url = Repara.base_url + 'images/uploads/thumb/' + self.storage_filename
   end
 
   def image_format

@@ -17,6 +17,8 @@ class Issue < BaseModel
   validate :minimum_one_image
   validate :image_urls
 
+  before_save :set_thumbnails
+
   def self.search s
     self.any_of({
       name: /.*#{s}.*/i,
@@ -26,6 +28,17 @@ class Issue < BaseModel
   end
 
   protected
+
+  def set_thumbnails
+    self.images.each do |img|
+      # accessing a hash with either string or symbol keys
+      # because the param keys in the test environment are saved as symbols
+      # and on production they are saved as strings
+      if img.with_indifferent_access[:url].start_with? Repara.base_url
+        img[:thumb_url] = original_url_to_thumbnail_url(img.with_indifferent_access[:url])
+      end
+    end
+  end
 
   # check that image url is valid
   def minimum_one_image

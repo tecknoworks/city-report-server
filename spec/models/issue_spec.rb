@@ -30,6 +30,7 @@ describe Issue do
       i.lat.should == 1
       i.lon.should == 2
       i.images.should_not be_empty
+      i.images.first.has_key?(:thumb_url).should be_true
       i.errors.should be_empty
     }.to change{ Issue.count }.by 1
   end

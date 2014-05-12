@@ -90,6 +90,8 @@ describe IssuesController do
 
       issue['splat'].should be_nil
       issue['captures'].should be_nil
+
+      last_response.status.should == RequestCodes::SUCCESS
     end
 
     it 'returns error when updating with invalid object id' do
