@@ -1,9 +1,9 @@
 FactoryGirl.define do
   factory :issue do
-    name 'name'
-    category 'altele'
-    lat 0
-    lon 0
+    name 'Wow such pothole'
+    category Repara.categories.last
+    lat 1
+    lon 2
     images ['http://www.google.com/asd.png']
   end
 end

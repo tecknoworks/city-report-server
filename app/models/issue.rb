@@ -1,8 +1,4 @@
-class Issue
-  include Mongoid::Document
-  include Mongoid::Timestamps
-
-  include ReparaHelper
+class Issue < BaseModel
 
   field :name, type: String
   field :lat, type: Float

@@ -1,5 +1,4 @@
 class ImagesController < BaseController
-  include ReparaHelper
   include RequestCodes
 
   post '/' do

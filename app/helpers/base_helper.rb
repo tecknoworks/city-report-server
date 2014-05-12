@@ -1,3 +1,5 @@
+# Helper for BaseController
+# this module is included in the sinatra helpers
 module BaseHelper
   def base_url
     Repara.config['base_url']

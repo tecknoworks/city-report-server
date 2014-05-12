@@ -1,8 +1,4 @@
-class Image
-  include Mongoid::Document
-  include Mongoid::Timestamps
-
-  include ReparaHelper
+class Image < BaseModel
 
   field :original_filename, type: String
   field :storage_filename, type: String

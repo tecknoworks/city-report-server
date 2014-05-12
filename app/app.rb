@@ -16,6 +16,8 @@ require './app/helpers/base_helper'
 require './app/helpers/repara_helper'
 
 require './app/geocoder'
+
+require './app/models/base_model'
 require './app/models/issue'
 require './app/models/image'
 
