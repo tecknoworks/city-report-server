@@ -146,9 +146,10 @@ describe IssuesController do
       issue = create(:issue)
 
       issue['images'].count.should be 1
-      put "/#{issue['_id']}/add_to_set", 'images' => [{url: 'http://www.google.com/image2.png'}]
+      put "/#{issue['_id']}/add_to_set", images: [{url: 'http://www.google.com/image2.png'}]
 
       issue = Issue.find(issue['_id'])
+      issue.reload
       issue['images'].count.should be 2
 
       last_response.status.should == 200

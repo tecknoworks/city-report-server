@@ -16,7 +16,7 @@ class IssuesController < BaseController
     issue = Issue.create(params)
 
     unless issue.valid?
-      return render_response('invalid params', get_error_code(issue), BAD_REQUEST)
+      return render_response(error_desc_for(issue), error_code_for(issue), BAD_REQUEST)
     end
 
     GeocodeWorker.perform_async issue[:_id].to_s
@@ -40,7 +40,7 @@ class IssuesController < BaseController
     if issue.valid?
       render_response issue
     else
-      render_response('invalid params', get_error_code(issue), BAD_REQUEST)
+      render_response(error_desc_for(issue), error_code_for(issue), BAD_REQUEST)
     end
   end
 
@@ -52,14 +52,12 @@ class IssuesController < BaseController
     issue = Issue.find(params[:id])
     return render_response("issue with id #{params[:id]} not found", NOT_FOUND) if issue.nil?
 
-    params['images'].each do |s|
-      issue.add_to_set('images', s)
-    end
+    issue.add_params_to_sets(params)
 
     if issue.valid?
       render_response issue
     else
-      render_response('invalid params', get_error_code(issue), BAD_REQUEST)
+      render_response(error_desc_for(issue), error_code_for(issue), BAD_REQUEST)
     end
   end
 
@@ -78,7 +76,11 @@ class IssuesController < BaseController
     render_response(generate_delete_response(Issue.delete_all))
   end
 
-  def get_error_code issue
+  def error_desc_for issue
+    issue.errors.first.join(' ')
+  end
+
+  def error_code_for issue
     key = issue.errors.first.first
     case key
     when :name

@@ -5,8 +5,9 @@ class Issue < BaseModel
   field :lon, type: Float
   field :address, type: String, default: ''
   field :category, type: String
-  field :images, type: Array, default: []
   field :vote_counter, type: Integer, default: 0
+  field :images, type: Array, default: []
+  field :comments, type: Array, default: []
 
   validates :name, presence: true
   validates :category, presence: true
@@ -27,6 +28,17 @@ class Issue < BaseModel
       address: /.*#{s}.*/i,
       category: /.*#{s}.*/i
     })
+  end
+
+  def add_params_to_sets params
+    # params = params.clone.with_indifferent_access
+    ['images', 'comments'].each do |key|
+      if params.has_key?(key)
+        params[key].each do |s|
+          self.add_to_set(key, s)
+        end
+      end
+    end
   end
 
   def upvote!
@@ -60,14 +72,14 @@ class Issue < BaseModel
 
   # check that image url is valid
   def minimum_one_image
-    self.errors.add(:minimum_one_image_required, 'requires at least one image') unless
+    self.errors.add(:minimum_one_image_required, '') unless
     !self.images.empty?
   end
 
   def image_urls
     self.images.each do |img|
       unless img.class == Hash
-        self.errors.add(:invalid_image_hash_format, 'invalid image hash format')
+        self.errors.add(:invalid_image_hash_format, 'check /doc for the required format')
         return
       end
       # accessing a hash with either string or symbol keys
@@ -76,30 +88,30 @@ class Issue < BaseModel
       img = img.with_indifferent_access
 
       unless img.has_key?(:url)
-        self.errors.add(:invalid_image_hash_format, 'invalid image hash format')
+        self.errors.add(:invalid_image_hash_format, 'check /doc for the required format')
         return
       end
 
       img_url = img[:url]
 
-      self.errors.add(:invalid_image_url, 'invalid image url') unless
+      self.errors.add(:invalid_image_url, 'it needs to be a valid URL') unless
       img_url =~ URI::regexp
 
-      self.errors.add(:invalid_image_format, 'invalid image format') unless
+      self.errors.add(:invalid_image_format, 'only png images supported') unless
       image?(img_url)
     end
   end
 
   def coordinates
-    self.errors.add(:invalid_lat, 'invalid lat') unless
+    self.errors.add(:invalid_lat, 'is it between -90 and 90?') unless
     self.lat.nil? || -90.0 < self.lat && self.lat < 90.0
 
-    self.errors.add(:invalid_lon, 'invalid lon') unless
+    self.errors.add(:invalid_lon, 'is it between -180 and 180?') unless
     self.lon.nil? || -180.0 < self.lon && self.lon < 180
   end
 
   def allowed_category
-    self.errors.add(:invalid_category, 'invalid category') unless
+    self.errors.add(:invalid_category, 'check /meta for allowed categories') unless
     Repara.categories.include? self.category
   end
 end

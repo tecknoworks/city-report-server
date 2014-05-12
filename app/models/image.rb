@@ -31,7 +31,7 @@ class Image < BaseModel
   end
 
   def image_format
-    self.errors.add(:invalid_image_format, 'invalid image format') unless
+    self.errors.add(:invalid_image_format, 'only png images are allowed') unless
     image?(self.original_filename)
   end
 end

@@ -63,6 +63,17 @@ describe Issue do
     issue.vote_counter.should == 2
   end
 
+  it 'should add_params_to_sets' do
+    issue = create(:issue)
+    expect {
+      issue.add_params_to_sets({
+        'images' => [{url: 'http://www.bew.one/pic.png'}],
+        'comments' => ['noice']
+      })
+      issue.reload
+    }.to change {issue.images.count + issue.comments.count}.by 2
+  end
+
   it 'searches' do
     search_term = 'foo'
     issues = Issue.search(search_term)
