@@ -18,6 +18,7 @@ class Issue < BaseModel
   validate :image_urls
 
   before_save :set_thumbnails
+  before_validation :downcase_category
 
   def self.search s
     self.any_of({
@@ -28,6 +29,10 @@ class Issue < BaseModel
   end
 
   protected
+
+  def downcase_category
+    self.category = self.category.downcase unless self.category.nil?
+  end
 
   def set_thumbnails
     self.images.each do |img|

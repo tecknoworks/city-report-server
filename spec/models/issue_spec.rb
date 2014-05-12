@@ -35,6 +35,17 @@ describe Issue do
     }.to change{ Issue.count }.by 1
   end
 
+  it 'requires a valid category' do
+    build(:issue, category: 'asta_sigur_nu_e_categorie').valid?.should be_false
+  end
+
+  it 'knows category will be downcased' do
+    expect {
+      issue = create(:issue, category: 'ALTELE')
+      issue.category.should == 'altele'
+    }.to change{ Issue.count }.by 1
+  end
+
   it 'searches' do
     search_term = 'foo'
     issues = Issue.search(search_term)
