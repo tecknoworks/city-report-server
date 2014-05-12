@@ -5,22 +5,21 @@ class ImagesController < BaseController
   post '/' do
     tempfile = params[:image][:tempfile]
     filename = params[:image][:filename]
-    unless image?(filename)
+
+    image = Image.new(original_filename: filename)
+    unless image.valid?
       return render_response('only png images allowed', INVALID_IMAGE_FORMAT, 400)
     end
-
-    storage_filename = serialize_filename filename
-    storage_path = File.join('public/images/uploads/original/', storage_filename)
-    thumb_path = File.join('public/images/uploads/thumbs/', storage_filename)
+    image.save
 
     # todo manage logging to a file and add verbose copy
     # FileUtils::Verbose::cp
-    FileUtils::cp(tempfile.path, storage_path)
-    File.chmod(0755, storage_path)
-    FileUtils::cp('public/images/placeholder.png', thumb_path)
+    FileUtils::cp(tempfile.path, image.storage_path)
+    File.chmod(0755, image.storage_path)
+    FileUtils::cp('public/images/placeholder.png', image.storage_thumb_path)
 
-    ThumbnailWorker.perform_async(storage_path, thumb_path)
+    ThumbnailWorker.perform_async(image.storage_path, image.storage_thumb_path)
 
-    render_response(generate_upload_response(storage_filename))
+    render_response(image.to_api)
   end
 end

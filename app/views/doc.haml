@@ -17,7 +17,7 @@
   %p
     %a{:href => '/up'} form example
   %p Sample response:
-  %pre= pretty_json(render_response_without_changing_status(generate_upload_response('image.png')).to_json)
+  %pre= pretty_json(doc_image)
 
   %h2 Issue Reporting Service
   %p All requests should have the Content-Type header set to <b>application/json</b>

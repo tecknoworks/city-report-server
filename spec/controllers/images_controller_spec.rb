@@ -5,7 +5,7 @@ describe ImagesController do
   let(:non_png_filename) { 'test.tar.gz' }
 
   it 'should upload files' do
-    ImagesController.any_instance.stub(:serialize_filename).and_return(filename)
+    Image.any_instance.stub(:storage_filename).and_return(filename)
 
     # prepare env
     path_to_file = "public/images/uploads/original/#{filename}"
@@ -22,7 +22,7 @@ describe ImagesController do
   it 'should only allow png images' do
     ImagesController.any_instance.stub(:serialize_filename).and_return(non_png_filename)
 
-    path_to_file = "public/images/uploads/#{non_png_filename}"
+    # path_to_file = "public/images/uploads/#{non_png_filename}"
     post '/', { 'image' => Rack::Test::UploadedFile.new('spec/assets/' + non_png_filename) }
     last_response.status.should == 400
     JSON.parse(last_response.body)['code'].should == RequestCodes::INVALID_IMAGE_FORMAT

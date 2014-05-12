@@ -17,6 +17,7 @@ require './app/helpers/repara_helper'
 
 require './app/geocoder'
 require './app/models/issue'
+require './app/models/image'
 
 require './app/request_codes'
 
@@ -36,6 +37,10 @@ class Repara
 
   def self.categories
     self.config['meta']['categories']
+  end
+
+  def self.base_url
+    self.config['base_url']
   end
 end
 

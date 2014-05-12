@@ -7,15 +7,16 @@ module BaseHelper
     Issue.new(name: 'name', address: '', lat: 0, lon: 0, created_at: Time.now, updated_at: Time.now, category: Repara.categories.last, images: ["#{base_url}images/logo.png"])
   end
 
-  def pretty_json h
-    JSON.pretty_generate(JSON.parse(h))
+  def doc_image
+    image = Image.new(original_filename: 'foo.png')
+    # Hack to call a protected method.
+    # Only want it for documentation purposes
+    image.send(:set_data_from_original_filename)
+    render_response_without_changing_status(image.to_api).to_json
   end
 
-  def generate_upload_response storage_filename
-    {
-      url: base_url + 'images/uploads/original/' + storage_filename,
-      thumbUrl: base_url + 'images/uploads/thumbs/' + storage_filename
-    }
+  def pretty_json h
+    JSON.pretty_generate(JSON.parse(h))
   end
 
   def generate_delete_response items_deleted
