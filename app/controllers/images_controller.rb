@@ -2,12 +2,16 @@ class ImagesController < BaseController
   include RequestCodes
 
   post '/' do
+    if params[:image].nil?
+      return render_response('missing image param', MISSING_IMAGE, BAD_REQUEST)
+    end
+
     tempfile = params[:image][:tempfile]
     filename = params[:image][:filename]
 
     image = Image.new(original_filename: filename)
     unless image.valid?
-      return render_response('only png images allowed', INVALID_IMAGE_FORMAT, 400)
+      return render_response('only png images allowed', INVALID_IMAGE_FORMAT, BAD_REQUEST)
     end
     image.save
 

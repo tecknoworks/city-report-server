@@ -11,6 +11,11 @@ describe ImagesController do
     }.to change { Image.count }.by 1
   end
 
+  it 'should give an error when image param is missing' do
+    post '/'
+    last_response.status.should == RequestCodes::BAD_REQUEST
+  end
+
   it 'should show the url and thumb_url' do
     Image.any_instance.stub(:storage_filename).and_return(filename)
     post '/', { 'image' => Rack::Test::UploadedFile.new('spec/assets/logo.png', 'image/png') }
@@ -42,9 +47,8 @@ describe ImagesController do
   it 'should only allow png images' do
     ImagesController.any_instance.stub(:serialize_filename).and_return(non_png_filename)
 
-    # path_to_file = "public/images/uploads/#{non_png_filename}"
     post '/', { 'image' => Rack::Test::UploadedFile.new('spec/assets/' + non_png_filename) }
-    last_response.status.should == 400
+    last_response.status.should == RequestCodes::BAD_REQUEST
     JSON.parse(last_response.body)['code'].should == RequestCodes::INVALID_IMAGE_FORMAT
   end
 end

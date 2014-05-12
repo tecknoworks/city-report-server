@@ -10,16 +10,15 @@ class IssuesController < BaseController
   end
 
   post '/' do
-    issue = Issue.new(params)
-    if issue.valid?
-      issue.save
+    issue = Issue.create(params)
 
-      GeocodeWorker.perform_async issue[:_id].to_s
-
-      render_response issue
-    else
-      render_response('invalid params', get_error_code(issue), BAD_REQUEST)
+    unless issue.valid?
+      return render_response('invalid params', get_error_code(issue), BAD_REQUEST)
     end
+
+    GeocodeWorker.perform_async issue[:_id].to_s
+
+    render_response issue
   end
 
   put '/:id' do
