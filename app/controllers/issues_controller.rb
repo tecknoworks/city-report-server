@@ -81,9 +81,8 @@ class IssuesController < BaseController
     issue.errors.first.join(' ')
   end
 
-  def error_code_for issue
-    key = issue.errors.first.first
-    case key
+  def error_code_for model
+    case model.errors.first.first
     when :name
       code = MISSING_NAME
     when :invalid_lat, :invalid_lon
