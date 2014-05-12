@@ -21,6 +21,14 @@ class Issue
   validate :minimum_one_image
   validate :image_urls
 
+  def self.search s
+    self.any_of({
+      name: /.*#{s}.*/i,
+      address: /.*#{s}.*/i,
+      category: /.*#{s}.*/i
+    })
+  end
+
   protected
 
   # check that image url is valid

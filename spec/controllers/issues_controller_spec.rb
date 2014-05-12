@@ -4,6 +4,15 @@ describe IssuesController do
   let(:category) { Repara.categories.last }
   let(:valid_issue_hash) { {name: 'foo', category: category, lat: 0, lon: 0, images: ['http://www.yahoo.com/asd.png']} }
 
+  context 'find' do
+    it 'returns all issues' do
+      #post '/', valid_issue_hash
+      #get '/'
+      #issue = JSON.parse(last_response.body)['body'].first
+      #p issue
+    end
+  end
+
   context 'create' do
     it 'checks for required params' do
       post '/'
@@ -87,8 +96,6 @@ describe IssuesController do
 
     it 'returns error when updating with invalid object id' do
       post '/', name: 'foo', category: category
-      issue = JSON.parse(last_response.body)
-
       put "/invalid_id", name: 'bar'
       last_response.status.should == 404
     end

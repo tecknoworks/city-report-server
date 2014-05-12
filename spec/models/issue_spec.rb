@@ -22,4 +22,12 @@ describe Issue do
       i.errors.should be_empty
     }.to change{ Issue.count }.by 1
   end
+
+  it 'searches' do
+    search_term = 'foo'
+    issues = Issue.search(search_term)
+    issues.each do |i|
+      p i
+    end
+  end
 end
