@@ -21,7 +21,7 @@ module BaseHelper
 
   def generate_delete_response items_deleted
     {
-      deletedIssuesCount: items_deleted
+      deletedObjectsCount: items_deleted
     }
   end
 

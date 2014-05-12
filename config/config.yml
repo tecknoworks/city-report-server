@@ -1,7 +1,7 @@
 development: &common_settings
   env: 'development'
   base_url: 'http://localhost:9292/'
-  allow_delete_all_issues: true
+  allow_delete_all: true
   meta:
     categories: ['groapă', 'gunoi', 'vandalism', 'altele']
     zones: ['Andrei Mureșanu', 'Bulgaria', 'Bună Ziua', 'Centru']
