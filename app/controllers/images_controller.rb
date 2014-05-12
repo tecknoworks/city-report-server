@@ -9,11 +9,10 @@ class ImagesController < BaseController
     tempfile = params[:image][:tempfile]
     filename = params[:image][:filename]
 
-    image = Image.new(original_filename: filename)
+    image = Image.create(original_filename: filename)
     unless image.valid?
       return render_response('only png images allowed', INVALID_IMAGE_FORMAT, BAD_REQUEST)
     end
-    image.save
 
     # todo manage logging to a file and add verbose copy
     # FileUtils::Verbose::cp
