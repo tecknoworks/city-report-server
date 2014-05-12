@@ -58,14 +58,24 @@
   %p required body
   %pre= pretty_json({'images' => ['url1', 'url2'] }.to_json)
 
+  %br
+  %p <b>POST</b> /issues/:id/vote
+  %p curl -X POST -H 'Content-Type: application/json' -d '{}' #{base_url}issues/#{doc_issue['_id']}/vote
+  %p note: in HTML, length in a POST request is mandatory. send an empty hash if needed
+
+  - if Repara.config['allow_downvotes']
+    %br
+    %p <b>DELETE</b> /issues/:id/vote
+    %p curl -X DELETE -H 'Content-Type: application/json' #{base_url}issues/#{doc_issue['_id']}/vote
+
   - if Repara.config['allow_delete_all']
     %br
-    %p <b>DELETE</b> /issues
+    %p <b>DELETE</b> /issues - not available in production
     %p example response:
     %pre= pretty_json(render_response_without_changing_status(generate_delete_response(42)).to_json)
 
     %br
-    %p <b>DELETE</b> /images
+    %p <b>DELETE</b> /images - not available in production
     %p example response:
     %pre= pretty_json(render_response_without_changing_status(generate_delete_response(42)).to_json)
 

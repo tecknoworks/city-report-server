@@ -46,6 +46,23 @@ describe Issue do
     }.to change{ Issue.count }.by 1
   end
 
+  it 'votes up and down' do
+    issue = create(:issue)
+
+    issue.vote!(1)
+    issue.reload
+    issue.vote_counter.should == 1
+
+    issue.vote!(-1)
+    issue.reload
+    issue.vote_counter.should == 0
+
+    issue.vote!(1)
+    issue.vote!(1)
+    issue.reload
+    issue.vote_counter.should == 2
+  end
+
   it 'searches' do
     search_term = 'foo'
     issues = Issue.search(search_term)

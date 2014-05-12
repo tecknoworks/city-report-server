@@ -6,6 +6,7 @@ class Issue < BaseModel
   field :address, type: String, default: ''
   field :category, type: String
   field :images, type: Array, default: []
+  field :vote_counter, type: Integer, default: 0
 
   validates :name, presence: true
   validates :category, presence: true
@@ -26,6 +27,18 @@ class Issue < BaseModel
       address: /.*#{s}.*/i,
       category: /.*#{s}.*/i
     })
+  end
+
+  def upvote!
+    self.vote!(1)
+  end
+
+  def downvote!
+    self.vote!(-1)
+  end
+
+  def vote! i
+    self.inc(:vote_counter, i)
   end
 
   protected

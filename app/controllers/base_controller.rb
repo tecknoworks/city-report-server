@@ -13,6 +13,8 @@ class BaseController < Sinatra::Base
     file = File.new("#{Dir.pwd}/log/#{settings.environment}.log", 'a+')
     file.sync = true
     use Rack::CommonLogger, file
+
+    register Sinatra::MultiRoute
   end
 
   configure :development do

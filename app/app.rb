@@ -11,6 +11,7 @@ require 'sinatra/base'
 require 'sinatra/reloader'
 require 'sinatra/config_file'
 require 'sinatra/json'
+require 'sinatra/multi_route'
 
 require './app/helpers/base_helper'
 require './app/helpers/repara_helper'

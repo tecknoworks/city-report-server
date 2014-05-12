@@ -13,6 +13,26 @@ describe IssuesController do
     end
   end
 
+  context 'voting' do
+    it 'upvotes' do
+      issue = create(:issue)
+      expect {
+        post "/#{issue.id.to_s}/vote"
+        last_response.status.should == RequestCodes::SUCCESS
+        issue.reload
+      }.to change{issue.vote_counter}.by(1)
+    end
+
+    it 'downvotes' do
+      issue = create(:issue)
+      expect {
+        delete "/#{issue.id.to_s}/vote"
+        last_response.status.should == RequestCodes::SUCCESS
+        issue.reload
+      }.to change{issue.vote_counter}.by(-1)
+    end
+  end
+
   context 'create' do
     it 'checks for required params' do
       post '/'
@@ -32,6 +52,15 @@ describe IssuesController do
 
       post '/', valid_issue_hash
       last_response.status.should == RequestCodes::SUCCESS
+    end
+
+    it 'does not allow the user to specify a number for the vote_counter' do
+      expect {
+        hacking_vote_counter = valid_issue_hash
+        hacking_vote_counter['vote_counter'] = 9001
+        post '/', hacking_vote_counter
+        JSON.parse(last_response.body)['body']['vote_counter'].should == 0
+      }.to change{Issue.count}.by 1
     end
 
     it 'creates an issue' do

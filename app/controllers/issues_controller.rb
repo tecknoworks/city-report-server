@@ -10,6 +10,9 @@ class IssuesController < BaseController
   end
 
   post '/' do
+    # do not allow the vote_counter to be different than 0
+    params.delete('vote_counter')
+
     issue = Issue.create(params)
 
     unless issue.valid?
@@ -22,6 +25,9 @@ class IssuesController < BaseController
   end
 
   put '/:id' do
+    # do not allow the update of the vote_counter
+    params.delete('vote_counter')
+
     # there params come from mongoid. we don't want them
     params.delete('splat')
     params.delete('captures')
@@ -55,6 +61,16 @@ class IssuesController < BaseController
     else
       render_response('invalid params', get_error_code(issue), BAD_REQUEST)
     end
+  end
+
+  route :post, :delete, '/:id/vote' do
+    issue = Issue.find(params[:id])
+    return render_response("issue with id #{params[:id]} not found", NOT_FOUND) if issue.nil?
+
+    issue.upvote! if request.post?
+    issue.downvote! if request.delete? && Repara.config['allow_downvotes']
+
+    render_response issue
   end
 
   delete '/' do
