@@ -77,6 +77,8 @@ class IssuesController < BaseController
       code = INVALID_IMAGE_FORMAT
     when :minimum_one_image_required
       code = REQUIRES_AT_LEAST_ONE_IMAGE
+    when :invalid_image_hash_format
+      code = INVALID_IMAGE_HASH_FORMAT
     else
       code = UNKNOWN_ERROR
     end

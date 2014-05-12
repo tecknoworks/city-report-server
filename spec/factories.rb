@@ -4,6 +4,7 @@ FactoryGirl.define do
     category Repara.categories.last
     lat 1
     lon 2
-    images ['http://www.google.com/asd.png']
+    images [{url: 'http://www.google.com/asd.png'}]
   end
+
 end

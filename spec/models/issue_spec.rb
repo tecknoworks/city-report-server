@@ -16,12 +16,19 @@ describe Issue do
     Issue.new(name: 'foo', category: category, lat: 0, lon: 0).valid?.should be_false
   end
 
+  it 'checks the validity of images hashes' do
+    issue = build(:issue, images: ['not even a hash'])
+    issue.valid?.should be_false
+
+    issue = build(:issue, images: [{foo: 'not even a hash'}])
+    issue.valid?.should be_false
+  end
+
   it 'should create an issue' do
     expect {
-      i = Issue.new(name: 'foo', category: category, lat: 0, lon: 0, images: ['http://www.foo.com:80/bar.png'])
-      i.save
-      i.lat.should == 0
-      i.lon.should == 0
+      i = create(:issue)
+      i.lat.should == 1
+      i.lon.should == 2
       i.images.should_not be_empty
       i.errors.should be_empty
     }.to change{ Issue.count }.by 1

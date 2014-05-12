@@ -41,7 +41,7 @@
 
   %br
   %p <b>POST</b> /issues
-  %p curl -X POST -H 'Content-Type: application/json' -d '{"name":"hello", "category":"altele", "lat":0, "lon":0,"images":["#{base_url}images/logo.png"]}' #{base_url}issues
+  %p curl -X POST -H 'Content-Type: application/json' -d '{"name":"hello", "category":"altele", "lat":0, "lon":0,"images":[{"url": "#{base_url}images/logo.png"}]}' #{base_url}issues
   %p Required body params: name, category, lat, lon, images
   %p
     Valid categories:
@@ -53,7 +53,7 @@
 
   %br
   %p <b>PUT</b> /issues/:id/add_to_set
-  %p curl -X PUT -H 'Content-Type: application/json' -d '{"images":["#{base_url}images/logo.png","#{base_url}images/logo.png"]}' #{base_url}issues/#{doc_issue['_id']}/add_to_set
+  %p curl -X PUT -H 'Content-Type: application/json' -d '{"images":[{"url":"#{base_url}images/logo2.png"}]}' #{base_url}issues/#{doc_issue['_id']}/add_to_set
   %p required body
   %pre= pretty_json({'images' => ['url1', 'url2'] }.to_json)
 

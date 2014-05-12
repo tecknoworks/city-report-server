@@ -34,7 +34,23 @@ class Issue < BaseModel
   end
 
   def image_urls
-    self.images.each do |img_url|
+    self.images.each do |img|
+      unless img.class == Hash
+        self.errors.add(:invalid_image_hash_format, 'invalid image hash format')
+        return
+      end
+      # accessing a hash with either string or symbol keys
+      # because the param keys in the test environment are saved as symbols
+      # and on production they are saved as strings
+      img = img.with_indifferent_access
+
+      unless img.has_key?(:url)
+        self.errors.add(:invalid_image_hash_format, 'invalid image hash format')
+        return
+      end
+
+      img_url = img[:url]
+
       self.errors.add(:invalid_image_url, 'invalid image url') unless
       img_url =~ URI::regexp
 
