@@ -24,7 +24,7 @@ class ImagesController < BaseController
   end
 
   delete '/' do
-    return render_response("method not allowed", 405) unless Repara.config['allow_delete_all']
+    return render_response("method not allowed", METHOD_NOT_ALLOWED) unless Repara.config['allow_delete_all']
     render_response(generate_delete_response(Image.delete_all))
   end
 end
