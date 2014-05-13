@@ -66,10 +66,7 @@ describe Issue do
   it 'should add_params_to_set' do
     issue = create(:issue)
     expect {
-      issue.add_params_to_set({
-        'images' => [{url: 'http://www.bew.one/pic.png'}],
-        'comments' => ['noice']
-      })
+      issue.add_params_to_set( {'images' => [{url: 'http://www.bew.one/pic.png'}], 'comments' => ['noice'] })
       issue.reload
     }.to change {issue.images.count + issue.comments.count}.by 2
   end
@@ -82,11 +79,12 @@ describe Issue do
     issue.valid?.should be_false
   end
 
-  it 'searches' do
-    search_term = 'foo'
-    issues = Issue.search(search_term)
-    issues.each do |i|
-      p i
+  context 'search' do
+    before :all do
+      Issue.delete_all
+    end
+
+    it 'should' do
     end
   end
 end

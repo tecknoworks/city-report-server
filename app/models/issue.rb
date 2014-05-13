@@ -23,14 +23,6 @@ class Issue < BaseModel
   before_save :set_thumbnails
   before_validation :downcase_category
 
-  def self.search s
-    self.any_of({
-      name: /.*#{s}.*/i,
-      address: /.*#{s}.*/i,
-      category: /.*#{s}.*/i
-    })
-  end
-
   def add_params_to_set params
     # params = params.clone.with_indifferent_access
     ['images', 'comments'].each do |key|
