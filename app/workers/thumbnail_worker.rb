@@ -14,6 +14,6 @@ class ThumbnailWorker
     logger.info "Resizing #{image.storage_path} -> #{image.storage_thumb_path}"
 
     img = MicroMagick::Image.new(image.storage_path)
-    img.strip.quality(85).resize("256x256").write(image.storage_thumb_path)
+    img.strip.quality(85).resize("100x100").write(image.storage_thumb_path)
   end
 end
