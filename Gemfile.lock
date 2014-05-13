@@ -25,6 +25,7 @@ GEM
     dotenv (0.7.0)
     factory_girl (4.4.0)
       activesupport (>= 3.0.0)
+    fast-stemmer (1.0.2)
     ffi (1.9.3)
     foreman (0.66.0)
       dotenv (~> 0.7.0)
@@ -59,6 +60,9 @@ GEM
       moped (~> 1.4)
       origin (~> 1.0)
       tzinfo (~> 0.3.29)
+    mongoid_search (0.3.2)
+      fast-stemmer (~> 1.0.0)
+      mongoid (>= 3.0.0)
     moped (1.5.2)
     multi_json (1.9.3)
     multi_xml (0.5.5)
@@ -139,6 +143,7 @@ DEPENDENCIES
   httparty
   micro_magick
   mongoid
+  mongoid_search
   passenger
   rack-parser
   rspec

@@ -23,6 +23,8 @@ class Issue < BaseModel
   before_save :set_thumbnails
   before_validation :downcase_category
 
+  search_in :name, :address, :category, :comments
+
   def add_params_to_set params
     # params = params.clone.with_indifferent_access
     ['images', 'comments'].each do |key|

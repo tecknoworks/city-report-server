@@ -82,9 +82,15 @@ describe Issue do
   context 'search' do
     before :all do
       Issue.delete_all
+
+      create(:issue, name: 'O Groapa Mare')
+      create(:issue, name: 'vandalism', address: 'Strada Dumbravelor 21')
     end
 
     it 'should' do
+      Issue.full_text_search("dumb").each do |foo|
+        # p foo
+      end
     end
   end
 end

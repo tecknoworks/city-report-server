@@ -4,8 +4,9 @@ class IssuesController < BaseController
   get '/' do
     limit = params['limit'].nil? ? 10 : params['limit']
     skip = params['skip'].nil? ? 0 : params['skip']
+    query = params['q']
 
-    issues = Issue.order_by([:created_at, :desc]).limit(limit).skip(skip)
+    issues = Issue.order_by([:created_at, :desc]).limit(limit).skip(skip).full_text_search(query)
     render_response issues
   end
 
@@ -19,6 +20,7 @@ class IssuesController < BaseController
       return render_response(error_desc_for(issue), error_code_for(issue), BAD_REQUEST)
     end
 
+    issue.index_keywords!
     GeocodeWorker.perform_async issue[:_id].to_s
 
     render_response issue
@@ -38,6 +40,7 @@ class IssuesController < BaseController
     issue.update_attributes(params)
 
     if issue.valid?
+      issue.index_keywords!
       render_response issue
     else
       render_response(error_desc_for(issue), error_code_for(issue), BAD_REQUEST)
@@ -55,6 +58,7 @@ class IssuesController < BaseController
     issue.add_params_to_set(params)
 
     if issue.valid?
+      issue.index_keywords!
       render_response issue
     else
       render_response(error_desc_for(issue), error_code_for(issue), BAD_REQUEST)
