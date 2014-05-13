@@ -5,11 +5,18 @@ describe IssuesController do
   let(:valid_issue_hash) { {name: 'foo', category: category, lat: 0, lon: 0, images: [{url: 'http://www.yahoo.com/asd.png'}]} }
 
   context 'find' do
+    before(:all) do
+      Issue.delete_all
+    end
+
     it 'returns all issues' do
-      #post '/', valid_issue_hash
-      #get '/'
-      #issue = JSON.parse(last_response.body)['body'].first
-      #p issue
+      create(:issue)
+      create(:issue, name: 'foo')
+      create(:issue, name: 'foo2')
+
+      get '/'
+      issues = JSON.parse(last_response.body)['body']
+      issues.length.should == 3
     end
   end
 
@@ -106,6 +113,15 @@ describe IssuesController do
       post '/', issue_with_invalid_image_url
       last_response.status.should == RequestCodes::BAD_REQUEST
       JSON.parse(last_response.body)['code'].should == RequestCodes::INVALID_IMAGE_FORMAT
+    end
+
+    it 'cries when name is too long' do
+      issue_with_invalid_image_url = valid_issue_hash
+      issue_with_invalid_image_url[:name] = 'a' * (Repara.name_max_length + 2)
+
+      post '/', issue_with_invalid_image_url
+      last_response.status.should == RequestCodes::BAD_REQUEST
+      JSON.parse(last_response.body)['code'].should == RequestCodes::STRING_TOO_BIG
     end
   end
 

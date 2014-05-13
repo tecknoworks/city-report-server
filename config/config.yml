@@ -3,6 +3,10 @@ development: &common_settings
   base_url: 'http://localhost:9292/'
   allow_delete_all: true
   allow_downvotes: true
+  string_max_length:
+    name: 32
+    comments: 140
+    address: 140
   meta:
     categories: ['groapă', 'gunoi', 'vandalism', 'altele']
     zones: ['Andrei Mureșanu', 'Bulgaria', 'Bună Ziua', 'Centru']

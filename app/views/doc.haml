@@ -23,6 +23,14 @@
   %p All requests should have the Content-Type header set to <b>application/json</b>
   %p If no address is specified, the issue will be geocoded from lat and lon
   %p issue.category will be lower cased by the server
+  %p max string length for
+  %ul
+    %li
+      %p name #{Repara.name_max_length}
+    %li
+      %p comment #{Repara.comments_max_length}
+    %li
+      %p address #{Repara.address_max_length}
   %p Example issue
   %pre= pretty_json doc_issue.to_json
   %p Example response

@@ -21,6 +21,7 @@ class IssuesController < BaseController
     end
 
     issue.index_keywords!
+
     GeocodeWorker.perform_async issue[:_id].to_s
 
     render_response issue
@@ -103,6 +104,8 @@ class IssuesController < BaseController
       code = INVALID_IMAGE_HASH_FORMAT
     when :invalid_comment_format
       code = INVALID_COMMENT_FORMAT
+    when :string_too_big
+      code = STRING_TOO_BIG
     else
       code = UNKNOWN_ERROR
     end

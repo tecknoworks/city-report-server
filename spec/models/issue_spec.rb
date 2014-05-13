@@ -63,6 +63,12 @@ describe Issue do
     issue.vote_counter.should == 2
   end
 
+  it 'takes into account max length' do
+    build(:issue, name: 'a' * (Repara.name_max_length + 2)).valid?.should be_false
+    build(:issue, address: 'a' * (Repara.address_max_length + 2)).valid?.should be_false
+    build(:issue, comments: ['a' * (Repara.comments_max_length + 2)]).valid?.should be_false
+  end
+
   it 'should add_params_to_set' do
     issue = create(:issue)
     expect {

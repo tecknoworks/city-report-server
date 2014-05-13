@@ -19,6 +19,7 @@ class Issue < BaseModel
   validate :minimum_one_image
   validate :image_urls
   validate :comments_format
+  validate :string_size_limit
 
   before_save :set_thumbnails
   before_validation :downcase_category
@@ -49,6 +50,22 @@ class Issue < BaseModel
   end
 
   protected
+
+  def string_size_limit
+    ['name', 'address'].each do |key|
+      max_length = Repara.send("#{key}_max_length")
+      self.errors.add(:string_too_big, "#{key} can not be longer than #{max_length} characters") if
+      (!self.send(key).nil? && self.send(key.to_sym).length > max_length)
+    end
+
+    ['comments'].each do |key|
+      max_length = Repara.send("#{key}_max_length")
+      self.send(key).each do |comment|
+        self.errors.add(:string_too_big, "#{key} can not be longer than #{max_length} characters") if
+        comment.length > max_length
+      end
+    end
+  end
 
   def downcase_category
     self.category = self.category.downcase unless self.category.nil?
