@@ -15,3 +15,5 @@ foreman start
 guard -n f
 
 touch tmp/restart.txt
+
+bundle exec sidekiq -e production -r ./app/app.rb

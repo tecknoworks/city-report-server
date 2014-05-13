@@ -74,11 +74,13 @@
   - if Repara.config['allow_delete_all']
     %br
     %p <b>DELETE</b> /issues - not available in production
+    %p curl -X DELETE -H 'Content-Type: application/json' #{base_url}issues
     %p example response:
     %pre= pretty_json(render_response_without_changing_status(generate_delete_response(42)).to_json)
 
     %br
-    %p <b>DELETE</b> /images - not available in production
+    %p <b>DELETE</b> /upload - not available in production
+    %p curl -X DELETE -H 'Content-Type: application/json' #{base_url}upload
     %p example response:
     %pre= pretty_json(render_response_without_changing_status(generate_delete_response(42)).to_json)
 
