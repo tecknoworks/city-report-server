@@ -1,0 +1,59 @@
+@import "bootstrap/bootstrap"
+
+#map-main
+  z-index: 20
+  position: absolute
+  top: 0px
+  left: 0px
+  height: 100%
+  width: 100%
+
+#map-overlay
+  z-index: 30
+  background-color: white
+  position: absolute
+  float: left
+  left: 0px
+  top: 0px
+  bottom: 0px
+
+#map-toggle
+  z-index: 40
+  position: absolute
+  width: 30px
+  height: 30px
+  top: 0px
+  left: 0px
+  &:hover
+    cursor: pointer
+
+.container-map
+  width: 381px
+
+#map-overlay
+  img!
+  div
+    margin: auto
+    width: 381px
+    text-align: center
+    padding-bottom: 20px
+    &.content
+      text-align: justify
+      padding: 30px
+      width: 321px
+
+.subtle-border
+  border-bottom: 1px solid #EBEBEB
+
+.rotate180
+  -moz-transform: rotate(180deg)
+  -webkit-transform: rotate(180deg)
+  -o-transform: rotate(180deg)
+  -ms-transform: rotate(180deg)
+
+.small
+  width: 320px
+  height: auto
+
+a
+  text-decoration: none

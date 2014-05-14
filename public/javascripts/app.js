@@ -1,13 +1,3 @@
-var prepareToggleButton = function () {
-  $('#map-toggle').click(function() {
-    $('#map-overlay').animate({
-      height: 'toggle'
-    }, 500, function() {
-      $('#map-toggle img').toggleClass('rotate180');
-    });
-  });
-}
-
 var initMap = function () {
   var mapDiv = $('#map-main')[0];
   var mapCenter = new google.maps.LatLng(46.768322, 23.595002);
@@ -43,14 +33,15 @@ var getMarkerIcon = function (issue) {
 }
 
 var issueToPopup = function (issue) {
+  console.log(issue)
 
   var infoWindowContent = $("<div>");
-  var title = $("<h3>").html(issue['title']);
+  var title = $("<h3>").html(issue['name']);
   infoWindowContent.append(title);
 
   if (issue.hasOwnProperty('images')) {
     if (issue['images'].length > 0) {
-      var img = $("<img>").attr('src', issue['images'][0]).addClass('small');
+      var img = $("<img>").attr('src', issue['images'][0]['url']).addClass('small');
       infoWindowContent.append(img);
     }
   }
@@ -71,8 +62,7 @@ var issueToPopup = function (issue) {
   return infoWindowContent.html();
 }
 
-$(document).ready(function() {
-  prepareToggleButton();
+var showMapOnIndexPage = function() {
   var map = initMap();
 
   google.maps.event.addListener(map, 'click', function(data) {
@@ -80,12 +70,12 @@ $(document).ready(function() {
   });
 
   $.get('/issues', function(data) {
-    for (var pin in data) {
-      var issue = data[pin];
+    for (var pin in data['body']) {
+      var issue = data['body'][pin];
       var marker = new google.maps.Marker({
         map: map,
         position: new google.maps.LatLng(issue['lat'], issue['lon']),
-        title: issue['title'],
+        title: issue['name'],
         icon: getMarkerIcon(issue)
       });
 
@@ -105,4 +95,8 @@ $(document).ready(function() {
       })(marker, issue));
     }
   });
+}
+
+$(document).ready(function() {
+  if ($('#map-main').length) { showMapOnIndexPage() }
 });

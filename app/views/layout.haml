@@ -1,34 +1,20 @@
 !!!
-%html{:lang => "en"}
+%html{lang: "en"}
   %head
-    %meta{:charset => "utf-8"}/
-    %title Repara Clujul
+    %meta{charset: "utf-8"}/
+    %meta{content: "IE=edge", "http-equiv" => "X-UA-Compatible"}/
+    %meta{content: "width=device-width, initial-scale=1", name: "viewport"}/
 
-    %link{:rel => "stylesheet", :type => "text/css", :href => "/stylesheets/style.css"}
+    %title repara-clujul-server
 
-    %script{:src => "/javascripts/jquery.js", :type => "text/javascript"}
-    %script{:src => "/javascripts/jquery.ui.map.js", :type => "text/javascript"}
-    %script{:src => "https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"}
+    %link{rel: "stylesheet", type: "text/css", href: "/stylesheets/style.css"}
+
   %body
-    = yield
-    #map-toggle
-      %img.rotate180{:src => '/images/arrow.png'}
-    #map-overlay.container-map
-      %div.subtle-border
-        %img{:src => '/images/logo.png'}
-      %div
-        %div.content
-          %p O aplicatie pentru telefoane mobile cu ajutorul careia poti raporta probleme in Cluj-Napoca.
-        %a{:href => "https://play.google.com/store/apps/details?id=org.smarttech"}
-          %img{:alt => "Get it on Google Play", :src => "/images/playstore.png"}
-        %a{:href => "https://play.google.com/store/apps/details?id=org.smarttech"}
-          %img{:alt => "Get it on Google Play", :src => "/images/istore.png"}
-      %div.pull-bottom{:style => 'background-color: white'}
-        %br
-        %img{:src => '/images/st2k.png'}
-        %br
-        %p
-          by the way.. we are
-          %a{:href => "mailto: careers@smarttech2000.com"} hiring
-    %script{:src => "/javascripts/app.js", :type => "text/javascript"}
-    %script{:src => "/javascripts/analytics.js", :type => "text/javascript"}
+    .container
+      = yield
+
+    %script{src: "//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"}
+    %script{src: "//cdnjs.cloudflare.com/ajax/libs/jquery-ui-map/3.0-rc1/min/jquery.ui.map.min.js"}
+    %script{src: "https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"}
+    %script{src: "/javascripts/app.js", type: "text/javascript"}
+    %script{src: "/javascripts/analytics.js", type: "text/javascript"}

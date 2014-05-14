@@ -1,3 +1,5 @@
+notification :off
+
 guard :rspec do
   watch(%r{^spec/.+_spec\.rb$})
   watch(%r{^lib/(.+)\.rb$})     { |m| "spec/lib/#{m[1]}_spec.rb" }
@@ -5,3 +7,5 @@ guard :rspec do
 
   watch(%r{^app/(.+)\.rb$})     { |m| "spec/#{m[1]}_spec.rb" }
 end
+
+guard 'sass', :input => 'app/sass', :output => 'public/stylesheets'
