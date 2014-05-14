@@ -12,8 +12,8 @@ gem 'httparty'
 gem 'micro_magick'
 
 gem 'capistrano'
+gem 'capistrano-rvm'
 gem 'passenger'
-gem 'rvm-capistrano'
 
 group :development do
   gem 'rspec'
