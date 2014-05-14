@@ -32,6 +32,7 @@ set :linked_dirs, %w{log tmp/pids tmp/cache tmp/sockets vendor/bundle public/ima
 
 # Default value for default_env is {}
 # set :default_env, { path: "/opt/ruby/bin:$PATH" }
+set :rvm_ruby_string, `cat .ruby-version`.chomp + '@' + `cat .ruby-gemset`.chomp
 
 # Default value for keep_releases is 5
 # set :keep_releases, 5

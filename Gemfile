@@ -13,7 +13,7 @@ gem 'micro_magick'
 
 gem 'capistrano'
 gem 'passenger'
-gem 'foreman'
+gem 'rvm-capistrano'
 
 group :development do
   gem 'rspec'
@@ -21,4 +21,5 @@ group :development do
   gem 'guard-sass', :require => false
   gem 'guard-coffeescript'
   gem 'factory_girl'
+  gem 'foreman'
 end
