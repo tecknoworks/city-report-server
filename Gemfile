@@ -11,6 +11,7 @@ gem 'rack-parser', :require => 'rack/parser'
 gem 'sidekiq'
 gem 'httparty'
 gem 'micro_magick'
+gem 'therubyracer'
 
 gem 'capistrano'
 gem 'capistrano-rvm'
