@@ -53,7 +53,7 @@ namespace :deploy do
       within release_path do
         execute :rake, 'compile:assets'
 
-        execute "kill -9 `cat tmp/pids/sidekiq.pid`"
+        execute "kill -9 `cat tmp/pids/sidekiq.pid`; true"
         execute "bundle exec sidekiq -d -e production -L log/sidekiq.log -P tmp/pids/sidekiq.pid -r app/app.rb"
       end
     end
