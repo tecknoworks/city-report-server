@@ -152,6 +152,7 @@ PLATFORMS
 DEPENDENCIES
   capistrano
   capistrano-rvm
+  coffee-script
   factory_girl
   foreman
   guard-coffeescript
