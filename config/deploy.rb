@@ -52,6 +52,9 @@ namespace :deploy do
     on roles(:web), in: :groups, limit: 3, wait: 10 do
       within release_path do
         execute :rake, 'compile:assets'
+
+        execute "kill -9 `cat tmp/pids/sidekiq.pid`"
+        execute "bundle exec sidekiq -d -e production -L log/sidekiq.log -P tmp/pids/sidekiq.pid -r app/app.rb"
       end
     end
   end
