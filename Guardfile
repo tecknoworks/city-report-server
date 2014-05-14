@@ -8,4 +8,6 @@ guard :rspec do
   watch(%r{^app/(.+)\.rb$})     { |m| "spec/#{m[1]}_spec.rb" }
 end
 
-guard 'sass', :input => 'app/sass', :output => 'public/stylesheets'
+guard 'sass', :input => 'app/assets/sass', :output => 'public/stylesheets'
+
+guard 'coffeescript', :input => 'app/assets/coffee', :output => 'public/javascripts'

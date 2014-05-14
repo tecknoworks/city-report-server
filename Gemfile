@@ -19,5 +19,6 @@ group :development do
   gem 'rspec'
   gem 'guard-rspec'
   gem 'guard-sass', :require => false
+  gem 'guard-coffeescript'
   gem 'factory_girl'
 end

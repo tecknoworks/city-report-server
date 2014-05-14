@@ -17,13 +17,12 @@ require 'sinatra/multi_route'
 require './app/helpers/base_helper'
 require './app/helpers/repara_helper'
 
-require './app/geocoder'
+require './app/lib/geocoder'
+require './app/lib/request_codes'
 
 require './app/models/base_model'
 require './app/models/issue'
 require './app/models/image'
-
-require './app/request_codes'
 
 require './app/controllers/base_controller'
 require './app/controllers/meta_controller'
