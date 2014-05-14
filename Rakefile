@@ -6,7 +6,8 @@ task :default => :spec
 
 namespace :compile do
   task :assets do
-    puts 'Compiling sass assets'
+    puts 'Compiling assets'
     `sass "app/assets/sass/style.sass" "public/stylesheets/style.css"`
+    `coffee -c --output public/javascripts/ app/assets/coffee/*.coffee`
   end
 end
