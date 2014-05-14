@@ -47,12 +47,11 @@ namespace :deploy do
 
   after :publishing, :restart
 
-  after :restart, :clear_cache do
+  after :restart, :compile_assets do
     on roles(:web), in: :groups, limit: 3, wait: 10 do
-      # Here we can do anything such as:
-      # within release_path do
-      #   execute :rake, 'cache:clear'
-      # end
+      within release_path do
+        execute :rake, 'compile:assets'
+      end
     end
   end
 
