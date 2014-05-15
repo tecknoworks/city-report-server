@@ -11,3 +11,6 @@ public/images/uploads/*
 
 *.css
 *.js
+
+# rspec html output
+index.html
