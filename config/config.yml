@@ -10,13 +10,17 @@ development: &common_settings
   meta:
     categories: ['groapă', 'gunoi', 'vandalism', 'altele']
     zones: ['Andrei Mureșanu', 'Bulgaria', 'Bună Ziua', 'Centru']
+  map_center:
+    lat: 46.768322
+    lon: 23.595002
 
 test:
   <<: *common_settings
-  allow_downvotes: true
   env: 'test'
 
 production:
   <<: *common_settings
   env: 'production'
   base_url: 'http://192.168.0.15/'
+  allow_delete_all: true
+  allow_downvotes: true

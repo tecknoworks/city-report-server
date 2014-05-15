@@ -1,4 +1,4 @@
-class WelcomeController < BaseController
+class WebController < BaseController
   get '/' do
     haml :index
   end

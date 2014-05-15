@@ -26,7 +26,7 @@ require './app/models/image'
 
 require './app/controllers/base_controller'
 require './app/controllers/meta_controller'
-require './app/controllers/welcome_controller'
+require './app/controllers/web_controller'
 require './app/controllers/issues_controller'
 require './app/controllers/images_controller'
 
@@ -60,6 +60,10 @@ class Repara
 
   def self.address_max_length
     string_max_length['address']
+  end
+
+  def self.map_center
+    self.config['map_center']
   end
 end
 

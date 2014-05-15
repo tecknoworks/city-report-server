@@ -9,7 +9,7 @@ use Rack::Parser, :content_types => {
 }
 
 map '/' do
-  run WelcomeController
+  run WebController
 end
 
 map '/meta' do

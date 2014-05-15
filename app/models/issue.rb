@@ -9,6 +9,8 @@ class Issue < BaseModel
   field :images, type: Array, default: []
   field :comments, type: Array, default: []
 
+  before_validation :downcase_category
+
   validates :name, presence: true
   validates :category, presence: true
   validates :lat, presence: true
@@ -22,7 +24,6 @@ class Issue < BaseModel
   validate :string_size_limit
 
   before_save :set_thumbnails
-  before_validation :downcase_category
 
   search_in :name, :address, :category, :comments
 

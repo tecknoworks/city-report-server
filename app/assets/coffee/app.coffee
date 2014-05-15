@@ -1,6 +1,8 @@
 initMap = ->
-  mapDiv = $("#map-main")[0]
-  mapCenter = new google.maps.LatLng(46.768322, 23.595002)
+  mapMain = $("#map-main")
+  mapDiv = mapMain[0]
+  mapCenter = new google.maps.LatLng(mapMain.data('lat'), mapMain.data('lon'))
+
   mapOptions =
     zoom: 14
     center: mapCenter
@@ -16,20 +18,25 @@ getMarkerIcon = (issue) ->
 issueToPopup = (issue) ->
   console.log issue
   infoWindowContent = $("<div>")
+
   title = $("<h3>").html(issue["name"])
   infoWindowContent.append title
+
   if issue.hasOwnProperty("images")
     if issue["images"].length > 0
       img = $("<img>").attr("src", issue["images"][0]["url"]).addClass("small")
       infoWindowContent.append img
   lat = $("<p>").html(issue["lat"] + " - " + issue["lon"])
   infoWindowContent.append lat
+
   if issue.hasOwnProperty("address")
     address = $("<p>").html(issue["address"])
     infoWindowContent.append address
+
   if issue.hasOwnProperty("description")
     description = $("<p>").html(issue["description"])
     infoWindowContent.append description
+
   infoWindowContent.html()
 
 showMapOnIndexPage = ->
