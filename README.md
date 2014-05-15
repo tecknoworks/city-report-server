@@ -6,14 +6,25 @@ Requirements
 
 sudo apt-get install mongodb redis-server graphicsmagick
 
-mongodb (data storage)
-redis (for queue processing)
-micro_magick for thumbnail generation
+Get started
+-----------
 
-foreman start
+To start the *development* enviornment run
 
-guard -n f
+  foreman start
 
-touch tmp/restart.txt
+This will start the webserver, sidekiq and guard. sidekiq uses redis for
+background queue processing. guard is used for running the tests and compiling
+the assets (sass and coffee)
 
-bundle exec sidekiq -e production -r ./app/app.rb
+Assets are compiled with
+
+  rake compile:assets
+
+Deployment
+----------
+
+  cap production deploy
+
+This will automcatically compile the assets on the selected enviornment and restart sidekiq.
+Passenger is also restarted.
