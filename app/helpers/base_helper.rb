@@ -17,7 +17,7 @@ module BaseHelper
     # Hack to call a protected method.
     # Only want it for documentation purposes
     image.send(:set_data_from_original_filename)
-    render_response_without_changing_status(image.to_api).to_json
+    image.to_api
   end
 
   def pretty_json h

@@ -1,6 +1,8 @@
 repara-clujul-server
 ====================
 
+Daily test results http://jenkins.st.st2k.ro/job/test%20repara-clujul-server/ws/index.html
+
 Requirements
 ------------
 
