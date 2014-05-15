@@ -11,19 +11,7 @@ initMap = ->
   new google.maps.Map(mapDiv, mapOptions)
 
 getMarkerIcon = (issue) ->
-  return "/images/icons/altele.png"  if issue.categories is `undefined`
-  return "/images/icons/altele.png"  if issue.categories[0] is `undefined`
-  switch issue.categories[0]
-    when "gunoi"
-      "/images/icons/gunoi.png"
-    when "groapa"
-      "/images/icons/groapa.png"
-    when "rutiere"
-      "/images/icons/rutiere.png"
-    when "vandalism"
-      "/images/icons/vandalism.png"
-    else
-      "/images/icons/altele.png"
+  return "/images/marker.png"
 
 issueToPopup = (issue) ->
   console.log issue
