@@ -4,10 +4,19 @@ repara-clujul-server
 Requirements
 ------------
 
-sudo apt-get install mongodb redis-server graphicsmagick
+* rvm (optional but recommended)
+* ruby 2.1.1
+* mongodb
+* redis-server
+* graphicsmagick
+* git
 
-Get started
------------
+Install
+-------
+
+  git clone git@gitlab.st.st2k.ro:repara/repara-clujul-server
+  cd repara-clujul-server
+  bundle install
 
 To start the *development* enviornment run
 
