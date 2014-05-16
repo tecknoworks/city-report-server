@@ -94,7 +94,7 @@ describe Issue do
     before :all do
       Issue.delete_all
 
-      create(:issue, name: 'O Groapa Mare')
+      create(:issue, name: 'O Groapa Mare', comments: ['wow ce groapa'])
       create(:issue, name: 'vandalism', address: 'Strada Dumbravelor 21')
     end
 
@@ -102,10 +102,16 @@ describe Issue do
       Issue.full_text_search("altele").count.should == 2
     end
 
-    it 'takes into account the address'
+    it 'takes into account the address' do
+      Issue.full_text_search("dumbravelor").count.should == 1
+    end
 
-    it 'takes into account the name'
+    it 'takes into account the name' do
+      Issue.full_text_search("mare").count.should == 1
+    end
 
-    it 'takes into account the comments'
+    it 'takes into account the comments' do
+      Issue.full_text_search("wow").count.should == 1
+    end
   end
 end
