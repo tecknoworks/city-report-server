@@ -7,16 +7,27 @@ describe IssuesController do
   context 'find' do
     before(:all) do
       Issue.delete_all
-    end
 
-    it 'returns all issues' do
       create(:issue)
       create(:issue, name: 'foo')
       create(:issue, name: 'foo2')
+    end
 
+    it 'returns all issues' do
       get '/'
       issues = JSON.parse(last_response.body)['body']
       issues.length.should == 3
+    end
+
+    it 'returns a specific issue' do
+      issue = Issue.first
+      get "/#{issue.id}"
+      JSON.parse(last_response.body)['body']['_id'].should == issue['_id'].to_s
+    end
+
+    it 'returns 404 when issue id is invalid' do
+      get '/invalid_id'
+      last_response.status.should == 404
     end
   end
 

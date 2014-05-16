@@ -52,6 +52,10 @@
     %a{:href => '/issues'} example
 
   %br
+  %p <b>GET</b> /issues/ISSUE_ID
+  %p curl -X GET -H 'Content-Type: application/json' #{base_url}issues/ISSUE_ID
+
+  %br
   %p <b>POST</b> /issues
   %p curl -X POST -H 'Content-Type: application/json' -d '{"name":"hello", "category":"altele", "lat":0, "lon":0,"images":[{"url": "#{base_url}images/logo.png"}]}' #{base_url}issues
   %p Required body params: name, category, lat, lon, images

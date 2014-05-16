@@ -10,6 +10,13 @@ class IssuesController < BaseController
     render_response issues
   end
 
+  get '/:id' do
+    issue = Issue.find(params[:id])
+    return render_response("issue with id #{params[:id]} not found", NOT_FOUND) if issue.nil?
+
+    render_response(issue)
+  end
+
   post '/' do
     # do not allow the vote_counter to be different than 0
     params.delete('vote_counter')
