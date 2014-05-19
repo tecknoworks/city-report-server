@@ -1,4 +1,4 @@
-initMap = ->
+reparaMap = ->
   mapMain = $(".map")
   mapDiv = mapMain[0]
   mapCenter = new google.maps.LatLng(mapMain.data('lat'), mapMain.data('lon'))
@@ -39,8 +39,8 @@ issueToPopup = (issue) ->
 
   infoWindowContent.html()
 
-showMapOnIndexPage = ->
-  map = initMap()
+initMap = ->
+  map = reparaMap()
   google.maps.event.addListener map, "click", (data) ->
     console.log data.latLng
     return
@@ -69,6 +69,5 @@ showMapOnIndexPage = ->
   return
 
 $(document).ready ->
-  showMapOnIndexPage()  if $(".map").length
+  initMap() if $(".map").length
   return
-

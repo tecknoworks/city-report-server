@@ -1,4 +1,24 @@
-.row.map-header
-  .map{'data-lat' => Repara.map_center['lat'], 'data-lon' => Repara.map_center['lon']}
+.row.spacer
+  .col-md-8
+    .map-header
+      .map{'data-lat' => Repara.map_center['lat'], 'data-lon' => Repara.map_center['lon']}
+  .col-md-4
+    #issuesByCategory{style: "min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"}
+.row.spacer
+  -# %img.center-block.img-responsive{src: "/images/marker.png"}
 .row
-  foo
+  -# %table.table.table-stripped.table-hover
+  -#   %thead
+  -#     %tr
+  -#       %th name
+  -#       %th address
+  -#   %tbody
+  -#     %tr
+  -#       %td
+  -#         foo
+  -#       %td
+  -#         bar
+
+- content_for :scripts do
+  %script{src: "http://code.highcharts.com/highcharts.js"}
+  %script{src: "/javascripts/charts.js"}

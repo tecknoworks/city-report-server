@@ -1,5 +1,6 @@
 class BaseController < Sinatra::Base
   helpers do
+    include Sinatra::ContentFor
     include BaseHelper
   end
 

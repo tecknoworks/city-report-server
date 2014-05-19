@@ -19,14 +19,18 @@ class WebController < BaseController
     haml :about
   end
 
-  get '/admin' do
-    @issues_by_category = {}
+  get '/report' do
+    issues_by_category = []
     Repara.categories.each do |category|
-      @issues_by_category[category] = Issue.where(category: category).count
+      issues_by_category << [category, Issue.where(category: category).count]
     end
 
-    @issues_count = @issues_by_category.collect{|e| e[1]}.sum
+    render_response({
+      issues_by_category: issues_by_category
+    })
+  end
 
+  get '/admin' do
     haml :admin
   end
 
