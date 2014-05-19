@@ -1,5 +1,5 @@
 initMap = ->
-  mapMain = $("#map-main")
+  mapMain = $(".map")
   mapDiv = mapMain[0]
   mapCenter = new google.maps.LatLng(mapMain.data('lat'), mapMain.data('lon'))
 
@@ -69,6 +69,6 @@ showMapOnIndexPage = ->
   return
 
 $(document).ready ->
-  showMapOnIndexPage()  if $("#map-main").length
+  showMapOnIndexPage()  if $(".map").length
   return
 

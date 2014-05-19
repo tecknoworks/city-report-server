@@ -11,8 +11,8 @@ describe WebController do
     last_response.should be_ok
   end
 
-  it 'shows statistics' do
-    get '/stats'
+  it 'has an admin page' do
+    get '/admin'
     last_response.should be_ok
   end
 end
