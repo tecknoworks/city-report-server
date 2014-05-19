@@ -19,23 +19,20 @@ issueToPopup = (issue) ->
   console.log issue
   infoWindowContent = $("<div>")
 
-  title = $("<h3>").html(issue["name"])
+  title = $("<h3>").addClass('text-center').html(issue["name"])
   infoWindowContent.append title
 
   if issue.hasOwnProperty("images")
     if issue["images"].length > 0
-      img = $("<img>").attr("src", issue["images"][0]["url"]).addClass("small")
+      img = $("<img>").attr("src", issue["images"][0]["url"]).addClass("small").addClass('center-block img-responsive')
       infoWindowContent.append img
-  lat = $("<p>").html(issue["lat"] + " - " + issue["lon"])
+
+  lat = $("<p>").addClass('text-center').html(issue["lat"] + " - " + issue["lon"])
   infoWindowContent.append lat
 
   if issue.hasOwnProperty("address")
-    address = $("<p>").html(issue["address"])
+    address = $("<p>").addClass('text-center').html(issue["address"])
     infoWindowContent.append address
-
-  if issue.hasOwnProperty("description")
-    description = $("<p>").html(issue["description"])
-    infoWindowContent.append description
 
   infoWindowContent.html()
 
@@ -46,6 +43,19 @@ initMap = ->
     return
 
   $.get "/issues", (data) ->
+    if $('#adminTable')
+      $('#adminTable tbody tr').remove()
+
+      for pin of data["body"]
+        issue = data["body"][pin]
+        tr = $("<tr>")
+        tr.append($("<td>").html(issue['name']))
+        tr.append($("<td>").html(issue['address']))
+        tr.append($("<td>").html(issue['lat']))
+        tr.append($("<td>").html(issue['lon']))
+        tr.append($("<td>").html('actions'))
+        $('#adminTable tbody').append(tr)
+
     for pin of data["body"]
       issue = data["body"][pin]
       marker = new google.maps.Marker(

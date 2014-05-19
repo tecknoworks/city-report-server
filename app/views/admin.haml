@@ -1,24 +1,20 @@
 .row.spacer
   .col-md-8
     .map-header
-      .map{'data-lat' => Repara.map_center['lat'], 'data-lon' => Repara.map_center['lon']}
+      = partial '_map'
   .col-md-4
-    #issuesByCategory{style: "min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"}
+    = partial '_issues_by_category_graph'
 .row.spacer
   -# %img.center-block.img-responsive{src: "/images/marker.png"}
 .row
-  -# %table.table.table-stripped.table-hover
-  -#   %thead
-  -#     %tr
-  -#       %th name
-  -#       %th address
-  -#   %tbody
-  -#     %tr
-  -#       %td
-  -#         foo
-  -#       %td
-  -#         bar
-
-- content_for :scripts do
-  %script{src: "http://code.highcharts.com/highcharts.js"}
-  %script{src: "/javascripts/charts.js"}
+  .col-md-6
+    %table.table.table-stripped.table-hover#adminTable
+      %thead
+        %tr
+          %th name
+          %th address
+          %th lat
+          %th lon
+          %th actions
+      %tbody
+  .col-md-6
