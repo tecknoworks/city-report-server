@@ -43,6 +43,10 @@ module BaseHelper
     }
   end
 
+  def pluralize count, s
+    count == 1 ? "#{count} #{s}" : "#{count} #{s.pluralize}"
+  end
+
   def partial page, variables={}
     haml page.to_sym, {layout: false}, variables
   end

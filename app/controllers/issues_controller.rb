@@ -2,12 +2,7 @@ class IssuesController < BaseController
   include RequestCodes
 
   get '/' do
-    limit = params['limit'].nil? ? 10 : params['limit']
-    skip = params['skip'].nil? ? 0 : params['skip']
-    query = params['q']
-
-    issues = Issue.order_by([:created_at, :desc]).limit(limit).skip(skip).full_text_search(query)
-    render_response issues
+    render_response issues_search_results
   end
 
   get '/:id' do

@@ -21,4 +21,12 @@ class BaseController < Sinatra::Base
   configure :development do
     register Sinatra::Reloader
   end
+
+  def issues_search_results
+    limit = params['limit'].nil? ? 10 : params['limit']
+    skip = params['skip'].nil? ? 0 : params['skip']
+    query = params['q']
+
+    Issue.order_by([:created_at, :desc]).limit(limit).skip(skip).full_text_search(query)
+  end
 end

@@ -31,6 +31,7 @@ class WebController < BaseController
   end
 
   get '/admin' do
+    @issues = issues_search_results
     haml :admin
   end
 

@@ -25,7 +25,8 @@ class Issue < BaseModel
 
   before_save :set_thumbnails
 
-  search_in :name, :address, :category, :comments
+  SEARCHABLE_FIELDS = [:name, :address, :category, :comments]
+  search_in SEARCHABLE_FIELDS
 
   def add_params_to_set params
     # params = params.clone.with_indifferent_access

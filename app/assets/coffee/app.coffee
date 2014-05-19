@@ -16,7 +16,6 @@ getMarkerIcon = (issue) ->
   return "/images/marker.png"
 
 issueToPopup = (issue) ->
-  console.log issue
   infoWindowContent = $("<div>")
 
   title = $("<h3>").addClass('text-center').html(issue["name"])
@@ -42,20 +41,9 @@ initMap = ->
     console.log data.latLng
     return
 
-  $.get "/issues", (data) ->
-    if $('#adminTable')
-      $('#adminTable tbody tr').remove()
-
-      for pin of data["body"]
-        issue = data["body"][pin]
-        tr = $("<tr>")
-        tr.append($("<td>").html(issue['name']))
-        tr.append($("<td>").html(issue['address']))
-        tr.append($("<td>").html(issue['lat']))
-        tr.append($("<td>").html(issue['lon']))
-        tr.append($("<td>").html('actions'))
-        $('#adminTable tbody').append(tr)
-
+  q = $('.map').data('q')
+  console.log(q)
+  $.get "/issues?q=" + q, (data) ->
     for pin of data["body"]
       issue = data["body"][pin]
       marker = new google.maps.Marker(
@@ -80,4 +68,13 @@ initMap = ->
 
 $(document).ready ->
   initMap() if $(".map").length
+
+  $('.table tbody tr').click () ->
+    issue_json = $(this).data('json')
+    $('#issueTitle').val(issue_json['name'])
+    $('#issueAddress').val(issue_json['address'])
+    $('#issueLat').val(issue_json['lat'])
+    $('#issueLon').val(issue_json['lon'])
+
+    $('#myModal').modal()
   return
