@@ -9,7 +9,7 @@ development: &common_settings
     address: 140
   meta:
     categories: ['groapă', 'gunoi', 'vandalism', 'altele']
-    zones: ['Andrei Mureșanu', 'Bulgaria', 'Bună Ziua', 'Centru']
+    zones: ['Grigorescu', 'Mănăștur', 'Zorilor', 'Gheorgheni', 'Centru', 'Dâmbul Rotund', 'Iris']
   map_center:
     lat: 46.768322
     lon: 23.595002
