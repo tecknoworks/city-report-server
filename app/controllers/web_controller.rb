@@ -30,11 +30,6 @@ class WebController < BaseController
     })
   end
 
-  get '/admin' do
-    @issues = issues_search_results
-    haml :admin
-  end
-
   get '/stats' do
     haml :stats
   end

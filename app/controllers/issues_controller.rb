@@ -2,14 +2,27 @@ class IssuesController < BaseController
   include RequestCodes
 
   get '/' do
-    render_response issues_search_results
+    @issues = issues_search_results
+
+    render_response @issues if json?
+    render_haml :issues
+  end
+
+  get '/new' do
+    render_haml :new
   end
 
   get '/:id' do
-    issue = Issue.find(params[:id])
-    return render_response("issue with id #{params[:id]} not found", NOT_FOUND) if issue.nil?
+    @issue = Issue.find(params[:id])
 
-    render_response(issue)
+    if json?
+      if @issue.nil?
+        render_response("issue with id #{params[:id]} not found", NOT_FOUND)
+      end
+      render_response(@issue)
+    else
+      render_haml :show
+    end
   end
 
   post '/' do

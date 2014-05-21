@@ -1,4 +1,5 @@
 class BaseController < Sinatra::Base
+
   helpers do
     include Sinatra::ContentFor
     include BaseHelper
@@ -20,6 +21,10 @@ class BaseController < Sinatra::Base
 
   configure :development do
     register Sinatra::Reloader
+  end
+
+  def json?
+    request.content_type == 'application/json'
   end
 
   def issues_search_results

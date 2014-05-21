@@ -33,7 +33,11 @@ module BaseHelper
   def render_response body, code=200, status_code=nil
     status_code ||= code
     status status_code
-    json(render_response_without_changing_status(body, code))
+    halt json(render_response_without_changing_status(body, code))
+  end
+
+  def render_haml page
+    halt haml page
   end
 
   def render_response_without_changing_status body, code=200

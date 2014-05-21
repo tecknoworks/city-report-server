@@ -1,5 +1,3 @@
-= partial '_modal'
-
 .row.spacer
   .col-md-8
     .map-header
@@ -19,4 +17,4 @@
     %thead
     %tbody
       - @issues.each do |issue|
-        = partial '_issue', issue: issue
+        = partial '_issue_tr', issue: issue

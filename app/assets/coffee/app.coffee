@@ -42,7 +42,6 @@ initMap = ->
     return
 
   q = $('.map').data('q')
-  console.log(q)
   $.get "/issues?q=" + q, (data) ->
     for pin of data["body"]
       issue = data["body"][pin]
@@ -68,13 +67,6 @@ initMap = ->
 
 $(document).ready ->
   initMap() if $(".map").length
-
-  $('.table tbody tr').click () ->
-    issue_json = $(this).data('json')
-    $('#issueTitle').val(issue_json['name'])
-    $('#issueAddress').val(issue_json['address'])
-    $('#issueLat').val(issue_json['lat'])
-    $('#issueLon').val(issue_json['lon'])
-
-    $('#myModal').modal()
+  $('.table tbody tr').click ->
+    window.location.href = "/issues/" + $(this).data('issue-id')
   return

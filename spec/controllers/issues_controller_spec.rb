@@ -4,9 +4,35 @@ describe IssuesController do
   let(:category) { Repara.categories.last }
   let(:valid_issue_hash) { {name: 'foo', category: category, lat: 0, lon: 0, images: [{url: 'http://www.yahoo.com/asd.png'}]} }
 
+  context 'content-type' do
+    context 'json' do
+      it 'returns all issues' do
+        header "Content-Type", "application/json"
+        get '/'
+        last_response.status.should == RequestCodes::SUCCESS
+        expect {
+          JSON.parse(last_response.body)['body']
+        }.to_not raise_error
+      end
+    end
+
+    context 'html' do
+      it 'returns a html with all the issues' do
+        header "Content-Type", "text/html"
+        get '/'
+        last_response.status.should == RequestCodes::SUCCESS
+        expect {
+          JSON.parse(last_response.body)
+        }.to raise_error
+      end
+    end
+  end
+
   context 'find' do
+
     before(:all) do
       Issue.delete_all
+      header "Content-Type", "application/json"
 
       create(:issue)
       create(:issue, name: 'foo')
