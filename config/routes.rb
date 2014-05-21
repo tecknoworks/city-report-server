@@ -15,7 +15,14 @@ Rails.application.routes.draw do
   resources :issues
   put 'issues/:id/add_to_set' => 'issues#add_to_set'
   post 'issues/:id/vote' => 'issues#vote'
-  delete 'issues/:id/vote' => 'issues#vote'
+
+  if Repara.config['allow_downvotes']
+    delete 'issues/:id/vote' => 'issues#vote'
+  end
+
+  if Repara.config['allow_delete_all']
+    delete 'cleanup' => 'web#cleanup'
+  end
 
   get 'meta' => 'web#meta'
   get 'doc' => 'web#doc'

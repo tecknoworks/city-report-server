@@ -9,19 +9,8 @@ class IssuesController < ApplicationController
     Issue.order_by([:created_at, :desc]).limit(limit).skip(skip).full_text_search(query)
   end
 
-  def render_response body, code=200, status_code=nil
-    body = {
-      code: code,
-      body: body
-    }
-    status_code ||= code
-
-    render json: body, status: status_code
-  end
-
   def index
     @issues = issues_search_results
-    render_response @issues
   end
 
   def show
@@ -36,17 +25,15 @@ class IssuesController < ApplicationController
     # do not allow the vote_counter to be different than 0
     params.delete('vote_counter')
 
-    issue = Issue.create(params)
+    @issue = Issue.create(params)
 
-    unless issue.valid?
-      return render_response(error_desc_for(issue), error_code_for(issue), BAD_REQUEST)
+    unless @issue.valid?
+      return render_response(error_desc_for(@issue), error_code_for(@issue), BAD_REQUEST)
     end
 
-    issue.index_keywords!
+    @issue.index_keywords!
 
-    GeocodeWorker.perform_async issue[:_id].to_s
-
-    render_response issue
+    GeocodeWorker.perform_async @issue[:_id].to_s
   end
 
   def update
@@ -57,17 +44,16 @@ class IssuesController < ApplicationController
     params.delete('splat')
     params.delete('captures')
 
-    issue = Issue.find(params[:id])
-    return render_response("issue with id #{params[:id]} not found", NOT_FOUND) if issue.nil?
+    @issue = Issue.find(params[:id])
+    return render_response("issue with id #{params[:id]} not found", NOT_FOUND) if @issue.nil?
 
-    issue.update_attributes(params)
+    @issue.update_attributes(params)
 
-    if issue.valid?
-      issue.index_keywords!
-      render_response issue
-    else
-      render_response(error_desc_for(issue), error_code_for(issue), BAD_REQUEST)
+    unless @issue.valid?
+      return render_response(error_desc_for(@issue), error_code_for(@issue), BAD_REQUEST)
     end
+
+    @issue.index_keywords!
   end
 
   def add_to_set
@@ -75,17 +61,16 @@ class IssuesController < ApplicationController
     params.delete('splat')
     params.delete('captures')
 
-    issue = Issue.find(params[:id])
-    return render_response("issue with id #{params[:id]} not found", NOT_FOUND) if issue.nil?
+    @issue = Issue.find(params[:id])
+    return render_response("issue with id #{params[:id]} not found", NOT_FOUND) if @issue.nil?
 
-    issue.add_params_to_set(params)
+    @issue.add_params_to_set(params)
 
-    if issue.valid?
-      issue.index_keywords!
-      render_response issue
-    else
-      render_response(error_desc_for(issue), error_code_for(issue), BAD_REQUEST)
+    unless @issue.valid?
+      return render_response(error_desc_for(@issue), error_code_for(@issue), BAD_REQUEST)
     end
+
+    @issue.index_keywords!
   end
 
   def vote
@@ -94,11 +79,6 @@ class IssuesController < ApplicationController
 
     @issue.upvote! if request.post?
     @issue.downvote! if request.delete? && Repara.config['allow_downvotes']
-  end
-
-  def delete
-    return render_response("method not allowed", METHOD_NOT_ALLOWED) unless Repara.config['allow_delete_all']
-    render_response(generate_delete_response(Issue.delete_all))
   end
 
   # TODO move this in the correct place
