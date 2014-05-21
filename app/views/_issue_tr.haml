@@ -1,8 +1,0 @@
-%tr{"data-issue-id" => issue['_id'], "data-json" => issue.to_json}
-  %td= issue['name']
-  %td= issue['category']
-  %td= issue['address']
-  %td= issue['lat']
-  %td= issue['lon']
-  %td= pluralize(issue['images'].count, 'image')
-  %td= issue['comments'].count.to_s + ' comments'
