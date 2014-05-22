@@ -42,19 +42,13 @@ namespace :deploy do
   desc 'Restart application'
   task :restart do
     on roles(:app), in: :sequence, wait: 5 do
+      within release_path do
+        execute :rake, 'assets:precompile'
+        execute :rake, 'sidekiq:restart'
+      end
       execute :touch, release_path.join('tmp/restart.txt')
     end
   end
 
   after :publishing, :restart
-
-  after :restart, :compile_assets_and_restart_sidekiq do
-    on roles(:web), in: :groups, limit: 3, wait: 10 do
-      within release_path do
-        execute :rake, 'assets:precompile'
-        execute :rake, 'sidekiq:restart'
-      end
-    end
-  end
-
 end
