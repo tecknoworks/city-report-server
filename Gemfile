@@ -34,4 +34,5 @@ end
 
 gem 'capistrano-rails', group: :development
 gem 'capistrano-rvm'
-gem 'passenger'
+gem 'passenger', '4.0.42'
+gem 'therubyracer'
