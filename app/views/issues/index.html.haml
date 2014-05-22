@@ -1,0 +1,25 @@
+.row.spacer
+  .col-md-12
+    .map-header
+      = render "shared/map", lat: Repara.map_center['lat'], lon: Repara.map_center['lon']
+.row.spacer.text-center
+  -# %img.center-block.img-responsive{src: "/images/marker.png"}
+  .col-md-12
+    %form{role: "form", method: 'GET', url: '/admin'}
+      .input-group
+        %input.form-control{name: 'q', type: 'text', placeholder: "Search within #{Issue::SEARCHABLE_FIELDS.to_sentence}", value: params['q']}
+        %span.input-group-btn
+          %button.btn.btn-default{type: 'submit'} search
+.row.spacer
+  %table.table.table-stripped.table-hover.table-issues
+    %thead
+    %tbody
+      - @issues.each do |issue|
+        %tr{"data-issue-id" => issue['_id'], "data-json" => issue.to_json}
+          %td= issue['name']
+          %td= issue['category']
+          %td= issue['address']
+          %td= issue['lat']
+          %td= issue['lon']
+          %td= pluralize(issue['images'].count, 'image')
+          %td= issue['comments'].count.to_s + ' comments'

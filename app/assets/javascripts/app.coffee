@@ -67,6 +67,6 @@ initMap = ->
 
 $(document).ready ->
   initMap() if $(".map").length
-  $('.table tbody tr').click ->
+  $('.table-issues tbody tr').click ->
     window.location.href = "/issues/" + $(this).data('issue-id')
   return

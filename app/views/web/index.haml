@@ -1,5 +1,5 @@
 .fullscreen-map-container
-  .map{'data-q' => params['q'] ? params['q'] : '', 'data-lat' => Repara.map_center['lat'], 'data-lon' => Repara.map_center['lon']}
+  = render "shared/map", lat: Repara.map_center['lat'], lon: Repara.map_center['lon']
 
 %img#logo{src: '/images/logo.png'}
 

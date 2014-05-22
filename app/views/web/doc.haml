@@ -94,5 +94,10 @@
 
   %br
   %h3 Request codes
-  - RequestCodes.constants.each do |rc|
-    %p <b>#{RequestCodes.const_get(rc)}</b> #{rc.to_s.gsub('_', ' ').downcase}
+  %table.table
+    %thead
+    %tbody
+      - RequestCodes.constants.each do |rc|
+        %tr
+          %td <b>#{RequestCodes.const_get(rc)}</b>
+          %td #{rc.to_s.gsub('_', ' ').downcase}
