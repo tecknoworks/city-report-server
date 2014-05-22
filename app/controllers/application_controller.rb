@@ -4,6 +4,8 @@ class ApplicationController < ActionController::Base
   # protect_from_forgery with: :exception
   protect_from_forgery with: :null_session
 
+  include RequestCodes
+
   def render_response body, code=200, status_code=nil
     body = {
       code: code,

@@ -1,8 +1,4 @@
 class ImagesController < ApplicationController
-  BAD_REQUEST = 400
-  MISSING_IMAGE = 400005
-  INVALID_IMAGE_FORMAT = 400101
-
   def create
     if params['image'].nil?
       return render_response('missing image param', MISSING_IMAGE, BAD_REQUEST)
