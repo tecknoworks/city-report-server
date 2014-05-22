@@ -63,23 +63,23 @@
 
   %br
   %p <b>PUT</b> /issues/:id
-  %p curl -X PUT -H 'Content-Type: application/json' -d '{"name":"test2"}' #{Repara.base_url}issues/#{doc_issue['_id']}
+  %p curl -X PUT -H 'Content-Type: application/json' -d '{"name":"test2"}' #{Repara.base_url}issues/#{@issue['_id']}
 
   %br
   %p <b>PUT</b> /issues/:id/add_to_set
-  %p curl -X PUT -H 'Content-Type: application/json' -d '{"images":[{"url":"#{Repara.base_url}images/logo2.png"}]}' #{Repara.base_url}issues/#{doc_issue['_id']}/add_to_set
+  %p curl -X PUT -H 'Content-Type: application/json' -d '{"images":[{"url":"#{Repara.base_url}images/logo2.png"}]}' #{Repara.base_url}issues/#{@issue['_id']}/add_to_set
   %p a request with the body set as shown below will add url1 and ulr2 to issue.images and comment1 to issue.comments if they are not already there
   %pre= pretty_json({images: [{url: 'url1'}, {url: 'url2'}], comments: ['comment1'] }.to_json)
 
   %br
   %p <b>POST</b> /issues/:id/vote
-  %p curl -X POST -H 'Content-Type: application/json' -d '{}' #{Repara.base_url}issues/#{doc_issue['_id']}/vote
+  %p curl -X POST -H 'Content-Type: application/json' -d '{}' #{Repara.base_url}issues/#{@issue['_id']}/vote
   %p note: in HTML, length in a POST request is mandatory. send an empty hash if needed
 
   - if Repara.config['allow_downvotes']
     %br
     %p <b>DELETE</b> /issues/:id/vote
-    %p curl -X DELETE -H 'Content-Type: application/json' #{Repara.base_url}issues/#{doc_issue['_id']}/vote
+    %p curl -X DELETE -H 'Content-Type: application/json' #{Repara.base_url}issues/#{@issue['_id']}/vote
 
   - if Repara.config['allow_delete_all']
     %br
