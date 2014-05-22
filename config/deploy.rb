@@ -51,7 +51,7 @@ namespace :deploy do
   after :restart, :compile_assets_and_restart_sidekiq do
     on roles(:web), in: :groups, limit: 3, wait: 10 do
       within release_path do
-        # execute :rake, 'compile:assets'
+        execute :rake, 'assets:precompile'
         execute :rake, 'sidekiq:restart'
       end
     end
