@@ -28,7 +28,7 @@ set :deploy_to, '/home/croco/repara-clujul-server-rails'
 
 # Default value for linked_dirs is []
 # set :linked_dirs, %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system}
-set :linked_dirs, %w{log tmp/pids tmp/cache tmp/sockets vendor/bundle public/images/uploads}
+set :linked_dirs, %w{log tmp/pids tmp/cache tmp/sockets vendor/bundle public/images/uploads/thumb public/images/uploads/original}
 
 # Default value for default_env is {}
 # set :default_env, { path: "/opt/ruby/bin:$PATH" }
@@ -52,7 +52,7 @@ namespace :deploy do
     on roles(:web), in: :groups, limit: 3, wait: 10 do
       within release_path do
         # execute :rake, 'compile:assets'
-        # execute :rake, 'sidekiq:restart'
+        execute :rake, 'sidekiq:restart'
       end
     end
   end
