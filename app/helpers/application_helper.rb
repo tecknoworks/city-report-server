@@ -16,21 +16,7 @@ module ApplicationHelper
     pretty_json s
   end
 
-  def render_response_without_changing_status body, code=200
-    {
-      code: code,
-      body: body
-    }
-  end
-
   def pretty_json h
     JSON.pretty_generate(JSON.parse(h))
   end
-
-  def generate_delete_response items_deleted
-    {
-      deleted_objects_count: items_deleted
-    }
-  end
-
 end

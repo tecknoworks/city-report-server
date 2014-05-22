@@ -7,7 +7,7 @@
     %a{:href => '/about'} about page
 
   %p All requests will be surrounded with
-  %pre= pretty_json(render_response_without_changing_status('this is where the content will be').to_json)
+  %pre= preview_jbuilder('shared/sample_body')
 
   %h2 Image Upload Service
   %p Used to upload <b>png</b> images to the server. Will return a public url for the image and an url for the server generated thumbnail
@@ -31,10 +31,13 @@
       %p comment #{Repara.comments_max_length}
     %li
       %p address #{Repara.address_max_length}
+
   %p Example issue
   %pre= preview_jbuilder('issues/_issue')
+
   %p Example error
-  %pre= pretty_json(render_response_without_changing_status('issue with id bla not found', 404).to_json)
+  %pre= preview_jbuilder('shared/sample_error')
+
   %h3 Requests
   %p <b>GET</b> /meta
   %p
@@ -48,6 +51,7 @@
   %p skip (default 0)
   %p
     %a{:href => '/issues'} example
+  %p curl -X GET -H 'Content-Type: application/json' #{Repara.base_url}issues
 
   %br
   %p <b>GET</b> /issues/ISSUE_ID
