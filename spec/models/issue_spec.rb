@@ -60,6 +60,8 @@ describe Issue do
       i.images.first.has_key?(:thumb_url).should be_true
       i.comments.should be_empty
       i.errors.should be_empty
+      i.created_at.to_s.should_not be_empty
+      i.updated_at.to_s.should_not be_empty
     }.to change{ Issue.count }.by 1
   end
 

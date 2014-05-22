@@ -1,6 +1,7 @@
 class IssuesController < ApplicationController
 
   before_action :set_issue, only: [:show, :add_to_set, :update, :vote]
+  before_action :no_vote_cheating, only: [:update, :create]
 
   def index
     limit = params['limit'].nil? ? 10 : params['limit']
@@ -14,9 +15,6 @@ class IssuesController < ApplicationController
   end
 
   def create
-    # do not allow the vote_counter to be different than 0
-    params.delete('vote_counter')
-
     @issue = Issue.create(params)
 
     unless @issue.valid?
@@ -29,9 +27,6 @@ class IssuesController < ApplicationController
   end
 
   def update
-    # do not allow the update of the vote_counter
-    params.delete('vote_counter')
-
     @issue.update_attributes(params)
 
     unless @issue.valid?
@@ -57,6 +52,10 @@ class IssuesController < ApplicationController
   end
 
   private
+
+  def no_vote_cheating
+    params.delete('vote_counter')
+  end
 
   def set_issue
     @issue = Issue.find(params[:id])
