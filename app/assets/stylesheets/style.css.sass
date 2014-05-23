@@ -1,3 +1,24 @@
+body
+  padding-top: 100px
+
+.statistic
+  span
+    display: block
+    margin: 0 auto
+    height: 70px
+    width: 70px
+    line-height: 70px
+
+    -moz-border-radius: 40px
+    border-radius: 40px
+
+    background-color: black
+    color: white
+    text-align: center
+    font-size: 2em
+  p
+    text-align: center
+
 .fullscreen-map-container
   position: absolute
   top: 0px
@@ -38,12 +59,21 @@ a
   padding: 50px
 
 .spacer
-  margin-top: 60px
+  padding-top: 60px
 
 td, tr, th
   text-align: center
 
-.table-issues tbody
-  tr, td
-    cursor: pointer
-    cursor: hand
+.table-issues
+  tbody
+    tr, td
+      cursor: pointer
+      cursor: hand
+
+  .issue-id
+    text-align: left
+    width: 10px
+  .issue-name
+    text-align: left
+  .issue-number
+    text-align: right

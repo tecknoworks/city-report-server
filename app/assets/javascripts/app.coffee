@@ -42,7 +42,7 @@ initMap = ->
     return
 
   q = $('.map').data('q')
-  $.get "/issues?q=" + q, (data) ->
+  $.get "/issues.json?q=" + q, (data) ->
     for pin of data["body"]
       issue = data["body"][pin]
       marker = new google.maps.Marker(

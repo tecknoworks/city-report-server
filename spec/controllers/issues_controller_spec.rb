@@ -39,14 +39,14 @@ describe IssuesController do
     end
 
     it 'returns all issues' do
-      last_response = get :index
+      last_response = get :index, format: :json
       issues = JSON.parse(last_response.body)['body']
       issues.length.should == 3
     end
 
     it 'returns a specific issue' do
       issue = Issue.first
-      last_response = get :show, id: issue.id.to_s
+      last_response = get :show, id: issue.id.to_s, format: :json
       body = JSON.parse(last_response.body)['body']
       body['_id'].should == issue['_id'].to_s
     end

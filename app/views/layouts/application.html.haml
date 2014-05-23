@@ -4,15 +4,36 @@
     %meta{charset: "utf-8"}/
     %meta{content: "IE=edge", "http-equiv" => "X-UA-Compatible"}/
     %meta{content: "width=device-width, initial-scale=1", name: "viewport"}/
+    %meta{content: "", name: "description"}/
+    %meta{content: "", name: "author"}/
 
     %title repara-clujul-server
 
     = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true
     = csrf_meta_tags
   %body
+    .navbar.navbar-inverse.navbar-fixed-top{role: "navigation"}
+      .container-fluid
+        .navbar-header
+          %button.navbar-toggle{"data-target" => ".navbar-collapse", "data-toggle" => "collapse", type: "button"}
+            %span.sr-only Toggle navigation
+            %span.icon-bar
+            %span.icon-bar
+            %span.icon-bar
+          %a.navbar-brand{href: root_path} Repara Clujul
+        .navbar-collapse.collapse
+          %ul.nav.navbar-nav.navbar-right
+            %li
+              %a{href: root_path} Map
+            %li
+              %a{href: issues_path} Dashboard
+            %li
+              %a{href: doc_path} Documentation
+          %form.navbar-form.navbar-right
+            %input.form-control{placeholder: "Search...", type: "text", name: "q", value: params['q']}/
     .container
       = yield
 
-    = javascript_include_tag 'application', 'data-turbolinks-track' => true
+    = javascript_include_tag 'application', 'data-turbolinks-track' => false
     %script{src: "//cdnjs.cloudflare.com/ajax/libs/jquery-ui-map/3.0-rc1/min/jquery.ui.map.min.js"}
-    %script{src: "https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"}
+    %script{src: "https://maps.googleapis.com/maps/api/js?v=3&sensor=false"}

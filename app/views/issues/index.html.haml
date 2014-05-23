@@ -1,25 +1,29 @@
+.row
+  - issues_by_category.each do |cat|
+    .col-md-3.statistic
+      %span= cat[1]
+      %p= cat[0]
+
 .row.spacer
   .col-md-12
-    .map-header
-      = render "shared/map", lat: Repara.map_center['lat'], lon: Repara.map_center['lon']
-.row.spacer.text-center
-  -# %img.center-block.img-responsive{src: "/images/marker.png"}
-  .col-md-12
-    %form{role: "form", method: 'GET', url: '/admin'}
-      .input-group
-        %input.form-control{name: 'q', type: 'text', placeholder: "Search within #{Issue::SEARCHABLE_FIELDS.to_sentence}", value: params['q']}
-        %span.input-group-btn
-          %button.btn.btn-default{type: 'submit'} search
-.row.spacer
-  %table.table.table-stripped.table-hover.table-issues
-    %thead
-    %tbody
-      - @issues.each do |issue|
-        %tr{"data-issue-id" => issue['_id'], "data-json" => issue.to_json}
-          %td= issue['name']
-          %td= issue['category']
-          %td= issue['address']
-          %td= issue['lat']
-          %td= issue['lon']
-          %td= pluralize(issue['images'].count, 'image')
-          %td= issue['comments'].count.to_s + ' comments'
+    .table-responsive
+      %table.table-issues.table.table-striped.table-hober.table-condensed
+        %thead
+          %tr
+            %th #
+            %th.issue-name name
+            %th.issue-number lat
+            %th.issue-number lon
+            %th address
+            %th.issue-number images
+            %th.issue-number comments
+        %tbody
+          - @issues.each do |issue|
+            %tr{"data-issue-id" => issue.id}
+              %td.issue-id= issue.id
+              %td.issue-name= issue.name
+              %td.issue-number= issue.lat
+              %td.issue-number= issue.lon
+              %td= issue.address
+              %td.issue-number= issue.images.count
+              %td.issue-number= issue.comments.count
