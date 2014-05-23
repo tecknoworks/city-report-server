@@ -1,28 +1,32 @@
 == README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+To get an overview of the system check out the UML diagram.
 
-Things you may want to cover:
+== Requirements
 
-* Ruby version
+rvm (recommended but not required)
+ruby 2.1.1
+graphicsmagic
+git
+mongodb
+redis
+apache2
+passenger (comes with the code)
+sidekiq (comes with the code)
 
-* System dependencies
+== Deployment
 
-* Configuration
+Capistrano is used for deployment.
 
-* Database creation
+cap production deploy
+cap staging deploy
 
-* Database initialization
+== Run tests
 
-* How to run the test suite
+rake spec
 
-* Services (job queues, cache servers, search engines, etc.)
+== Services
 
-* Deployment instructions
+To start the thumbnail generation service/geocoder
 
-* ...
-
-
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
+rake sidekiq:restart
