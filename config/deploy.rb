@@ -2,20 +2,10 @@
 lock '3.2.1'
 
 set :application, 'repara-clujul-server-rails'
-set :repo_url, 'git@gitlab.st.st2k.ro:repara/repara-clujul-server.git'
 
 # Default branch is :master
 # ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }.call
-set :branch, 'rails4'
-
-# Default deploy_to directory is /var/www/my_app
-set :deploy_to, '/home/croco/repara-clujul-server-rails'
-
-# Default value for :scm is :git
-# set :scm, :git
-
-# Default value for :format is :pretty
-# set :format, :pretty
+set :branch, 'dev'
 
 # Default value for :log_level is :debug
 # set :log_level, :debug
@@ -34,8 +24,7 @@ set :linked_dirs, %w{log tmp/pids tmp/cache tmp/sockets vendor/bundle public/ima
 # set :default_env, { path: "/opt/ruby/bin:$PATH" }
 set :rvm_ruby_version, `cat .ruby-version`.chomp + '@' + `cat .ruby-gemset`.chomp
 
-# Default value for keep_releases is 5
-# set :keep_releases, 5
+set :keep_releases, 5
 
 namespace :deploy do
 
