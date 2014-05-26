@@ -1,5 +1,7 @@
 class WebController < ApplicationController
 
+  before_action :check_for_no_layout, only: [:about, :eula]
+
   def index
   end
 
@@ -36,5 +38,11 @@ class WebController < ApplicationController
 
     @issues_deleted_count = Issue.delete_all
     @images_deleted_count = Image.delete_all
+  end
+
+  private
+
+  def check_for_no_layout
+    render :layout => !params[:no_layout].present?
   end
 end
