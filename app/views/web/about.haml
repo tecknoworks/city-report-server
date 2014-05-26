@@ -1,16 +1,22 @@
-.row
-  = image_tag 'logo.png'
-  %h3= Repara.app_name
-  %p #{Repara.app_name} este o aplicatie gratuita care pune la dispozitia utilizatorilor, in special clujenilor, dar nu numai, o unealta prin care sa poata raporta diferitele probleme sau incidente pe care le observa pe raza orasului Cluj-Napoca.
-  %p In acelasi timp, aplicatia este menita sa ofere autoritatilor clujene un mijloc aditional prin care sa se poata identifica si localiza intr-un mod rapid si usor problemele si incidentele semnalate de cetateni.
-  %p
-    Utilizatorii care folosesc aplicatia pot vizualiza si confirma incidentele raportate, pot sesiza incidente invalide sau pot raporta incidente noi intr-un mod anonim, fara necesitatea de inregistrare in prealabil, doar cu conditia de acceptare a
-    = link_to 'termenilor si conditiilor de utilizare', eula_path
-  %p 
-    Deasemenea, incidentele raportate pot fi vizualizate de pe orice dispozitiv cu conexiune la internet, accesand pagina de web dedicata
-    = link_to 'aplicatiei', Repara.base_url
-  %p Aplicatia este disponibila pentru descarcare si instalare in magazinul Apple App Store -link + badge for Apple Store- si este destinata dispozitivelor mobile de tip smart-Phone: iPhone sau iPod, pe care ruleaza sistemul de operare iOS incepand cu versiunea 7.0.
-  %p Aplicatia urmeaza sa fie disponibila curand si pentru alte dispozitive, platforme si sisteme de operare.
-  %p
-    Aplicatia este dezvoltata in cadrul companiei
-    = link_to 'Tecknoworks', 'http://tecknoworks.com'
+:css
+  div.about p {
+    text-align: justify
+  }
+.row.about
+  .col-md-12.text-center
+    = image_tag 'logo.png'
+  .col-md-12
+    %h3= Repara.app_name
+    %p #{Repara.app_name} este o aplicatie gratuita care pune la dispozitia utilizatorilor, in special clujenilor, dar nu numai, o unealta prin care sa poata raporta diferitele probleme sau incidente pe care le observa pe raza orasului Cluj-Napoca.
+    %p In acelasi timp, aplicatia este menita sa ofere autoritatilor clujene un mijloc aditional prin care sa se poata identifica si localiza intr-un mod rapid si usor problemele si incidentele semnalate de cetateni.
+    %p
+      Utilizatorii care folosesc aplicatia pot vizualiza si confirma incidentele raportate, pot sesiza incidente invalide sau pot raporta incidente noi intr-un mod anonim, fara necesitatea de inregistrare in prealabil, doar cu conditia de acceptare a
+      = link_to 'termenilor si conditiilor de utilizare', eula_path
+    %p
+      Deasemenea, incidentele raportate pot fi vizualizate de pe orice dispozitiv cu conexiune la internet, accesand pagina de web dedicata
+      = link_to 'aplicatiei', Repara.base_url
+    %p Aplicatia este disponibila pentru descarcare si instalare in magazinul Apple App Store -link + badge for Apple Store- si este destinata dispozitivelor mobile de tip smart-Phone: iPhone sau iPod, pe care ruleaza sistemul de operare iOS incepand cu versiunea 7.0.
+    %p Aplicatia urmeaza sa fie disponibila curand si pentru alte dispozitive, platforme si sisteme de operare.
+    %p
+      Aplicatia este dezvoltata in cadrul companiei
+      = link_to 'Tecknoworks', 'http://tecknoworks.com'
