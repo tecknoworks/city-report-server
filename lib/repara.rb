@@ -3,6 +3,10 @@ class Repara
     APP_CONFIG
   end
 
+  def self.app_name
+    self.config['app_name']
+  end
+
   def self.categories
     self.config['meta']['categories']
   end

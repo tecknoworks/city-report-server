@@ -1,5 +1,6 @@
 development: &common_settings
   env: 'development'
+  app_name: 'City Report Cluj-Napoca'
   base_url: 'http://localhost:3000/'
   allow_delete_all: true
   allow_downvotes: true

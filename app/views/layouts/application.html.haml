@@ -7,10 +7,11 @@
     %meta{content: "", name: "description"}/
     %meta{content: "", name: "author"}/
 
-    %title repara-clujul-server
+    %title= Repara.app_name
 
     = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true
     = csrf_meta_tags
+    = favicon_link_tag
   %body
     .navbar.navbar-inverse.navbar-fixed-top{role: "navigation"}
       .container-fluid
@@ -20,12 +21,13 @@
             %span.icon-bar
             %span.icon-bar
             %span.icon-bar
-          %a.navbar-brand{href: root_path} Repara Clujul
+          %a.navbar-brand{href: root_path}= Repara.app_name
         .navbar-collapse.collapse
           %ul.nav.navbar-nav.navbar-right
             = menu_item root_path, 'Map'
             = menu_item issues_path, 'Dashboard'
             = menu_item doc_path, 'Documentation'
+            = menu_item about_path, 'About'
           %form.navbar-form.navbar-right
             %input.form-control{placeholder: "Search...", type: "text", name: "q", value: params['q']}/
     .container
