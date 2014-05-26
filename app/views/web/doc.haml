@@ -1,4 +1,7 @@
 .row
+  .col-md-12
+    %h1 Documentation
+.row
   .col-md-6
     %p
       The API has two main components. The Image Upload Service and the Issue Reporting Service. There is an
@@ -10,8 +13,10 @@
     %pre= preview_jbuilder('shared/sample_body')
 
 .row.spacer
-  .col-md-6
+  .col-md-12
     %h3 Image Upload Service
+.row
+  .col-md-6
     %p Used to upload <b>png</b> images to the server. Will return a public url for the image and an url for the server generated thumbnail
     %p <b>POST</b> /upload with 'image' param
     %p Examples:
@@ -23,8 +28,10 @@
     %pre= preview_jbuilder('images/create')
 
 .row.spacer
-  .col-md-6
+  .col-md-12
     %h3 Issue Reporting Service
+.row
+  .col-md-6
     %p All requests should have the Content-Type header set to <b>application/json</b>
     %p If no address is specified, the issue will be geocoded from lat and lon
     %p issue.category will be lower cased by the server
@@ -105,8 +112,10 @@
       %pre= preview_jbuilder('web/cleanup')
 
 .row.spacer
-  .col-md-6
+  .col-md-12
     %h2 Error Codes
+.row
+  .col-md-6
     %table.table.table-striped.table-bordered.table-condensed
       %thead
         %tr

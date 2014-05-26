@@ -23,12 +23,9 @@
           %a.navbar-brand{href: root_path} Repara Clujul
         .navbar-collapse.collapse
           %ul.nav.navbar-nav.navbar-right
-            %li
-              %a{href: root_path} Map
-            %li
-              %a{href: issues_path} Dashboard
-            %li
-              %a{href: doc_path} Documentation
+            = menu_item root_path, 'Map'
+            = menu_item issues_path, 'Dashboard'
+            = menu_item doc_path, 'Documentation'
           %form.navbar-form.navbar-right
             %input.form-control{placeholder: "Search...", type: "text", name: "q", value: params['q']}/
     .container

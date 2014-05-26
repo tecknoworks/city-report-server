@@ -19,4 +19,17 @@ module ApplicationHelper
   def pretty_json h
     JSON.pretty_generate(JSON.parse(h))
   end
+
+  def menu_item path, name
+    s = "%li{class: '#{active_menu_item?(path)}'}\n  %a{href: '#{path}'} #{name}"
+    haml(s).html_safe
+  end
+
+  def active_menu_item? path
+    "active" if current_page?(path)
+  end
+
+  def haml s
+    Haml::Engine.new(s).render
+  end
 end
