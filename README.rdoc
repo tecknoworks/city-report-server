@@ -2,6 +2,12 @@
 
 To get an overview of the system check out the UML diagram.
 
+Daily jobs:
+
+# code quality - http://jenkins.st.st2k.ro/job/test%20repara-clujul-server/ws/code_quality_report.html
+# tests - http://jenkins.st.st2k.ro/job/test%20repara-clujul-server/ws/test_report.html
+# security report - http://jenkins.st.st2k.ro/job/test%20repara-clujul-server/ws/security_report.html
+
 == Requirements
 
 rvm (recommended but not required)
