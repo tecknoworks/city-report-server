@@ -18,3 +18,5 @@
 /public/images/uploads/original/*.png
 /public/images/uploads/thumb/*.png
 /public/assets/
+
+*_report.html
