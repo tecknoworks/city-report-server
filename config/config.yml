@@ -22,6 +22,6 @@ test:
 production:
   <<: *common_settings
   env: 'production'
-  base_url: 'http://192.168.0.15/'
+  base_url: 'http://www.cityreportapp.com/'
   allow_delete_all: true
   allow_downvotes: true
