@@ -31,6 +31,7 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'foreman'
   gem 'factory_girl_rails'
+  gem "brakeman", :require => false
 end
 
 gem 'capistrano-rails', group: :development
