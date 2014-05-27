@@ -12,7 +12,7 @@ Rails.application.routes.draw do
   #   get 'products/:id' => 'catalog#view'
   post 'images' => 'images#create', as: 'image_upload'
 
-  resources :issues
+  resources :issues, :only => [:index, :show, :create, :update]
   put 'issues/:id/add_to_set' => 'issues#add_to_set'
   post 'issues/:id/vote' => 'issues#vote'
 
