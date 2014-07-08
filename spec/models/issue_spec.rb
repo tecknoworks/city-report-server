@@ -12,6 +12,8 @@ describe Issue do
     build(:issue).should_not be_nil
   end
 
+  it 'knows about the neighbourhood'
+
   context 'validation' do
     it 'knows if it is invalid before save' do
       Issue.new(name: 'foo', category: category, lat: 0, lon: 0).valid?.should be_false
@@ -28,6 +30,8 @@ describe Issue do
     it 'requires a valid category' do
       build(:issue, category: 'asta_sigur_nu_e_categorie').valid?.should be_false
     end
+
+    it 'requires a valid neighbourhood'
 
     it 'knows category will be downcased' do
       expect {
