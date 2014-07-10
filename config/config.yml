@@ -6,7 +6,7 @@ development: &common_settings
   allow_delete_all: true
   allow_downvotes: true
   language:
-    default_eula_language: 'en'
+    default_eula_language: 'ro'
     valid_eula_languages: ['en', 'ro']
   string_max_length:
     name: 32
