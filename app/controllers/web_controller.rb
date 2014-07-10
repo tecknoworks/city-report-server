@@ -1,5 +1,6 @@
 class WebController < ApplicationController
 
+  before_action :check_for_lang, only: [:about, :eula]
   before_action :check_for_no_layout, only: [:about, :eula]
 
   def index
@@ -40,7 +41,14 @@ class WebController < ApplicationController
     @images_deleted_count = Image.delete_all
   end
 
-  private
+  protected
+
+  def check_for_lang
+    default_lang = Repara.default_eula_language
+    @lang = params[:lang].present? ? params[:lang] : default_lang
+    p @lang
+    @lang = default_lang unless Repara.valid_eula_languages.include? @lang
+  end
 
   def check_for_no_layout
     render :layout => !params[:no_layout].present?
