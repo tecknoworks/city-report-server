@@ -10,7 +10,33 @@ development: &common_settings
     address: 140
   meta:
     categories: ['groapă', 'gunoi', 'vandalism', 'altele']
-    zones: ['Grigorescu', 'Mănăștur', 'Zorilor', 'Gheorgheni', 'Centru', 'Dâmbul Rotund', 'Iris']
+    zones: [
+      'Andrei Mureșanu',
+      'Bulgaria',
+      'Bună Ziua',
+      'Centru',
+      'Dâmbul Rotund',
+      'Gara',
+      'Gheorgheni',
+      'Grădini Mănăștur',
+      'Grigorescu',
+      'Gruia',
+      'Hidelve',
+      'Iris',
+      'Între Lacuri',
+      'Mănăștur',
+      'Mărăști',
+      'Someșeni',
+      'Zorilor',
+      'Sopor',
+      'Borhanci',
+      'Becaș',
+      'Făget',
+      'Zorilor sud (Europa)',
+      'Lomb',
+      'Tineretului',
+      'Pata-Rât'
+    ]
   map_center:
     lat: 46.768322
     lon: 23.595002
