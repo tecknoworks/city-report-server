@@ -15,6 +15,10 @@ class Repara
     self.config['base_url']
   end
 
+  def self.base_email
+    self.config['base_email']
+  end
+
   def self.string_max_length
     self.config['string_max_length']
   end
@@ -33,5 +37,13 @@ class Repara
 
   def self.map_center
     self.config['map_center']
+  end
+
+  def self.default_eula_language
+    self.config['language']['default_eula_language']
+  end
+
+  def self.valid_eula_languages
+    self.config['language']['valid_eula_languages']
   end
 end

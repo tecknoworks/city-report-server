@@ -8,6 +8,9 @@
       %a{:href => '/eula'} eula page
       and an
       %a{:href => '/about'} about page
+      The
+      %a{:href => '/eula?lang=en'} eula page
+      has an optional query param <b>lang</b>. Valid values for lang are: #{Repara.valid_eula_languages.join(', ')}
     %p If you do not want CSS when getting the about/eula page, access them with no_layout query param set to true.
   .col-md-6
     %pre= preview_jbuilder('shared/sample_body')

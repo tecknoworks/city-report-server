@@ -1,9 +1,13 @@
 development: &common_settings
   env: 'development'
   app_name: 'City Report Cluj-Napoca'
+  base_email: 'info@cityreportapp.com'
   base_url: 'http://localhost:3000/'
   allow_delete_all: true
   allow_downvotes: true
+  language:
+    default_eula_language: 'en'
+    valid_eula_languages: ['en', 'ro']
   string_max_length:
     name: 32
     comments: 140
