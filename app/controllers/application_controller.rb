@@ -16,4 +16,9 @@ class ApplicationController < ActionController::Base
     render json: body, status: status_code
   end
 
+  def render_404
+    # raise ActionController::RoutingError.new('Not Found')
+    render :file => "#{Rails.root}/public/404", :layout => false, :status => :not_found
+  end
+
 end

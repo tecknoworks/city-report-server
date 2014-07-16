@@ -1,5 +1,4 @@
 class IssuesController < ApplicationController
-
   before_action :set_issue, only: [:show, :add_to_set, :update, :vote]
   before_action :no_vote_cheating, only: [:update, :create]
 

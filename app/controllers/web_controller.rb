@@ -11,6 +11,8 @@ class WebController < ApplicationController
   end
 
   def doc
+    render_404 and return unless Repara.show_doc?
+
     @issues_deleted_count = 42
     @images_deleted_count = 7
 
@@ -26,6 +28,7 @@ class WebController < ApplicationController
   end
 
   def up
+    render_404 and return unless Repara.show_doc?
   end
 
   def about

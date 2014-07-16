@@ -46,4 +46,12 @@ class Repara
   def self.valid_eula_languages
     self.config['language']['valid_eula_languages']
   end
+
+  def self.show_doc?
+    self.config['show_doc']
+  end
+
+  def self.show_dashboard?
+    self.config['show_dashboard']
+  end
 end

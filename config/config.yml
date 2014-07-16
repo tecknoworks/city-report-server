@@ -5,6 +5,8 @@ development: &common_settings
   base_url: 'http://localhost:3000/'
   allow_delete_all: true
   allow_downvotes: true
+  show_doc: true
+  show_dashboard: true
   language:
     default_eula_language: 'ro'
     valid_eula_languages: ['en', 'ro']
@@ -53,5 +55,7 @@ production:
   <<: *common_settings
   env: 'production'
   base_url: 'http://www.cityreportapp.com/'
-  allow_delete_all: true
-  allow_downvotes: true
+  allow_delete_all: false
+  allow_downvotes: false
+  show_doc: false
+  show_dashboard: false
