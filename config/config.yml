@@ -43,6 +43,7 @@ development: &common_settings
       'Tineretului',
       'Pata-Rât'
     ]
+  max_distance_to_map_center: 1
   map_center:
     lat: 46.768322
     lon: 23.595002

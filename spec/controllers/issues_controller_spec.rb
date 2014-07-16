@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe IssuesController do
   let(:category) { Repara.categories.last }
-  let(:valid_issue_hash) { {name: 'foo', category: category, lat: 0, lon: 0, images: [{url: 'http://www.yahoo.com/asd.png'}]} }
+  let(:valid_issue_hash) { {name: 'foo', category: category, lat: Repara.map_center['lat'], lon: Repara.map_center['lon'], images: [{url: 'http://www.yahoo.com/asd.png'}]} }
 
   context 'content-type' do
     #context 'json' do
@@ -111,10 +111,24 @@ describe IssuesController do
       expect {
         post :create, valid_issue_hash
       }.to change{Issue.count}.by 1
+
+      a_bit_bigger = valid_issue_hash
+      a_bit_bigger[:lat] += 1
+      last_response = post :create, a_bit_bigger
+      last_response.status.should == RequestCodes::SUCCESS
+    end
+
+    it 'does not create issues too far away from map center' do
+      coords_too_far_away = valid_issue_hash
+      coords_too_far_away[:lat] = 1
+      coords_too_far_away[:lon] = 1
+      last_response = post :create, coords_too_far_away
+      last_response.status.should == RequestCodes::BAD_REQUEST
+      JSON.parse(last_response.body)['code'].should ==  RequestCodes::TOO_FAR_FROM_MAP_CENTER
     end
 
     it 'sends the correct error code' do
-      last_response = post :create, name: 'foo', lon: 0, lat: 0, category: category
+      last_response = post :create, name: 'foo', lon: Repara.map_center_lon, lat: Repara.map_center_lat, category: category
       last_response.status.should == RequestCodes::BAD_REQUEST
       JSON.parse(last_response.body)['code'].should == RequestCodes::REQUIRES_AT_LEAST_ONE_IMAGE
     end

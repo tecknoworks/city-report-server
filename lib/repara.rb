@@ -54,4 +54,16 @@ class Repara
   def self.show_dashboard?
     self.config['show_dashboard']
   end
+
+  def self.max_distance_to_map_center
+    self.config['max_distance_to_map_center']
+  end
+
+  def self.map_center_lat
+    self.map_center['lat']
+  end
+
+  def self.map_center_lon
+    self.map_center['lon']
+  end
 end

@@ -53,8 +53,10 @@ class Issue < BaseModel
 
   def distance_to_map_center
     map_center = Repara.map_center
-    delta_lat = map_center['lat'] - self.lat
-    delta_lon = map_center['lon'] - self.lon
+    lat = self.lat != nil ? self.lat : 100000
+    lon = self.lon != nil ? self.lon : 100000
+    delta_lat = map_center['lat'] - lat
+    delta_lon = map_center['lon'] - lon
     Math.sqrt(delta_lat * delta_lat + delta_lon * delta_lon)
   end
 
@@ -138,6 +140,9 @@ class Issue < BaseModel
 
     self.errors.add(:invalid_lon, 'is it between -180 and 180?') unless
     self.lon.nil? || -180.0 < self.lon && self.lon < 180
+
+    self.errors.add(:invalid_coordinates_too_far_from_map_center, "allowed to place issues only around #{Repara.map_center_lat}:#{Repara.map_center_lon}") if
+    self.distance_to_map_center > Repara.max_distance_to_map_center
   end
 
   def allowed_category

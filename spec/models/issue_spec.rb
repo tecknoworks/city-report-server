@@ -39,6 +39,14 @@ describe Issue do
 
     it 'requires a valid neighbourhood'
 
+    it 'only allows issues close to the map center' do
+      issue =  build(:issue)
+      issue.valid?.should be_true
+      issue.lat = 80
+      issue.valid?.should be_false
+      issue.errors.first.first.should eq :invalid_coordinates_too_far_from_map_center
+    end
+
     it 'knows category will be downcased' do
       expect {
         issue = create(:issue, category: 'ALTELE')
@@ -64,8 +72,8 @@ describe Issue do
   it 'creates an issue' do
     expect {
       i = create(:issue)
-      i.lat.should == 1
-      i.lon.should == 2
+      i.lat.should == Repara.map_center['lat']
+      i.lon.should == Repara.map_center['lon']
       i.images.should_not be_empty
       i.images.first.has_key?(:thumb_url).should be_true
       i.comments.should be_empty

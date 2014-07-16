@@ -35,6 +35,8 @@ class BaseModel
       code = INVALID_COMMENT_FORMAT
     when :string_too_big
       code = STRING_TOO_BIG
+    when :invalid_coordinates_too_far_from_map_center
+      code = TOO_FAR_FROM_MAP_CENTER
     else
       code = UNKNOWN_ERROR
     end
