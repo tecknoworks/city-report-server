@@ -49,7 +49,6 @@ class WebController < ApplicationController
   def check_for_lang
     default_lang = Repara.default_eula_language
     @lang = params[:lang].present? ? params[:lang] : default_lang
-    p @lang
     @lang = default_lang unless Repara.valid_eula_languages.include? @lang
   end
 

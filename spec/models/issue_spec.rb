@@ -14,6 +14,12 @@ describe Issue do
 
   it 'knows about the neighbourhood'
 
+  it 'calculates the distance to the map center' do
+    issue = build(:issue)
+    dist = issue.distance_to_map_center
+    dist.should == dist.to_f
+  end
+
   context 'validation' do
     it 'knows if it is invalid before save' do
       Issue.new(name: 'foo', category: category, lat: 0, lon: 0).valid?.should be_false

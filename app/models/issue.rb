@@ -51,6 +51,13 @@ class Issue < BaseModel
     self.inc(vote_counter: i)
   end
 
+  def distance_to_map_center
+    map_center = Repara.map_center
+    delta_lat = map_center['lat'] - self.lat
+    delta_lon = map_center['lon'] - self.lon
+    Math.sqrt(delta_lat * delta_lat + delta_lon * delta_lon)
+  end
+
   protected
 
   def string_size_limit
