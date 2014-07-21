@@ -5,13 +5,7 @@ Rails.application.routes.draw do
 
   post 'images' => 'images#create', as: 'image_upload'
 
-  if Repara.show_dashboard?
-    resources :issues, :only => [:index, :show, :create, :update]
-  else
-    scope :format => true, :constraints => { :format => 'json' } do
-      resources :issues, :only => [:index, :show, :create, :update]
-    end
-  end
+  resources :issues, :only => [:index, :show, :create, :update]
   put 'issues/:id/add_to_set' => 'issues#add_to_set'
   post 'issues/:id/vote' => 'issues#vote'
 
