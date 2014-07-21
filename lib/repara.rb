@@ -51,10 +51,6 @@ class Repara
     self.config['show_doc']
   end
 
-  def self.show_dashboard?
-    self.config['show_dashboard']
-  end
-
   def self.max_distance_to_map_center
     self.config['max_distance_to_map_center']
   end

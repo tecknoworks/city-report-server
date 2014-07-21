@@ -6,7 +6,6 @@ development: &common_settings
   allow_delete_all: true
   allow_downvotes: true
   show_doc: true
-  show_dashboard: true
   language:
     default_eula_language: 'ro'
     valid_eula_languages: ['en', 'ro']
@@ -59,4 +58,3 @@ production:
   allow_delete_all: false
   allow_downvotes: false
   show_doc: false
-  show_dashboard: true
