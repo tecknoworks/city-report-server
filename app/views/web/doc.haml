@@ -51,29 +51,29 @@
 .row.spacer
   .col-md-12
     %h3 Requests
-    %p <b>GET</b> /meta
+    %p <b>GET</b> /meta.json
     %p
-      %a{:href => '/meta'} example
+      %a{:href => '/meta.json'} example
 
 .row.spacer
   .col-md-12
-    %p <b>GET</b> /issues
+    %p <b>GET</b> /issues.json
     %p Optional query params
     %p q (default to none) - search query string
     %p limit (default 10)
     %p skip (default 0)
     %p
       %a{:href => '/issues'} example
-    %p curl -X GET -H 'Content-Type: application/json' #{Repara.base_url}issues
+    %p curl -X GET -H 'Content-Type: application/json' #{Repara.base_url}issues.json
 
 .row.spacer
   .col-md-12
-    %p <b>GET</b> /issues/ISSUE_ID
-    %p curl -X GET -H 'Content-Type: application/json' #{Repara.base_url}issues/ISSUE_ID
+    %p <b>GET</b> /issues/ISSUE_ID.json
+    %p curl -X GET -H 'Content-Type: application/json' #{Repara.base_url}issues/ISSUE_ID.json
 
     %br
-    %p <b>POST</b> /issues
-    %p curl -X POST -H 'Content-Type: application/json' -d '{"name":"hello", "category":"altele", "lat":0, "lon":0,"images":[{"url": "#{Repara.base_url}images/logo.png"}]}' #{Repara.base_url}issues
+    %p <b>POST</b> /issues.json
+    %p curl -X POST -H 'Content-Type: application/json' -d '{"name":"hello", "category":"altele", "lat":0, "lon":0,"images":[{"url": "#{Repara.base_url}images/logo.png"}]}' #{Repara.base_url}issues.json
     %p Required body params: name, category, lat, lon, images
     %p
       Valid categories:
@@ -81,34 +81,34 @@
 
 .row.spacer
   .col-md-12
-    %p <b>PUT</b> /issues/:id
-    %p curl -X PUT -H 'Content-Type: application/json' -d '{"name":"test2"}' #{Repara.base_url}issues/#{@issue['_id']}
+    %p <b>PUT</b> /issues/:id.json
+    %p curl -X PUT -H 'Content-Type: application/json' -d '{"name":"test2"}' #{Repara.base_url}issues/#{@issue['_id']}.json
 
 .row.spacer
   .col-md-6
-    %p <b>PUT</b> /issues/:id/add_to_set
-    %p curl -X PUT -H 'Content-Type: application/json' -d '{"images":[{"url":"#{Repara.base_url}images/logo2.png"}]}' #{Repara.base_url}issues/#{@issue['_id']}/add_to_set
+    %p <b>PUT</b> /issues/:id/add_to_set.json
+    %p curl -X PUT -H 'Content-Type: application/json' -d '{"images":[{"url":"#{Repara.base_url}images/logo2.png"}]}' #{Repara.base_url}issues/#{@issue['_id']}/add_to_set.json
     %p a request with the body set as shown below will add url1 and ulr2 to issue.images and comment1 to issue.comments if they are not already there
   .col-md-6
     %pre= pretty_json({images: [{url: 'url1'}, {url: 'url2'}], comments: ['comment1'] }.to_json)
 
 .row.spacer
   .col-md-12
-    %p <b>POST</b> /issues/:id/vote
-    %p curl -X POST -H 'Content-Type: application/json' -d '{}' #{Repara.base_url}issues/#{@issue['_id']}/vote
+    %p <b>POST</b> /issues/:id/vote.json
+    %p curl -X POST -H 'Content-Type: application/json' -d '{}' #{Repara.base_url}issues/#{@issue['_id']}/vote.json
     %p note: in HTML, length in a POST request is mandatory. send an empty hash if needed
 
 - if Repara.config['allow_downvotes']
   .row.spacer
     .col-md-12
-      %p <b>DELETE</b> /issues/:id/vote
-      %p curl -X DELETE -H 'Content-Type: application/json' #{Repara.base_url}issues/#{@issue['_id']}/vote
+      %p <b>DELETE</b> /issues/:id/vote.json
+      %p curl -X DELETE -H 'Content-Type: application/json' #{Repara.base_url}issues/#{@issue['_id']}/vote.json
 
 - if Repara.config['allow_delete_all']
   .row.spacer
     .col-md-6
-      %p <b>DELETE</b> /cleanup - not available in production
-      %p curl -X DELETE -H 'Content-Type: application/json' #{Repara.base_url}cleanup
+      %p <b>DELETE</b> /cleanup.json - not available in production
+      %p curl -X DELETE -H 'Content-Type: application/json' #{Repara.base_url}cleanup.json
     .col-md-6
       %pre= preview_jbuilder('web/cleanup')
 
