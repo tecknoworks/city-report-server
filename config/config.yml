@@ -59,4 +59,4 @@ production:
   allow_delete_all: false
   allow_downvotes: false
   show_doc: false
-  show_dashboard: false
+  show_dashboard: true
