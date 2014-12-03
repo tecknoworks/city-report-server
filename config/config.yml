@@ -13,34 +13,6 @@ development: &common_settings
     name: 32
     comments: 140
     address: 140
-  meta:
-    zones: [
-      'Andrei Mureșanu',
-      'Bulgaria',
-      'Bună Ziua',
-      'Centru',
-      'Dâmbul Rotund',
-      'Gara',
-      'Gheorgheni',
-      'Grădini Mănăștur',
-      'Grigorescu',
-      'Gruia',
-      'Hidelve',
-      'Iris',
-      'Între Lacuri',
-      'Mănăștur',
-      'Mărăști',
-      'Someșeni',
-      'Zorilor',
-      'Sopor',
-      'Borhanci',
-      'Becaș',
-      'Făget',
-      'Zorilor sud (Europa)',
-      'Lomb',
-      'Tineretului',
-      'Pata-Rât'
-    ]
   max_distance_to_map_center: 1
   map_center:
     lat: 46.768322

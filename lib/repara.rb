@@ -7,10 +7,6 @@ class Repara
     self.config['app_name']
   end
 
-  def self.zones
-    self.config['meta']['zones']
-  end
-
   def self.base_url
     self.config['base_url']
   end
