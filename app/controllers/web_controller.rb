@@ -10,23 +10,6 @@ class WebController < ApplicationController
     render json: Repara.config['meta']
   end
 
-  def doc
-    render_404 and return unless Repara.show_doc?
-
-    @issues_deleted_count = 42
-    @images_deleted_count = 7
-
-    @issue = Issue.new(name: 'name', address: '', lat: Repara.map_center['lat'], lon: Repara.map_center['lon'], created_at: Time.now, updated_at: Time.now, category: Repara.categories.last, images: [{url: "#{Repara.base_url}images/logo.png", thumb_url: "#{Repara.base_url}images/thumb.png"}], comments: ['nice'] )
-
-    @image = Image.new(original_filename: 'filename.png')
-    # Hack to call a protected method. Only want it for documentation purposes
-    @image.send(:set_data_from_original_filename)
-
-    # checking for this in the /doc request
-    raise 'issue example in documentation out of date' unless @issue.valid?
-    # render_to_string( template: 'web/cleanup.jbuilder', locals: { issues_deleted_count: 42, images_deleted_count: 7})
-  end
-
   def up
     render_404 and return unless Repara.show_doc?
   end

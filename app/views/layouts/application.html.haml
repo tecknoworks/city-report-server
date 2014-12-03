@@ -25,7 +25,7 @@
         .navbar-collapse.collapse
           %ul.nav.navbar-nav.navbar-right
             = menu_item root_path, 'Map'
-            = menu_item doc_path, 'Documentation' if Repara.show_doc?
+            = menu_item apipie_apipie_path, 'Documentation' if Repara.show_doc?
             = menu_item about_path, 'About'
           %form.navbar-form.navbar-right
             %input.form-control{placeholder: "Search...", type: "text", name: "q", value: params['q']}/

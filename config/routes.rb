@@ -1,6 +1,7 @@
 require 'sidekiq/web'
 
 Rails.application.routes.draw do
+  apipie
   root 'web#index'
 
   post 'images' => 'images#create', as: 'image_upload'
@@ -18,7 +19,6 @@ Rails.application.routes.draw do
   end
 
   get 'meta' => 'web#meta'
-  get 'doc' => 'web#doc'
   get 'up' => 'web#up'
   get 'eula' => 'web#eula'
   get 'about' => 'web#about'

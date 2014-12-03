@@ -1,11 +1,6 @@
 require 'spec_helper'
 
 describe WebController do
-  it 'shows doc page' do
-    last_response = get :doc
-    last_response.status.should == 200
-  end
-
   it 'shows sample upload page' do
     last_response = get :up
     last_response.status.should == 200
