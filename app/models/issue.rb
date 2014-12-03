@@ -173,6 +173,6 @@ class Issue < BaseModel
 
   def allowed_category
     self.errors.add(:invalid_category, 'check /meta for allowed categories') unless
-    Repara.categories.include? self.category
+    Category.to_api.include? self.category
   end
 end

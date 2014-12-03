@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe WebController do
-  it 'shows doc page' do
+  xit 'shows doc page' do
     last_response = get :doc
     last_response.status.should == 200
   end
@@ -24,6 +24,6 @@ describe WebController do
   it 'shows meta info' do
     last_response = get :meta
     last_response.status.should == 200
-    JSON.parse(last_response.body).should == Repara.config['meta']
+    JSON.parse(last_response.body)['categories'].should == Category.to_api
   end
 end

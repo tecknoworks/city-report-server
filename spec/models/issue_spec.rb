@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe Issue do
-  let(:category) { Repara.categories.last }
+  let(:category) { create(:category).name }
 
   it 'uses the test db' do
     # repara-test can be found in config/mongoid.yml
@@ -49,8 +49,8 @@ describe Issue do
 
     it 'knows category will be downcased' do
       expect {
-        issue = create(:issue, category: 'ALTELE')
-        issue.category.should == 'altele'
+        issue = create(:issue, category: category.upcase)
+        issue.category.should == category
       }.to change{ Issue.count }.by 1
     end
 
@@ -119,7 +119,7 @@ describe Issue do
     end
 
     it 'takes into account the category' do
-      Issue.full_text_search("altele").count.should == 2
+      Issue.full_text_search(Issue.last.category).count.should == 2
     end
 
     it 'takes into account the address' do

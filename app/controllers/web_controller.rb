@@ -7,7 +7,6 @@ class WebController < ApplicationController
   end
 
   def meta
-    render json: Repara.config['meta']
   end
 
   def doc

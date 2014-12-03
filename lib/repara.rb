@@ -7,8 +7,8 @@ class Repara
     self.config['app_name']
   end
 
-  def self.categories
-    self.config['meta']['categories']
+  def self.zones
+    self.config['meta']['zones']
   end
 
   def self.base_url
