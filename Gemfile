@@ -35,6 +35,7 @@ group :development, :test do
   gem 'factory_girl_rails'
   gem 'brakeman', :require => false
   gem 'rails_best_practices', :require => false
+  gem 'guard-rspec'
 end
 
 gem 'capistrano-rails', group: :development
