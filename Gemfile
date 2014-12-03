@@ -6,6 +6,10 @@ gem 'mongoid', github: 'mongoid/mongoid'
 gem 'mongoid_search'
 gem 'bson_ext'
 
+gem 'devise'
+gem 'activeadmin', github: 'gregbell/active_admin'
+gem 'activeadmin-mongoid', github: 'elia/activeadmin-mongoid', branch: 'rails4'
+
 gem 'sidekiq'
 gem 'sinatra', '>= 1.3.0', :require => nil # required for sidekiq web
 
