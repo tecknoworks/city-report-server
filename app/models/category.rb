@@ -1,4 +1,5 @@
 class Category < BaseModel
+  include MetaToApi
 
   self.primary_key = 'id'
 
@@ -6,8 +7,4 @@ class Category < BaseModel
   field :resolve_time, type: Integer, default: 0
 
   validates :name, presence: true
-
-  def self.to_api
-    self.all.collect{|cat| cat.name}
-  end
 end
