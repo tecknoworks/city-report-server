@@ -74,7 +74,6 @@
     %br
     %p <b>POST</b> /issues.json
     %p curl -X POST -H 'Content-Type: application/json' -d '{"name":"hello", "category":"altele", "lat":0, "lon":0,"images":[{"url": "#{Repara.base_url}images/logo.png"}]}' #{Repara.base_url}issues.json
-    %p Required body params: name, category, lat, lon, images
     %p
       Valid categories:
       = Repara.categories

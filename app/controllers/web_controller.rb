@@ -1,11 +1,17 @@
 class WebController < ApplicationController
 
+  resource_description do
+    description <<-EOS
+    EOS
+  end
+
   before_action :check_for_lang, only: [:about, :eula]
   before_action :check_for_no_layout, only: [:about, :eula]
 
   def index
   end
 
+  api :GET, '/meta.json', 'Returns meta data'
   def meta
     render json: Repara.config['meta']
   end
@@ -14,9 +20,14 @@ class WebController < ApplicationController
     render_404 and return unless Repara.show_doc?
   end
 
+  api :GET, '/about', 'Returns about page'
+  param :no_layout, :bool, desc: 'No css, default false', required: false
   def about
   end
 
+  api :GET, '/eula', 'Returns eula page'
+  param :no_layout, :bool, desc: 'No css, default false', required: false
+  param :lang, String, desc: 'Valid languages are: ' + Repara.valid_eula_languages.join(', ')
   def eula
   end
 

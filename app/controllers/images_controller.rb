@@ -1,6 +1,11 @@
 class ImagesController < ApplicationController
 
-  api :POST, '/images'
+  resource_description do
+    description <<-EOS
+    EOS
+  end
+
+  api :POST, '/images', 'Upload an image'
   def create
     if params['image'].nil?
       return render_response('missing image param', MISSING_IMAGE, BAD_REQUEST)
