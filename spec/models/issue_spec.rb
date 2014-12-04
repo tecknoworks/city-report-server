@@ -5,7 +5,8 @@ describe Issue do
 
   it 'uses the test db' do
     # repara-test can be found in config/mongoid.yml
-    Mongoid.default_session.options[:database].to_sym.should == 'repara_server_test'.to_sym
+    result = 'repara_server_test'.to_sym
+    Mongoid.default_session.options[:database].to_sym.should be result
   end
 
   it 'uses factory girl' do
@@ -17,14 +18,15 @@ describe Issue do
   it 'calculates the distance to the map center' do
     issue = build(:issue)
     dist = issue.distance_to_map_center
-    dist.should == dist.to_f
+    dist.should be dist.to_f
   end
 
   context 'validation' do
     let(:issue) { build :issue }
 
     it 'knows if it is invalid before save' do
-      Issue.new(name: 'foo', category: category, lat: 0, lon: 0).valid?.should be_false
+      i = Issue.new(name: 'foo', category: category, lat: 0, lon: 0)
+      i.valid?.should be_false
     end
 
     it 'checks the validity of images hashes' do
@@ -46,7 +48,8 @@ describe Issue do
       issue.valid?.should be_true
       issue.lat = 80
       issue.valid?.should be_false
-      issue.errors.first.first.should eq :invalid_coordinates_too_far_from_map_center
+      result = :invalid_coordinates_too_far_from_map_center
+      issue.errors.first.first.should eq result
     end
 
     it 'knows category will be downcased' do
@@ -58,9 +61,14 @@ describe Issue do
     end
 
     it 'takes into account max length' do
-      build(:issue, name: 'a' * (Repara.name_max_length + 2)).valid?.should be_false
-      build(:issue, address: 'a' * (Repara.address_max_length + 2)).valid?.should be_false
-      build(:issue, comments: ['a' * (Repara.comments_max_length + 2)]).valid?.should be_false
+      name_s = 'a' * (Repara.name_max_length + 2)
+      build(:issue, name: name_s).valid?.should be_false
+
+      address_s = 'a' * (Repara.address_max_length + 2)
+      build(:issue, address: address_s).valid?.should be_false
+
+      comment_s = 'a' * (Repara.comments_max_length + 2)
+      build(:issue, comments: [comment_s]).valid?.should be_false
     end
 
     it 'checks for a valid comment format' do
@@ -92,8 +100,8 @@ describe Issue do
   it 'creates an issue' do
     expect do
       i = create(:issue)
-      i.lat.should == Repara.map_center['lat']
-      i.lon.should == Repara.map_center['lon']
+      i.lat.should be Repara.map_center['lat']
+      i.lon.should be Repara.map_center['lon']
       i.images.should_not be_empty
       i.images.first.key?(:thumb_url).should be_true
       i.comments.should be_empty
@@ -106,7 +114,8 @@ describe Issue do
   it 'updates images and comments through add_params_to_set' do
     issue = create(:issue)
     expect do
-      issue.add_params_to_set('images' => [{ url: 'http://www.bew.one/pic.png' }], 'comments' => ['noice'])
+      img_array = [{ url: 'http://www.bew.one/pic.png' }]
+      issue.add_params_to_set('images' => img_array, 'comments' => ['noice'])
       issue.reload
     end.to change { issue.images.count + issue.comments.count }.by 2
   end
@@ -117,16 +126,16 @@ describe Issue do
 
       issue.vote!(1)
       issue.reload
-      issue.vote_counter.should == 1
+      issue.vote_counter.should be 1
 
       issue.vote!(-1)
       issue.reload
-      issue.vote_counter.should == 0
+      issue.vote_counter.should be 0
 
       issue.vote!(1)
       issue.vote!(1)
       issue.reload
-      issue.vote_counter.should == 2
+      issue.vote_counter.should be 2
     end
   end
 
@@ -139,19 +148,19 @@ describe Issue do
     end
 
     it 'takes into account the category' do
-      Issue.full_text_search(Issue.last.category).count.should == 2
+      Issue.full_text_search(Issue.last.category).count.should be 2
     end
 
     it 'takes into account the address' do
-      Issue.full_text_search('dumbravelor').count.should == 1
+      Issue.full_text_search('dumbravelor').count.should be 1
     end
 
     it 'takes into account the name' do
-      Issue.full_text_search('mare').count.should == 1
+      Issue.full_text_search('mare').count.should be 1
     end
 
     it 'takes into account the comments' do
-      Issue.full_text_search('wow').count.should == 1
+      Issue.full_text_search('wow').count.should be 1
     end
   end
 end

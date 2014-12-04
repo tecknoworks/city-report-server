@@ -16,7 +16,7 @@ describe Image do
   context '#to_api' do
     it 'filters out irrelevant information' do
       api_keys = Image.create(original_filename: 'foo.png').to_api.keys
-      api_keys.length.should == 2
+      api_keys.length.should be 2
       api_keys.include?(:url).should be_true
       api_keys.include?(:thumb_url).should be_true
     end

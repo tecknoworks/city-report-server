@@ -1,5 +1,5 @@
-# http://dhartweg.roon.io/rspec-testing-for-a-json-api
 module Requests
+  # http://dhartweg.roon.io/rspec-testing-for-a-json-api
   module JsonHelpers
     def json
       @json = JSON.parse(response.body)
