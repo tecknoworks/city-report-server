@@ -1,0 +1,10 @@
+= form_tag(admin_issues_path, method: 'get', class: 'filter_form') do |f|
+  = label_tag 'Search'
+  = text_field_tag(:q, params[:q])
+  = label_tag 'Device ID'
+  = text_field_tag(:device_id, params[:device_id])
+  = label_tag 'Category'
+  = select_tag 'category', options_for_select(Category.to_api.collect{ |u| [u, u] }.unshift(['', '']), selected: params[:category])
+  .buttons
+    = submit_tag("Filter")
+    %a.clear_filters_btn{href: admin_issues_path} Clear Filters

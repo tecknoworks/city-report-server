@@ -36,16 +36,14 @@ ActiveAdmin.register Issue do
 
   controller do
     def index
-      hash = {}
-      hash[:name] = params[:name] if params[:name].present?
-      hash[:category] = params[:category] if params[:category].present?
-      @issues = Issue.where(hash).page(params[:page])
+      @issues = Issue.all
+      @issues = @issues.where(category: params[:category]) if params[:category].present?
+      @issues = @issues.where(device_id: params[:device_id]) if params[:device_id].present?
+      @issues = @issues.full_text_search(params[:q]) if params[:q].present?
+
+      @issues = @issues.page(params[:page])
     end
   end
 
-  sidebar :filter do
-    Category.to_api.each do |cat|
-      para link_to(cat, admin_issues_path + "?category=#{cat}")
-    end
-  end
+  sidebar :filters, partial: "custom_filters"
 end
