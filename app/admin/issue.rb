@@ -23,7 +23,7 @@ ActiveAdmin.register Issue do
     column :address
     column :category
     column :vote_counter
-    column 'Image' do |issue|
+    column 'Images', sortable: "image_count" do |issue|
       issue.images.count
     end
     column 'Comments' do |issue|
