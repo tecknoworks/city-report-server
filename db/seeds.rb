@@ -1,3 +1,8 @@
+admin_count = AdminUser.where(email: 'admin@admin.com')
+unless admin_count.any?
+  AdminUser.create(email: 'admin@admin.com', password: 'admin2014', password_confirmation: 'admin2014')
+end
+
 ['groapă', 'gunoi', 'vandalism', 'altele'].each do |cat|
   Category.where(name: cat).first_or_create
 end
