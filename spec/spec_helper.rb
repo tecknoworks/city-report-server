@@ -28,6 +28,10 @@ RSpec.configure do |config|
   # https://github.com/rails/jbuilder/issues/32
   config.render_views = true
 
+  config.before :all do
+    create :category
+  end
+
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   # config.fixture_path = "#{::Rails.root}/spec/fixtures"
 

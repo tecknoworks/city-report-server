@@ -1,5 +1,7 @@
 class Issue < BaseModel
 
+  self.primary_key = 'id'
+
   field :name, type: String
   field :lat, type: Float
   field :lon, type: Float
@@ -8,6 +10,29 @@ class Issue < BaseModel
   field :vote_counter, type: Integer, default: 0
   field :images, type: Array, default: []
   field :comments, type: Array, default: []
+
+  attr_accessor :images_raw
+  attr_accessor :comments_raw
+
+  def images_raw
+    self.images.collect{ |img| img['url'].strip }.join("\n") unless self.images.nil?
+  end
+
+  def images_raw=(values)
+    self.images = []
+    values.split("\n").each do |val|
+      self.images << { url: val.strip }
+    end
+  end
+
+  def comments_raw
+    self.comments.join("\n") unless self.comments.nil?
+  end
+
+  def comments_raw=(values)
+    self.comments = []
+    self.comments = values.split("\n")
+  end
 
   before_validation :downcase_category
 
@@ -94,15 +119,16 @@ class Issue < BaseModel
       # accessing a hash with either string or symbol keys
       # because the param keys in the test environment are saved as symbols
       # and on production they are saved as strings
-      if img.with_indifferent_access[:url].start_with? Repara.base_url
-        img[:thumb_url] = original_url_to_thumbnail_url(img.with_indifferent_access[:url])
+      img_hash = img.with_indifferent_access
+      if img_hash[:url].start_with? Repara.base_url
+        img[:thumb_url] = original_url_to_thumbnail_url(img_hash[:url])
       end
     end
   end
 
   # check that image url is valid
   def minimum_one_image
-    self.errors.add(:minimum_one_image_required, '') unless
+    self.errors.add(:minimum_one_image_required, '!') unless
     !self.images.empty?
   end
 
@@ -111,7 +137,7 @@ class Issue < BaseModel
       # TODO clean this up
       # we are no longer using sinatra
       unless img.class == Hash || img.class == ActiveSupport::HashWithIndifferentAccess || img.class == ActionController::Parameters
-        self.errors.add(:invalid_image_hash_format, 'check /doc for the required format!!')
+        self.errors.add(:invalid_image_hash_format, 'Not a hash. check /doc for the required format!!')
         return
       end
       # accessing a hash with either string or symbol keys
@@ -147,6 +173,6 @@ class Issue < BaseModel
 
   def allowed_category
     self.errors.add(:invalid_category, 'check /meta for allowed categories') unless
-    Repara.categories.include? self.category
+    Category.to_api.include? self.category
   end
 end

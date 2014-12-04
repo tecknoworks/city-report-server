@@ -19,6 +19,7 @@ describe WebController do
   it 'shows meta info' do
     last_response = get :meta
     last_response.status.should == 200
-    JSON.parse(last_response.body).should == Repara.config['meta']
+    JSON.parse(last_response.body)['categories'].should == Category.to_api
+    JSON.parse(last_response.body)['zones'].should == Zone.to_api
   end
 end

@@ -2,6 +2,8 @@ require 'sidekiq/web'
 
 Rails.application.routes.draw do
   apipie
+  devise_for :admin_users, ActiveAdmin::Devise.config
+  ActiveAdmin.routes(self)
   root 'web#index'
 
   post 'images' => 'images#create', as: 'image_upload'
@@ -23,5 +25,7 @@ Rails.application.routes.draw do
   get 'eula' => 'web#eula'
   get 'about' => 'web#about'
 
-  mount Sidekiq::Web, at: "/sidekiq"
+  authenticate :admin_user do # , lambda { |u| u.admin? } do
+    mount Sidekiq::Web, at: "/sidekiq"
+  end
 end

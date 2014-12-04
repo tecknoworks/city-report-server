@@ -13,7 +13,6 @@ class WebController < ApplicationController
 
   api :GET, '/meta.json', 'Returns meta data'
   def meta
-    render json: Repara.config['meta']
   end
 
   def up

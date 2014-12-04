@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe IssuesController do
-  let(:category) { Repara.categories.last }
+  let(:category) { Category.to_api.last }
   let(:valid_issue_hash) { {name: 'foo', category: category, lat: Repara.map_center['lat'], lon: Repara.map_center['lon'], images: [{url: 'http://www.yahoo.com/asd.png'}]} }
 
   context 'content-type' do

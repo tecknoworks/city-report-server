@@ -1,7 +1,7 @@
 module IssuesHelper
   def issues_by_category
     a = []
-    Repara.categories.each do |category|
+    Category.to_api.each do |category|
       a << [category, Issue.where(category: category).count]
     end
     a

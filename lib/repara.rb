@@ -7,10 +7,6 @@ class Repara
     self.config['app_name']
   end
 
-  def self.categories
-    self.config['meta']['categories']
-  end
-
   def self.base_url
     self.config['base_url']
   end
