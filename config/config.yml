@@ -28,4 +28,4 @@ production:
   base_url: 'http://www.cityreportapp.com/'
   allow_delete_all: false
   allow_downvotes: false
-  show_doc: false
+  show_doc: true
