@@ -1,5 +1,5 @@
 Apipie.configure do |config|
-  config.app_name                = "CityReport"
+  config.app_name                = "City Report Cluj-Napoca"
   config.api_base_url            = ""
   config.doc_base_url            = "/doc"
   config.api_controllers_matcher = "#{Rails.root}/app/controllers/*.rb"
