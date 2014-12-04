@@ -13,21 +13,19 @@ describe ImagesController do
     end
 
     it 'should give an error when image param is missing' do
-      last_response = post :create
-      last_response.status.should == RequestCodes::BAD_REQUEST
+      post :create
+      response.status.should == RequestCodes::BAD_REQUEST
     end
 
     it 'should show the url and thumb_url' do
       Image.any_instance.stub(:storage_filename).and_return(filename)
-      last_response = post :create, { 'image' => Rack::Test::UploadedFile.new('spec/assets/logo.png', 'image/png') }
+      post :create, { 'image' => Rack::Test::UploadedFile.new('spec/assets/logo.png', 'image/png') }
+      response.status.should == 200
 
-      image = JSON.parse(last_response.body)
-      image['body'].should_not be_nil
-      last_response.status.should == 200
-      image = image['body']
-      image['_id'].should be_nil
-      image['url'].should_not be_nil
-      image['thumb_url'].should_not be_nil
+      json['body'].should_not be_nil
+      json['body']['_id'].should be_nil
+      json['body']['url'].should_not be_nil
+      json['body']['thumb_url'].should_not be_nil
     end
 
     it 'should upload files' do
@@ -48,9 +46,9 @@ describe ImagesController do
     it 'should only allow png images' do
       ImagesController.any_instance.stub(:serialize_filename).and_return(non_png_filename)
 
-      last_response = post :create, { 'image' => Rack::Test::UploadedFile.new('spec/assets/' + non_png_filename) }
-      last_response.status.should == RequestCodes::BAD_REQUEST
-      JSON.parse(last_response.body)['code'].should == RequestCodes::INVALID_IMAGE_FORMAT
+      post :create, { 'image' => Rack::Test::UploadedFile.new('spec/assets/' + non_png_filename) }
+      response.status.should == RequestCodes::BAD_REQUEST
+      json['code'].should == RequestCodes::INVALID_IMAGE_FORMAT
     end
   end
 end

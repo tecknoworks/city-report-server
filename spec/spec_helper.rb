@@ -25,6 +25,8 @@ RSpec.configure do |config|
   # config.mock_with :rr
   config.include FactoryGirl::Syntax::Methods
 
+  config.include Requests::JsonHelpers, type: :controller
+
   # https://github.com/rails/jbuilder/issues/32
   config.render_views = true
 
