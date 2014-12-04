@@ -1,5 +1,5 @@
 namespace :sidekiq do
-  desc "restart sidekiq. used for deployment"
+  desc 'restart sidekiq. used for deployment'
   task :restart do
     pid_path = 'tmp/pids/sidekiq.pid'
 

@@ -1,22 +1,23 @@
+# All sorts of config options
 class Repara
   def self.config
     APP_CONFIG
   end
 
   def self.app_name
-    self.config['app_name']
+    config['app_name']
   end
 
   def self.base_url
-    self.config['base_url']
+    config['base_url']
   end
 
   def self.base_email
-    self.config['base_email']
+    config['base_email']
   end
 
   def self.string_max_length
-    self.config['string_max_length']
+    config['string_max_length']
   end
 
   def self.name_max_length
@@ -32,30 +33,30 @@ class Repara
   end
 
   def self.map_center
-    self.config['map_center']
+    config['map_center']
   end
 
   def self.default_eula_language
-    self.config['language']['default_eula_language']
+    config['language']['default_eula_language']
   end
 
   def self.valid_eula_languages
-    self.config['language']['valid_eula_languages']
+    config['language']['valid_eula_languages']
   end
 
   def self.show_doc?
-    self.config['show_doc']
+    config['show_doc']
   end
 
   def self.max_distance_to_map_center
-    self.config['max_distance_to_map_center']
+    config['max_distance_to_map_center']
   end
 
   def self.map_center_lat
-    self.map_center['lat']
+    map_center['lat']
   end
 
   def self.map_center_lon
-    self.map_center['lon']
+    map_center['lon']
   end
 end

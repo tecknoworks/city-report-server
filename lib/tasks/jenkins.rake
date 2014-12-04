@@ -1,5 +1,5 @@
 namespace :jenkins do
-  desc "run tests + security scan"
+  desc 'run tests + security scan'
   task :acceptance do
     puts 'Generating code quality report'
     `bundle exec rails_best_practices --output-file code_quality_report.html -f html .`
