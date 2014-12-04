@@ -31,4 +31,19 @@ ActiveAdmin.register Issue do
     end
     actions
   end
+
+  controller do
+    def index
+      hash = {}
+      hash[:name] = params[:name] if params[:name].present?
+      hash[:category] = params[:category] if params[:category].present?
+      @issues = Issue.where(hash).page(params[:page])
+    end
+  end
+
+  sidebar :filter do
+    Category.to_api.each do |cat|
+      para link_to(cat, admin_issues_path + "?category=#{cat}")
+    end
+  end
 end
