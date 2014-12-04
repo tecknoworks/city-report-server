@@ -5,6 +5,6 @@ FactoryGirl.define do
     device_id 'device_id'
     lat 46.768322
     lon 23.595002
-    images [{url: "#{Repara.base_url}images/uploads/original/asd.png"}]
+    images [{ url: "#{Repara.base_url}images/uploads/original/asd.png" }]
   end
 end

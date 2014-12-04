@@ -41,6 +41,7 @@ group :development, :test do
   gem 'brakeman', :require => false
   gem 'rails_best_practices', :require => false
   gem 'guard-rspec'
+  gem 'rubocop', require: false
 end
 
 gem 'capistrano-rails', group: :development

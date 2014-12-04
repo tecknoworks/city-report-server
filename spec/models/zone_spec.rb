@@ -5,6 +5,6 @@ describe Zone do
 
   it 'has to_api' do
     zone
-    Zone.to_api.should eq Zone.all.collect{ |zone| zone.name }
+    Zone.to_api.should eq Zone.all.collect(&:name)
   end
 end

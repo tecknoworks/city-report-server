@@ -31,7 +31,7 @@ describe Issue do
       issue.images = ['not even a hash']
       issue.valid?.should be_false
 
-      issue.images = [{foo: 'not even a hash'}]
+      issue.images = [{ foo: 'not even a hash' }]
       issue.valid?.should be_false
     end
 
@@ -50,11 +50,11 @@ describe Issue do
     end
 
     it 'knows category will be downcased' do
-      expect {
+      expect do
         issue.category = category.upcase
         issue.save
         issue.category.should == category
-      }.to change{ Issue.count }.by 1
+      end.to change { Issue.count }.by 1
     end
 
     it 'takes into account max length' do
@@ -64,9 +64,9 @@ describe Issue do
     end
 
     it 'checks for a valid comment format' do
-      issue.add_params_to_set({
-        'comments' => [{foo: 'noice'}]
-      })
+      issue.add_params_to_set(
+        'comments' => [{ foo: 'noice' }]
+      )
       issue.valid?.should be_false
     end
 
@@ -90,25 +90,25 @@ describe Issue do
   end
 
   it 'creates an issue' do
-    expect {
+    expect do
       i = create(:issue)
       i.lat.should == Repara.map_center['lat']
       i.lon.should == Repara.map_center['lon']
       i.images.should_not be_empty
-      i.images.first.has_key?(:thumb_url).should be_true
+      i.images.first.key?(:thumb_url).should be_true
       i.comments.should be_empty
       i.errors.should be_empty
       i.created_at.to_s.should_not be_empty
       i.updated_at.to_s.should_not be_empty
-    }.to change{ Issue.count }.by 1
+    end.to change { Issue.count }.by 1
   end
 
   it 'updates images and comments through add_params_to_set' do
     issue = create(:issue)
-    expect {
-      issue.add_params_to_set( {'images' => [{url: 'http://www.bew.one/pic.png'}], 'comments' => ['noice'] })
+    expect do
+      issue.add_params_to_set('images' => [{ url: 'http://www.bew.one/pic.png' }], 'comments' => ['noice'])
       issue.reload
-    }.to change {issue.images.count + issue.comments.count}.by 2
+    end.to change { issue.images.count + issue.comments.count }.by 2
   end
 
   context 'voting' do
@@ -143,15 +143,15 @@ describe Issue do
     end
 
     it 'takes into account the address' do
-      Issue.full_text_search("dumbravelor").count.should == 1
+      Issue.full_text_search('dumbravelor').count.should == 1
     end
 
     it 'takes into account the name' do
-      Issue.full_text_search("mare").count.should == 1
+      Issue.full_text_search('mare').count.should == 1
     end
 
     it 'takes into account the comments' do
-      Issue.full_text_search("wow").count.should == 1
+      Issue.full_text_search('wow').count.should == 1
     end
   end
 end

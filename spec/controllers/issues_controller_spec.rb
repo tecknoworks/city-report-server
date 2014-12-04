@@ -2,39 +2,39 @@ require 'spec_helper'
 
 describe IssuesController do
   let(:category) { Category.to_api.last }
-  let(:valid_issue_hash) {
+  let(:valid_issue_hash) do
     {
       name: 'foo',
       category: category,
       lat: Repara.map_center['lat'],
       lon: Repara.map_center['lon'],
-      images: [{url: 'http://www.yahoo.com/asd.png'}],
+      images: [{ url: 'http://www.yahoo.com/asd.png' }],
       device_id: 'device_id'
     }
-  }
+  end
 
   context 'content-type' do
-    #context 'json' do
-      #it 'returns all issues' do
-        #header "Content-Type", "application/json"
-        #get '/'
-        #last_response.status.should == RequestCodes::SUCCESS
-        #expect {
-          #JSON.parse(last_response.body)['body']
-        #}.to_not raise_error
-      #end
-    #end
+    # context 'json' do
+    # it 'returns all issues' do
+    # header "Content-Type", "application/json"
+    # get '/'
+    # last_response.status.should == RequestCodes::SUCCESS
+    # expect {
+    # JSON.parse(last_response.body)['body']
+    # }.to_not raise_error
+    # end
+    # end
 
-    #context 'html' do
-      #it 'returns a html with all the issues' do
-        #header "Content-Type", "text/html"
-        #get '/'
-        #last_response.status.should == RequestCodes::SUCCESS
-        #expect {
-          #JSON.parse(last_response.body)
-        #}.to raise_error
-      #end
-    #end
+    # context 'html' do
+    # it 'returns a html with all the issues' do
+    # header "Content-Type", "text/html"
+    # get '/'
+    # last_response.status.should == RequestCodes::SUCCESS
+    # expect {
+    # JSON.parse(last_response.body)
+    # }.to raise_error
+    # end
+    # end
   end
 
   context 'find' do
@@ -70,20 +70,20 @@ describe IssuesController do
 
     it 'upvotes' do
       issue
-      expect {
+      expect do
         post :vote, id: issue.id.to_s
         response.status.should == RequestCodes::SUCCESS
         issue.reload
-      }.to change{ issue.vote_counter }.by(1)
+      end.to change { issue.vote_counter }.by(1)
     end
 
     it 'downvotes' do
       issue
-      expect {
+      expect do
         delete :vote, id: issue.id.to_s
         response.status.should == RequestCodes::SUCCESS
         issue.reload
-      }.to change{ issue.vote_counter }.by(-1)
+      end.to change { issue.vote_counter }.by(-1)
     end
   end
 
@@ -109,18 +109,18 @@ describe IssuesController do
     end
 
     it 'does not allow the user to specify a number for the vote_counter' do
-      expect {
+      expect do
         hacking_vote_counter = valid_issue_hash
         hacking_vote_counter['vote_counter'] = 9001
         post :create, hacking_vote_counter
         json['body']['vote_counter'].should == 0
-      }.to change{ Issue.count }.by 1
+      end.to change { Issue.count }.by 1
     end
 
     it 'creates an issue' do
-      expect {
+      expect do
         post :create, valid_issue_hash
-      }.to change{Issue.count}.by 1
+      end.to change { Issue.count }.by 1
 
       a_bit_bigger = valid_issue_hash
       a_bit_bigger[:lat] += 1
@@ -159,7 +159,7 @@ describe IssuesController do
 
     it 'cries when an invalid image url is sent with the image' do
       issue_with_invalid_image_url = valid_issue_hash
-      issue_with_invalid_image_url[:images][0] = {url: 'foo'}
+      issue_with_invalid_image_url[:images][0] = { url: 'foo' }
 
       post :create, issue_with_invalid_image_url
       response.status.should == RequestCodes::BAD_REQUEST
@@ -168,7 +168,7 @@ describe IssuesController do
 
     it 'cries when not given an image url' do
       issue_with_invalid_image_url = valid_issue_hash
-      issue_with_invalid_image_url[:images][0] = {url: 'http://www.google.com/asd.txt'}
+      issue_with_invalid_image_url[:images][0] = { url: 'http://www.google.com/asd.txt' }
 
       post :create, issue_with_invalid_image_url
       response.status.should == RequestCodes::BAD_REQUEST
@@ -200,7 +200,7 @@ describe IssuesController do
     end
 
     it 'returns error when updating with invalid object id' do
-      put :update, id: "/invalid_id", name: 'bar'
+      put :update, id: '/invalid_id', name: 'bar'
       response.status.should == RequestCodes::NOT_FOUND
     end
 
@@ -223,7 +223,7 @@ describe IssuesController do
       issue = create(:issue)
 
       issue['images'].count.should be 1
-      put :add_to_set, id: issue['_id'].to_s, images: [{url: 'http://www.google.com/image2.png'}]
+      put :add_to_set, id: issue['_id'].to_s, images: [{ url: 'http://www.google.com/image2.png' }]
       response.status.should == RequestCodes::SUCCESS
 
       issue = Issue.find(issue['_id'])
@@ -247,7 +247,7 @@ describe IssuesController do
       issue = create(:issue)
 
       issue['comments'].count.should be 0
-      put :add_to_set, id: issue['_id'], comments: [{asd: 'comment'}]
+      put :add_to_set, id: issue['_id'], comments: [{ asd: 'comment' }]
       response.status.should == RequestCodes::BAD_REQUEST
       json['code'].should == RequestCodes::INVALID_COMMENT_FORMAT
 
