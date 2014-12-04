@@ -67,6 +67,12 @@ describe Issue do
       })
       issue.valid?.should be_false
     end
+
+    it 'requires a device id' do
+      issue = build(:issue)
+      issue.device_id = nil
+      issue.valid?.should be_false
+    end
   end
 
   it 'creates an issue' do

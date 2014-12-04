@@ -2,16 +2,44 @@ class IssuesController < ApplicationController
 
   resource_description do
     description <<-EOS
+      ==== Info
+
       All requests should have the Content-Type header set to <b>application/json</b>
 
       If no address is specified, the address will be geocoded from lat and lon
 
       issue.category will be lower cased by the server
 
-      max string length for
+      ==== Max string length
+
       * name #{Repara.name_max_length}
       * comment #{Repara.comments_max_length}
       * address #{Repara.address_max_length}
+
+      ==== Example issue
+
+       {
+         name: 'issue name',
+         category: 'altele'
+         lat: 0,
+         lon: 0,
+         address: '',
+         images: [
+           {
+             url: 'url_to_image.png',
+             thumb_url: 'url_to_thumb.png'
+           },
+           {
+             url: 'url_to_image.png',
+             thumb_url: 'url_to_thumb.png'
+           }
+         ],
+         comments: [
+           'comment1',
+           'comment2'
+         ]
+
+       }
     EOS
   end
 
@@ -42,11 +70,9 @@ class IssuesController < ApplicationController
 
   api :POST, '/issues.json', 'Create an issue'
   description <<-EOS
-    Required body params: name, category, lat, lon, images
+    Required body params: name, device_id, category, lat, lon, images
 
-    Valid categories #{Repara.categories}
-
-    curl -X POST -H 'Content-Type: application/json' -d '{"name":"hello", "category":"altele", "lat":0, "lon":0,"images":[{"url": "image_url"}]}' #{Repara.base_url}issues.json
+    curl -X POST -H 'Content-Type: application/json' -d '{"name":"hello", "device_id": "device_id", "category":"altele", "lat":0, "lon":0,"images":[{"url": "image_url"}]}' #{Repara.base_url}issues.json
   EOS
   def create
     @issue = Issue.create(params)

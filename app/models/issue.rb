@@ -7,6 +7,7 @@ class Issue < BaseModel
   field :lon, type: Float
   field :address, type: String, default: ''
   field :category, type: String
+  field :device_id, type: String
   field :vote_counter, type: Integer, default: 0
   field :images, type: Array, default: []
   field :comments, type: Array, default: []
@@ -37,6 +38,7 @@ class Issue < BaseModel
   before_validation :downcase_category
 
   validates :name, presence: true
+  validates :device_id, presence: true
   validates :category, presence: true
   validates :lat, presence: true
   validates :lon, presence: true

@@ -2,7 +2,16 @@ require 'spec_helper'
 
 describe IssuesController do
   let(:category) { Category.to_api.last }
-  let(:valid_issue_hash) { {name: 'foo', category: category, lat: Repara.map_center['lat'], lon: Repara.map_center['lon'], images: [{url: 'http://www.yahoo.com/asd.png'}]} }
+  let(:valid_issue_hash) {
+    {
+      name: 'foo',
+      category: category,
+      lat: Repara.map_center['lat'],
+      lon: Repara.map_center['lon'],
+      images: [{url: 'http://www.yahoo.com/asd.png'}],
+      device_id: 'device_id'
+    }
+  }
 
   context 'content-type' do
     #context 'json' do
@@ -128,13 +137,13 @@ describe IssuesController do
     end
 
     it 'sends the correct error code' do
-      last_response = post :create, name: 'foo', lon: Repara.map_center_lon, lat: Repara.map_center_lat, category: category
+      last_response = post :create, name: 'foo', lon: Repara.map_center_lon, lat: Repara.map_center_lat, category: category, device_id: 'device_id'
       last_response.status.should == RequestCodes::BAD_REQUEST
       JSON.parse(last_response.body)['code'].should == RequestCodes::REQUIRES_AT_LEAST_ONE_IMAGE
     end
 
     it 'requires category to be valid' do
-      last_response = post :create, name: 'foo', category: 'foo', lat: 0, lon: 0, images: ['foo']
+      last_response = post :create, name: 'foo', category: 'foo', lat: 0, lon: 0, images: ['foo'], device_id: 'device_id'
       last_response.status.should == RequestCodes::BAD_REQUEST
 
       last_response = post :create, valid_issue_hash

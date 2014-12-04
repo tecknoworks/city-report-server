@@ -4,6 +4,7 @@ ActiveAdmin.register Issue do
 
     f.inputs do
       f.input :name
+      f.input :device_id
       f.input :lat, input_html: { value: 46.768322 }
       f.input :lon, input_html: { value: 23.595002 }
       f.input :address
@@ -18,12 +19,13 @@ ActiveAdmin.register Issue do
   index do
     id_column
     column :name
+    column :device_id
     column :lat
     column :lon
     column :address
     column :category
     column :vote_counter
-    column 'Images', sortable: "image_count" do |issue|
+    column 'Images' do |issue|
       issue.images.count
     end
     column 'Comments' do |issue|
