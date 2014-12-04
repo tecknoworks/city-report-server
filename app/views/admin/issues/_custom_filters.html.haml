@@ -5,6 +5,8 @@
   = text_field_tag(:device_id, params[:device_id])
   = label_tag 'Category'
   = select_tag 'category', options_for_select(Category.to_api.collect{ |u| [u, u] }.unshift(['', '']), selected: params[:category])
+  = label_tag 'Status'
+  = select_tag 'status', options_for_select(Issue::VALID_STATUSES.collect{ |u| [u, u] }.unshift(['', '']), selected: params[:status])
   .buttons
     = submit_tag("Filter")
     %a.clear_filters_btn{href: admin_issues_path} Clear Filters

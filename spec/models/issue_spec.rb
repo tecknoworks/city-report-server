@@ -21,26 +21,28 @@ describe Issue do
   end
 
   context 'validation' do
+    let(:issue) { build :issue }
+
     it 'knows if it is invalid before save' do
       Issue.new(name: 'foo', category: category, lat: 0, lon: 0).valid?.should be_false
     end
 
     it 'checks the validity of images hashes' do
-      issue = build(:issue, images: ['not even a hash'])
+      issue.images = ['not even a hash']
       issue.valid?.should be_false
 
-      issue = build(:issue, images: [{foo: 'not even a hash'}])
+      issue.images = [{foo: 'not even a hash'}]
       issue.valid?.should be_false
     end
 
     it 'requires a valid category' do
-      build(:issue, category: 'asta_sigur_nu_e_categorie').valid?.should be_false
+      issue.category = 'asta_sigur_nu_e_categorie'
+      issue.valid?.should be_false
     end
 
     it 'requires a valid neighbourhood'
 
     it 'only allows issues close to the map center' do
-      issue =  build(:issue)
       issue.valid?.should be_true
       issue.lat = 80
       issue.valid?.should be_false
@@ -49,7 +51,8 @@ describe Issue do
 
     it 'knows category will be downcased' do
       expect {
-        issue = create(:issue, category: category.upcase)
+        issue.category = category.upcase
+        issue.save
         issue.category.should == category
       }.to change{ Issue.count }.by 1
     end
@@ -61,7 +64,6 @@ describe Issue do
     end
 
     it 'checks for a valid comment format' do
-      issue = create(:issue)
       issue.add_params_to_set({
         'comments' => [{foo: 'noice'}]
       })
@@ -69,8 +71,20 @@ describe Issue do
     end
 
     it 'requires a device id' do
-      issue = build(:issue)
       issue.device_id = nil
+      issue.valid?.should be_false
+    end
+
+    it 'requires a status' do
+      issue.status = nil
+      issue.valid?.should be_false
+    end
+
+    it 'requires a valid status' do
+      issue.status = Issue::VALID_STATUSES[1]
+      issue.valid?.should be_true
+
+      issue.status = 'not_a_valid_status'
       issue.valid?.should be_false
     end
   end

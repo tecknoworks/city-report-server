@@ -1,5 +1,7 @@
 class Issue < BaseModel
 
+  VALID_STATUSES = %w(unresolved acknowledged resolved)
+
   self.primary_key = 'id'
 
   field :name, type: String
@@ -11,6 +13,7 @@ class Issue < BaseModel
   field :vote_counter, type: Integer, default: 0
   field :images, type: Array, default: []
   field :comments, type: Array, default: []
+  field :status, type: String, default: VALID_STATUSES.first
 
   attr_accessor :images_raw
   attr_accessor :comments_raw
@@ -42,6 +45,9 @@ class Issue < BaseModel
   validates :category, presence: true
   validates :lat, presence: true
   validates :lon, presence: true
+  validates :status, presence: true
+
+  validates :status, inclusion: VALID_STATUSES
 
   validate :coordinates
   validate :allowed_category

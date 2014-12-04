@@ -4,6 +4,7 @@ ActiveAdmin.register Issue do
 
     f.inputs do
       f.input :name
+      f.input :status, collection: Issue::VALID_STATUSES
       f.input :device_id
       f.input :lat, input_html: { value: 46.768322 }
       f.input :lon, input_html: { value: 23.595002 }
@@ -19,6 +20,7 @@ ActiveAdmin.register Issue do
   index do
     id_column
     column :name
+    column :status
     column :device_id
     column :lat
     column :lon
@@ -39,11 +41,12 @@ ActiveAdmin.register Issue do
       @issues = Issue.all
       @issues = @issues.where(category: params[:category]) if params[:category].present?
       @issues = @issues.where(device_id: params[:device_id]) if params[:device_id].present?
+      @issues = @issues.where(status: params[:status]) if params[:status].present?
       @issues = @issues.full_text_search(params[:q]) if params[:q].present?
 
       @issues = @issues.page(params[:page])
     end
   end
 
-  sidebar :filters, partial: "custom_filters"
+  sidebar :filters, partial: "custom_filters", only: :index
 end
