@@ -55,6 +55,8 @@ class IssuesController < ApplicationController
   param :limit, :number, desc: 'limit items per page, default 10'
   param :skip, :number, desc: 'skip items, default 0'
   description <<-EOS
+    Example response here[/issues.json]
+
     Curl example:
 
      curl -X GET -H 'Content-Type: application/json' #{Repara.base_url}issues.json
