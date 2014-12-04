@@ -6,5 +6,6 @@ Apipie.configure do |config|
   config.validate = false
 
   config.app_info = <<-EOS
+    Coded with love for Cluj-Napoca
   EOS
 end
