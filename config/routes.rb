@@ -25,5 +25,7 @@ Rails.application.routes.draw do
   get 'eula' => 'web#eula'
   get 'about' => 'web#about'
 
-  mount Sidekiq::Web, at: "/sidekiq"
+  authenticate :admin_user do # , lambda { |u| u.admin? } do
+    mount Sidekiq::Web, at: "/sidekiq"
+  end
 end
