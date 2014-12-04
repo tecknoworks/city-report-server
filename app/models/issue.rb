@@ -5,15 +5,15 @@ class Issue < BaseModel
   self.primary_key = 'id'
 
   field :name, type: String
+  field :status, type: String, default: VALID_STATUSES.first
+  field :category, type: String
   field :lat, type: Float
   field :lon, type: Float
   field :address, type: String, default: ''
-  field :category, type: String
   field :device_id, type: String
   field :vote_counter, type: Integer, default: 0
   field :images, type: Array, default: []
   field :comments, type: Array, default: []
-  field :status, type: String, default: VALID_STATUSES.first
 
   attr_accessor :images_raw
   attr_accessor :comments_raw
@@ -58,7 +58,7 @@ class Issue < BaseModel
 
   before_save :set_thumbnails
 
-  SEARCHABLE_FIELDS = [:name, :address, :category, :comments]
+  SEARCHABLE_FIELDS = [:name, :address, :category, :comments, :status]
   search_in SEARCHABLE_FIELDS
 
   def add_params_to_set params

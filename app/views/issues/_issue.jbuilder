@@ -1,4 +1,5 @@
 json._id issue[:_id].to_s
-json.(issue, :name, :lat, :lon, :address, :category, :vote_counter, :images, :comments)
+json.(issue, :name, :status, :category, :device_id, :lat, :lon, :address,
+      :vote_counter, :images, :comments)
 json.created_at issue.created_at
 json.updated_at issue.updated_at

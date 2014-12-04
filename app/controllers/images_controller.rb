@@ -6,6 +6,22 @@ class ImagesController < ApplicationController
   end
 
   api :POST, '/images', 'Upload an image'
+  param :image, Image, desc: 'the image', required: true
+  description <<-EOS
+    Only png images are supported. It will return a public url for the image
+    and for the generated thumbnail.
+
+    Sample HTML which would upload an image:
+
+     <form action="/images" enctype="multipart/form-data" method="post">
+       <input name="image" type="file">
+       <input type="submit" value="Upload!">
+     </form>
+
+    Example with curl
+
+     curl -X POST -F "image=@public/images/logo.png" #{URI.join(Repara.base_url, 'images')}
+  EOS
   def create
     if params['image'].nil?
       return render_response('missing image param', MISSING_IMAGE, BAD_REQUEST)

@@ -12,6 +12,18 @@ class WebController < ApplicationController
   end
 
   api :GET, '/meta.json', 'Returns meta data'
+  formats ['json']
+  description <<-EOS
+    Contains
+
+    * version
+    * zones
+    * categories
+    * statuses
+    * error codes
+
+    Example response here[/meta.json]
+  EOS
   def meta
   end
 

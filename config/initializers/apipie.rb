@@ -6,11 +6,5 @@ Apipie.configure do |config|
   config.validate = false
 
   config.app_info = <<-EOS
-    === Introduction
-
-    The API has two main components.
-
-    * the image upload service
-    * issue reporting service
   EOS
 end
