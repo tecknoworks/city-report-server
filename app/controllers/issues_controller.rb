@@ -48,7 +48,7 @@ class IssuesController < ApplicationController
   before_action :no_vote_cheating, only: [:update, :create]
 
   api :GET, '/issues.json', 'Return issue list'
-  param :q, String, desc: 'search query string'
+  param :q, String, desc: "Search through #{Issue::SEARCHABLE_FIELDS.join(', ')}"
   param :status, String, desc: 'filter by status'
   param :device_id, String, desc: 'filter by device_id'
   param :category, String, desc: 'filter by category'
