@@ -10,6 +10,7 @@ Rails.application.routes.draw do
 
   resources :issues, :only => [:index, :show, :create, :update]
   put 'issues/:id/add_to_set' => 'issues#add_to_set'
+  patch 'issues/:id/add_to_set' => 'issues#add_to_set'
   post 'issues/:id/vote' => 'issues#vote'
 
   if Repara.config['allow_downvotes']

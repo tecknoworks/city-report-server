@@ -105,6 +105,8 @@ class IssuesController < ApplicationController
 
   api :PATCH, '/issues/:id.json', 'Update an issue'
   description <<-EOS
+    HTTP Verb can also be PUT
+
     Curl example:
 
      curl -X PATCH -H 'Content-Type: application/json' -d '{"name":"test2"}' #{Repara.base_url}issues/YOUR_ID}.json
@@ -122,6 +124,8 @@ class IssuesController < ApplicationController
   api :PATCH, '/issues/:id/add_to_set.json', 'Add items to the set'
   description <<-EOS
     Valid sets: 'images', 'comments'
+
+    HTTP Verb can also be PUT
 
     Curl example:
 
