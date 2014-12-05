@@ -147,10 +147,6 @@ describe Issue do
       create(:issue, name: 'vandalism', address: 'Strada Dumbravelor 21')
     end
 
-    it 'takes into account the category' do
-      Issue.full_text_search(Issue.last.category).count.should be 2
-    end
-
     it 'takes into account the address' do
       Issue.full_text_search('dumbravelor').count.should be 1
     end

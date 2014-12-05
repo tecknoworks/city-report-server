@@ -60,7 +60,7 @@ class Issue < BaseModel
 
   before_save :set_thumbnails
 
-  SEARCHABLE_FIELDS = [:name, :address, :category, :comments, :status]
+  SEARCHABLE_FIELDS = [:name, :address, :comments]
   search_in SEARCHABLE_FIELDS
 
   def add_params_to_set params
