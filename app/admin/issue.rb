@@ -5,7 +5,7 @@ ActiveAdmin.register Issue do
     f.inputs do
       f.input :name
       f.input :status, collection: Issue::VALID_STATUSES
-      f.input :device_id
+      f.input :device_id, required: true
       f.input :lat, input_html: { value: 46.768322 }
       f.input :lon, input_html: { value: 23.595002 }
       f.input :address

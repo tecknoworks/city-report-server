@@ -19,13 +19,15 @@ class Issue < BaseModel
   attr_accessor :comments_raw
 
   def images_raw
-    self.images.collect{ |img| img['url'].strip }.join("\n") unless self.images.nil?
+    self.images.collect do |img|
+      img.with_indifferent_access['url'].try(:strip)
+    end.join("\n") unless self.images.nil?
   end
 
   def images_raw=(values)
     self.images = []
     values.split("\n").each do |val|
-      self.images << { url: val.strip }
+      self.images << { url: val.try(:strip) }
     end
   end
 
