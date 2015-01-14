@@ -41,6 +41,12 @@ Run tests on file save
 
 guard
 
+Coding style
+------------
+
+TODO: check with rubocop
+https://github.com/bbatsov/ruby-style-guide
+
 Services
 --------
 
