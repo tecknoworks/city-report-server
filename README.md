@@ -36,6 +36,11 @@ Run tests
 
 rake spec
 
+Run tests on file save
+----------------------
+
+guard
+
 Services
 --------
 
