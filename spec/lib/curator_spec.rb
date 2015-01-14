@@ -17,7 +17,9 @@ describe Curator do
       issue2 = create :issue, lat: issue1.lat, lon: issue1.lon
 
       result = curator.find_duplicate_coordinates(issue2.lat, issue2.lon)
-      expect(result.count).to eq 2
+
+      expect(result).to include(issue1)
+      expect(result).to include(issue2)
     end
   end
 
