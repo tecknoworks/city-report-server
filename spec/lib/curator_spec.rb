@@ -7,12 +7,12 @@ describe Curator do
     it 'has the find_duplicate_coordinates method' do
       expect(curator).to respond_to :find_duplicate_coordinates
     end
-
-    xit 'returns an array' do
+    
+    it 'returns an array' do
       expect(curator.find_duplicate_coordinates(0, 0)).to be_empty
     end
 
-    xit 'finds exact duplicate coordinates' do
+    it 'finds exact duplicate coordinates' do
       issue1 = create :issue
       issue2 = create :issue, lat: issue1.lat, lon: issue1.lon
 

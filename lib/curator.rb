@@ -8,4 +8,8 @@
 # * Find all coordinate pairs which are close together.
 #
 class Curator
+  
+  def find_duplicate_coordinates(lat, lon)
+    Issue.where(lat: lat, lon: lon)
+  end
 end
