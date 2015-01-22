@@ -1,12 +1,9 @@
 require 'spec_helper'
 
 describe BannedIp do
-  let(:banned_ip) { create :banned_ip }
-
   it 'works' do
     expect {
-      banned_ip = create :banned_ip
-      expect(banned_ip).to be_valid
+      create :banned_ip
     }.to change { BannedIp.count }.by 1
   end
 
