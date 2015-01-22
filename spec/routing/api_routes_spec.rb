@@ -21,4 +21,12 @@ describe 'API' do
     check_route({ get: '/about'}, { controller: 'web', action: 'about' })
     check_route({ get: '/eula'}, { controller: 'web', action: 'eula' })
   end
+  
+  # rails routing from the outside in
+  it 'routes the internship' do
+    check_route({ get: '/internship' }, { controller: 'web', action: 'internship_show' }) 
+    check_route({ post: '/internship' }, { controller: 'web', action: 'internship_create' })
+    check_route({ patch: '/internship/1' }, { controller: 'web', action: 'internship_update', id: '1' })
+    check_route({ delete: '/internship/1' }, { controller: 'web', action: 'internship_delete', id: '1' })
+  end
 end

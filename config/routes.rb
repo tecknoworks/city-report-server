@@ -20,12 +20,16 @@ Rails.application.routes.draw do
   if Repara.config['allow_delete_all']
     delete 'cleanup' => 'web#cleanup'
   end
-
+ 
   get 'meta' => 'web#meta'
   get 'up' => 'web#up'
   get 'eula' => 'web#eula'
   get 'about' => 'web#about'
-
+  get 'internship' => 'web#internship_show'
+  post 'internship' => 'web#internship_create'
+  patch 'internship/:id' => 'web#internship_update'
+  delete 'internship/:id' => 'web#internship_delete'
+   
   authenticate :admin_user do # , lambda { |u| u.admin? } do
     mount Sidekiq::Web, at: "/sidekiq"
   end

@@ -5,8 +5,8 @@ class WebController < ApplicationController
     EOS
   end
 
-  before_action :check_for_lang, only: [:about, :eula]
-  before_action :check_for_no_layout, only: [:about, :eula]
+  before_action :check_for_lang, only: [:about, :eula, :intership]
+  before_action :check_for_no_layout, only: [:about, :eula, :intership]
 
   def index
   end
@@ -49,6 +49,18 @@ class WebController < ApplicationController
     @images_deleted_count = Image.delete_all
   end
 
+  def internship_show
+  end
+
+  def internship_create
+  end
+
+  def internship_update
+  end
+
+  def internship_delete
+  end
+  
   protected
 
   def check_for_lang
@@ -60,4 +72,5 @@ class WebController < ApplicationController
   def check_for_no_layout
     render :layout => !params[:no_layout].present?
   end
+  
 end
