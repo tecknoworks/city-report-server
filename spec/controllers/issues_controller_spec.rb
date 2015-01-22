@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe IssuesController do
+describe IssuesController, type: :controller do
   let(:category) { Category.to_api.last }
   let(:valid_issue_hash) do
     {

@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe WebController do
+describe WebController, type: :controller do
   it 'shows sample upload page' do
     get :up
     response.status.should be 200

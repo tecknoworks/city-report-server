@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe ImagesController do
+describe ImagesController, type: :controller do
   let(:filename) { 'test.png' }
   let(:non_png_filename) { 'test.tar.gz' }
   let(:the_file) do
