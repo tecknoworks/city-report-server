@@ -17,6 +17,8 @@ describe 'API' do
     check_route({ patch: '/issues/1/add_to_set'}, { controller: 'issues', action: 'add_to_set', id: '1' })
     check_route({ post: '/issues/1/vote'}, { controller: 'issues', action: 'vote', id: '1' })
 
+    check_route({ get: '/banned_ips'}, { controller: 'banned_ips', action: 'index' })
+
     check_route({ get: '/meta'}, { controller: 'web', action: 'meta' })
     check_route({ get: '/about'}, { controller: 'web', action: 'about' })
     check_route({ get: '/eula'}, { controller: 'web', action: 'eula' })
