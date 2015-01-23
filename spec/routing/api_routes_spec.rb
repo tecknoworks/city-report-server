@@ -18,12 +18,12 @@ describe 'API' do
     check_route({ post: '/issues/1/vote'}, { controller: 'issues', action: 'vote', id: '1' })
 
     check_route({ get: '/banned_ips'}, { controller: 'banned_ips', action: 'index' })
-
+  
     check_route({ get: '/meta'}, { controller: 'web', action: 'meta' })
     check_route({ get: '/about'}, { controller: 'web', action: 'about' })
     check_route({ get: '/eula'}, { controller: 'web', action: 'eula' })
   end
-  
+   
   # rails routing from the outside in
   it 'routes the internship' do
     check_route({ get: '/internship' }, { controller: 'web', action: 'internship_show' }) 

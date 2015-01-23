@@ -29,6 +29,7 @@ Rails.application.routes.draw do
   post 'internship' => 'web#internship_create'
   patch 'internship/:id' => 'web#internship_update'
   delete 'internship/:id' => 'web#internship_delete'
+  get 'banned_ips' => 'banned_ips#index'
    
   authenticate :admin_user do # , lambda { |u| u.admin? } do
     mount Sidekiq::Web, at: "/sidekiq"

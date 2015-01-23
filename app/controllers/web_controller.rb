@@ -5,8 +5,8 @@ class WebController < ApplicationController
     EOS
   end
 
-  before_action :check_for_lang, only: [:about, :eula, :intership]
-  before_action :check_for_no_layout, only: [:about, :eula, :intership]
+  before_action :check_for_lang, only: [:about, :eula]
+  before_action :check_for_no_layout, only: [:about, :eula]
 
   def index
   end
@@ -48,7 +48,7 @@ class WebController < ApplicationController
     @issues_deleted_count = Issue.delete_all
     @images_deleted_count = Image.delete_all
   end
-
+  
   def internship_show
   end
 

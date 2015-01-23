@@ -1,9 +1,9 @@
 require 'spec_helper'
 
-describe BannedIp do
+describe 'BannedIp' do
   it 'works' do
     expect {
-      create :banned_ip
+      create :banned_ip 
     }.to change { BannedIp.count }.by 1
   end
 
