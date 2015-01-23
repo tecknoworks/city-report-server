@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe 'BannedIp' do
+describe BannedIp do
   it 'works' do
     expect {
       create :banned_ip 
