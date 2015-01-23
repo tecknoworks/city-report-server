@@ -24,7 +24,13 @@ describe BannedIp do
 
     banned_ip = build :banned_ip, address: 'google.com'
     expect(banned_ip).to_not be_valid
-
+    
+    banned_ip = build :banned_ip, address: '1.-2.-3.0'
+    expect(banned_ip).to_not be_valid
+    
+    banned_ip = build :banned_ip, address: 'a.b.c.d'
+    expect(banned_ip).to_not be_valid
+    
     banned_ip = build :banned_ip, address: '129.168.0.'
     expect(banned_ip).to_not be_valid
 
