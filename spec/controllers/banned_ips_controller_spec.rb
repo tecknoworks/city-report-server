@@ -27,3 +27,4 @@ describe BannedIpsController, type: :controller do
     expect(json['body'].class).to be Array
   end
 end
+ 

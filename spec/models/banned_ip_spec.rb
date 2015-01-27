@@ -13,7 +13,15 @@ describe BannedIp do
   end
 
   it 'does not allow duplicate addresses' do
-    fail 'you write the content of this test'
+    Issue.delete_all
+    
+    address = "123.123.123.123" 
+    banned_ip = build :banned_ip, address: address
+    expect(banned_ip).to be_valid
+    
+    issue2 = create :issue, lat: 45.768322, lon: 23.595002, address: address
+    banned_ip = build :banned_ip, address: address
+    expect(banned_ip).to_not be_valid
   end
 
   it 'validates the format of the address' do
@@ -23,7 +31,7 @@ describe BannedIp do
     end
 
     def invalid_ip address
-      banned_ip = build :banned_ip, address: 'hello'
+      banned_ip = build :banned_ip, address: address
       expect(banned_ip).to_not be_valid
     end
 
