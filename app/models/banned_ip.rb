@@ -1,3 +1,4 @@
+# CODE: Remove all whitespace
 class BannedIp < BaseModel
   
   self.primary_key = 'id'
@@ -19,10 +20,12 @@ class BannedIp < BaseModel
     
     self.errors.add(:invalide_ip_format, 'ip invalid') if ip.count != 4
  
+    # CODE: fix indentation
     for i in ip
         self.errors.add(:invalide_ip_format, 'ip invalid') if i.to_i<0 or i.to_i > 255
     end
     
+    # what happend to the present? method
     def numeric?(number)
       Integer(number) != nil rescue false
     end

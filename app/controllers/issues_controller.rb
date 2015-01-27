@@ -39,7 +39,6 @@ class IssuesController < ApplicationController
            'comment1',
            'comment2'
          ]
-
        }
     EOS
   end
