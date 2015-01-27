@@ -12,6 +12,10 @@ describe BannedIp do
     expect(banned_ip).to_not be_valid
   end
 
+  it 'does not allow duplicate addresses' do
+    fail 'you write the content of this test'
+  end
+
   it 'validates the format of the address' do
     def valid_ip address
       banned_ip = build :banned_ip, address: address
