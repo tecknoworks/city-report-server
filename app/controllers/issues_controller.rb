@@ -90,9 +90,8 @@ class IssuesController < ApplicationController
 
      curl -X POST -H 'Content-Type: application/json' -d '{"name":"hello", "device_id": "device_id", "category":"altele", "lat":0, "lon":0,"images":[{"url": "image_url"}]}' #{Repara.base_url}issues.json
   EOS
-  def create
+  def create 
     @issue = Issue.create(params)
-
     unless @issue.valid?
       return render_response(@issue.first_error_desc, @issue.first_error_code, BAD_REQUEST)
     end

@@ -18,9 +18,10 @@ describe 'API' do
     check_route({ post: '/issues/1/vote'}, { controller: 'issues', action: 'vote', id: '1' }) 
 
     check_route({ get: '/banned_ips'}, { controller: 'banned_ips', action: 'index' })
+    check_route({ get: '/banned_ips/1'}, { controller: 'banned_ips', action: 'show', id: '1' })
     check_route({ post: '/banned_ips'}, { controller: 'banned_ips', action: 'create' })
     check_route({ patch: '/banned_ips/1'}, { controller: 'banned_ips', action: 'update', id: '1' })
-    check_route({ delete: '/banned_ips/1'}, { controller: 'banned_ips', action: 'delete', id: '1' })
+    check_route({ delete: '/banned_ips/1'}, { controller: 'banned_ips', action: 'destroy', id: '1' })
   
     check_route({ get: '/meta'}, { controller: 'web', action: 'meta' })
     check_route({ get: '/about'}, { controller: 'web', action: 'about' })

@@ -33,11 +33,11 @@ describe BannedIpsController, type: :controller do
   it 'returns a specific banned_ip' do
     banned_ip1
     get :show, id: banned_ip1.id.to_s
-    expect(json['id']).to eq banned_ip1.id.to_s
+    expect(json['id']["$oid"]).to eq banned_ip1.id.to_s
   end
-
+ 
   it 'creates a banned ip' do
-    expect {
+    expect { 
       post :create, banned_ip: { address: '192.168.0.0' }
       expect(response.status).to eq RequestCodes::SUCCESS
     }.to change { BannedIp.count }.by 1
