@@ -22,7 +22,10 @@ Rails.application.routes.draw do
   end
 
   get 'banned_ips' => 'banned_ips#index'
-
+  post 'banned_ips' => 'banned_ips#create'
+  patch 'banned_ips/:id' => 'banned_ips#update'
+  delete 'banned_ips/:id' => 'banned_ips#delete'
+  
   get 'meta' => 'web#meta'
   get 'up' => 'web#up'
   get 'eula' => 'web#eula'

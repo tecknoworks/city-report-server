@@ -15,7 +15,7 @@ describe 'API' do
     check_route({ patch: '/issues/1'}, { controller: 'issues', action: 'update', id: '1' })
     check_route({ put: '/issues/1/add_to_set'}, { controller: 'issues', action: 'add_to_set', id: '1' })
     check_route({ patch: '/issues/1/add_to_set'}, { controller: 'issues', action: 'add_to_set', id: '1' })
-    check_route({ post: '/issues/1/vote'}, { controller: 'issues', action: 'vote', id: '1' })
+    check_route({ post: '/issues/1/vote'}, { controller: 'issues', action: 'vote', id: '1' }) 
 
     check_route({ get: '/banned_ips'}, { controller: 'banned_ips', action: 'index' })
     check_route({ post: '/banned_ips'}, { controller: 'banned_ips', action: 'create' })
