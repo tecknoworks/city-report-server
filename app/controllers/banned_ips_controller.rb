@@ -16,7 +16,6 @@ class BannedIpsController < ApplicationController
   end
   
   def update
-    print params
     @banned_ip = BannedIp.find(params[:id])
     @banned_ip.update(address: params["banned_ip"]["address"]) 
     render json: @banned_ip

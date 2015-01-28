@@ -34,7 +34,7 @@ describe BannedIpsController, type: :controller do
     banned_ip1
     get :show, id: banned_ip1.id.to_s
     expect(json['id']["$oid"]).to eq banned_ip1.id.to_s
-  end
+  end 
  
   it 'creates a banned ip' do
     expect { 
