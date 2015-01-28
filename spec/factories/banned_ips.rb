@@ -7,3 +7,4 @@ FactoryGirl.define do
     address '2620:0:1cfe:face:b00c::3'
   end
 end
+  
