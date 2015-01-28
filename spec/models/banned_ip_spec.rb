@@ -49,4 +49,18 @@ describe BannedIp do
     valid_ip '1.1.2.1'
     valid_ip '0.0.0.0'
   end
+
+  it 'allows IPv4 and IPv6 in the address field' do
+    fail 'implement me'
+  end
+
+  it 'knows if it is IPv4' do
+    banned_ip = create :banned_ip
+    expect(banned_ip.ip_v4?).to be true
+  end
+
+  it 'knows if it is IPv6' do
+    banned_ip = create :banned_ip_v6
+    expect(banned_ip.ip_v6?).to be true
+  end
 end
