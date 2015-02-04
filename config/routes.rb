@@ -8,7 +8,7 @@ Rails.application.routes.draw do
 
   post 'images' => 'images#create', as: 'image_upload'
 
-  resources :issues, :only => [:index, :show, :create, :update]
+  resources :issues, only: [:index, :show, :create, :update]
   put 'issues/:id/add_to_set' => 'issues#add_to_set'
   patch 'issues/:id/add_to_set' => 'issues#add_to_set'
   post 'issues/:id/vote' => 'issues#vote'
@@ -21,6 +21,7 @@ Rails.application.routes.draw do
     delete 'cleanup' => 'web#cleanup'
   end
 
+  # CODE use resources
   get 'banned_ips' => 'banned_ips#index'
   get 'banned_ips/:id' => 'banned_ips#show'
   post 'banned_ips' => 'banned_ips#create'
@@ -31,6 +32,8 @@ Rails.application.routes.draw do
   get 'up' => 'web#up'
   get 'eula' => 'web#eula'
   get 'about' => 'web#about'
+
+  # CODE remove this + methods from controller
   get 'internship' => 'web#internship_show'
   post 'internship' => 'web#internship_create'
   patch 'internship/:id' => 'web#internship_update'

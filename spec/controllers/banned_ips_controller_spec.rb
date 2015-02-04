@@ -28,6 +28,7 @@ describe BannedIpsController, type: :controller do
   it 'returns the two banned ips' do
     get :index
     expect(json['body'].class).to be Array
+    expect(json['body'].size).to be > 0
   end
 
   it 'returns a specific banned_ip' do
@@ -40,12 +41,14 @@ describe BannedIpsController, type: :controller do
     expect { 
       post :create, banned_ip: { address: '192.168.0.0' }
       expect(response.status).to eq RequestCodes::SUCCESS
+      expect(json['address']).to eq '192.168.0.0'
     }.to change { BannedIp.count }.by 1
   end
 
   it 'updates the address of a banned ip' do
     addr = '192.168.0.12'
     banned_ip1
+    expect(banned_ip1.address).to_not eq addr
 
     patch :update, id: banned_ip1.id.to_s, banned_ip: { address: addr }
 

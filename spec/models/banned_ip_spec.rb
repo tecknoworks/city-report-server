@@ -1,6 +1,11 @@
 require 'spec_helper'
 
+# CODE white space
 describe BannedIp do
+  before :each do
+    BannedIp.delete_all
+  end
+
   it 'works' do
     expect {
       create :banned_ip 
@@ -13,15 +18,15 @@ describe BannedIp do
   end
 
   it 'does not allow duplicate addresses' do
-    Issue.delete_all
-    
     address = "123.123.123.123" 
-    banned_ip = build :banned_ip, address: address
-    expect(banned_ip).to be_valid
+    banned_ip1 = create :banned_ip, address: address
+    p banned_ip1.errors
+    expect(banned_ip1).to be_valid
     
-    issue2 = create :issue, lat: 45.768322, lon: 23.595002, address: address
-    banned_ip = build :banned_ip, address: address
-    expect(banned_ip).to_not be_valid
+    banned_ip2 = create :banned_ip, address: address
+
+    expect(banned_ip1.id).to_not eq banned_ip2.id
+    expect(banned_ip2).to_not be_valid
   end
 
   it 'validates the format of the address' do
@@ -64,5 +69,9 @@ describe BannedIp do
   it 'knows if it is IPv6' do 
     banned_ip = create :banned_ip_v6
     expect(banned_ip.ip_v6?).to be true
+  end
+
+  it 'knows about any mehtod' do
+    #Banned
   end
 end
