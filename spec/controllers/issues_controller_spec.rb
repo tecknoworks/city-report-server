@@ -264,4 +264,10 @@ describe IssuesController, type: :controller do
       issue.valid?.should be_false
     end
   end
+
+  context 'BannedIp' do
+    it 'can not create issue'
+    it 'can not update issue'
+    it 'can not delete issue'
+  end
 end
