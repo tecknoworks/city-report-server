@@ -1,2 +1,2 @@
 json.code 200
-json.body []
+json.body @banned_ips

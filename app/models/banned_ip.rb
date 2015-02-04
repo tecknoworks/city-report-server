@@ -1,16 +1,12 @@
-# CODE: Remove all whitespace
 class BannedIp < BaseModel
   require "resolv"
-  
+
   self.primary_key = 'id'
-  
+
   field :address, type: String
 
-  # CODE remove this
-  field :ip_v4, type: String
-  field :ip_v6, type: String
-  
   validates :address, presence: true
+  validates :address, uniqueness: true
   
   validate :ip_format
 
@@ -29,14 +25,6 @@ class BannedIp < BaseModel
     if !ip_v4? and !ip_v6?
       self.errors.add(:invaide_ip_format, 'ip should either be v4 or v6')
     end
-
-    # CODE
-    # * max 80 chars per line
-    # * improve error message - it should say duplicate
-    # * use validate uniuqness
-    # * why is it invalid
-    self.errors.add(:invalide_ip_format, 'ip invalid ') if BannedIp.where(address: address).any?
-
   end
 
 end

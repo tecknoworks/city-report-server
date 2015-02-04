@@ -2,9 +2,10 @@ require 'spec_helper'
 
 describe BannedIpsController, type: :controller do
   let(:banned_ip1) { create :banned_ip }
-  let(:banned_ip2) { create :banned_ip }
+  let(:banned_ip2) { create :banned_ip2 }
 
   before :each do
+    BannedIp.delete_all
     banned_ip1
     banned_ip2
   end
@@ -21,21 +22,21 @@ describe BannedIpsController, type: :controller do
   end
 
   it 'has status code 200' do
-    get :index
+    get :index 
     expect(json['code']).to eq RequestCodes::SUCCESS
   end
 
   it 'returns the two banned ips' do
-    get :index
+    get :index   
     expect(json['body'].class).to be Array
     expect(json['body'].size).to be > 0
   end
-
+ 
   it 'returns a specific banned_ip' do
-    banned_ip1
+    banned_ip1 
     get :show, id: banned_ip1.id.to_s
-    expect(json['id']["$oid"]).to eq banned_ip1.id.to_s
-  end 
+    expect(json['id']['$oid']).to eq banned_ip1.id.to_s
+  end
  
   it 'creates a banned ip' do
     expect { 
@@ -51,17 +52,16 @@ describe BannedIpsController, type: :controller do
     expect(banned_ip1.address).to_not eq addr
 
     patch :update, id: banned_ip1.id.to_s, banned_ip: { address: addr }
-
     expect(json['address']).to eq addr
     banned_ip1.reload
     expect(banned_ip1.address).to eq addr
   end
 
   it 'deletes a banned ip' do
-    banned_ip1
-
+    banned_ip1    
     expect {
       delete :destroy, id: banned_ip1.id.to_s
+      expect(json['id']['$oid']).to eq banned_ip1.id.to_s
     }.to change { BannedIp.count }.by(-1)
   end
 end
