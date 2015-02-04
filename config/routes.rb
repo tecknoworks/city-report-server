@@ -32,12 +32,6 @@ Rails.application.routes.draw do
   get 'up' => 'web#up'
   get 'eula' => 'web#eula'
   get 'about' => 'web#about'
-
-  # CODE remove this + methods from controller
-  get 'internship' => 'web#internship_show'
-  post 'internship' => 'web#internship_create'
-  patch 'internship/:id' => 'web#internship_update'
-  delete 'internship/:id' => 'web#internship_delete'
    
   authenticate :admin_user do # , lambda { |u| u.admin? } do
     mount Sidekiq::Web, at: "/sidekiq"

@@ -49,18 +49,6 @@ class WebController < ApplicationController
     @images_deleted_count = Image.delete_all
   end
   
-  def internship_show
-  end
-
-  def internship_create
-  end
-
-  def internship_update
-  end
-
-  def internship_delete
-  end
-  
   protected
 
   def check_for_lang
