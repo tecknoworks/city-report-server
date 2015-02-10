@@ -39,46 +39,52 @@ describe BannedIpsController, type: :controller do
 
     it 'returns a specific banned_ip' do
       get :show, id: banned_ip1.id.to_s
-      expect(json['_id']).to eq banned_ip1.id.to_s
-      expect(json['address']).to eq banned_ip1.address
-      expect(json['created_at']).to be_present
-      expect(json['updated_at']).to be_present
+      expect(json['body']['_id']).to eq banned_ip1.id.to_s
+      expect(json['body']['address']).to eq banned_ip1.address
+      expect(json['body']['created_at']).to be_present
+      expect(json['body']['updated_at']).to be_present   
       response.status.should be RequestCodes::SUCCESS
     end
 
     it 'returns a friendly error when banned_ip not found by id' do
       get :show, id: -1
       response.status.should be RequestCodes::NOT_FOUND
+    end 
+  end
+
+  describe '#create' do
+  
+    it 'creates a banned ip' do
+      expect {
+        post :create, banned_ip: { address: '192.168.0.0' }
+        expect(response.status).to eq RequestCodes::SUCCESS
+        expect(json['address']).to eq '192.168.0.0'
+      }.to change { BannedIp.count }.by 1
     end
   end
 
-  # CODE describe similar to '#show'
-  it 'creates a banned ip' do
-    expect {
-      post :create, banned_ip: { address: '192.168.0.0' }
-      expect(response.status).to eq RequestCodes::SUCCESS
-      expect(json['address']).to eq '192.168.0.0'
-    }.to change { BannedIp.count }.by 1
+  describe '#update' do
+    
+    it 'updates the address of a banned ip' do
+      addr = '192.168.0.12'
+      banned_ip1
+      expect(banned_ip1.address).to_not eq addr
+
+      patch :update, id: banned_ip1.id.to_s, banned_ip: { address: addr }
+      expect(json['address']).to eq addr
+      banned_ip1.reload
+      expect(banned_ip1.address).to eq addr
+    end
   end
 
-  # CODE describe similar to '#show'
-  it 'updates the address of a banned ip' do
-    addr = '192.168.0.12'
-    banned_ip1
-    expect(banned_ip1.address).to_not eq addr
-
-    patch :update, id: banned_ip1.id.to_s, banned_ip: { address: addr }
-    expect(json['address']).to eq addr
-    banned_ip1.reload
-    expect(banned_ip1.address).to eq addr
-  end
-
-  # CODE describe similar to '#show'
-  it 'deletes a banned ip' do
-    banned_ip1
-    expect {
-      delete :destroy, id: banned_ip1.id.to_s
-      expect(json['id']['$oid']).to eq banned_ip1.id.to_s
-    }.to change { BannedIp.count }.by(-1)
+  describe '#delete' do
+    
+    it 'deletes a banned ip' do
+      banned_ip1
+      expect {
+        delete :destroy, id: banned_ip1.id.to_s
+        expect(json['id']['$oid']).to eq banned_ip1.id.to_s
+      }.to change { BannedIp.count }.by(-1)
+    end
   end
 end

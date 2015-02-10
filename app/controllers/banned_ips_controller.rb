@@ -1,11 +1,12 @@
 class BannedIpsController < ApplicationController
   
+  before_action :set_banned_ip, only: [:show, :update, :destroy]
+    
   def index
     @banned_ips = BannedIp.all
   end
    
   def show
-    @banned_ip = find_by_id(params[:id])[:id] 
   end
    
   def create
@@ -13,22 +14,23 @@ class BannedIpsController < ApplicationController
     BannedIp.create(params["banned_ip"]) 
   end
   
-  def update
-    banned_ip = find_by_id(params[:id])
-    banned_ip.update(address: params["banned_ip"]["address"]) 
-    @address = banned_ip['address'] 
+  def update 
+    @banned_ip.update(address: params["banned_ip"]["address"]) 
+    @address = @banned_ip['address'] 
   end
   
   def destroy
-    banned_ip = BannedIp.find(params[:id])
-    @id = banned_ip['id'] 
-    banned_ip.delete
+    @id = @banned_ip['id'] 
+    @banned_ip.delete
   end
 
   protected
-  
-  def find_by_id id
-    BannedIp.find(id)
+
+  def set_banned_ip
+    @banned_ip = BannedIp.find(params[:id])
+    if @banned_ip.blank?
+      render_response("banned_ip with id #{params[:id]} not found", NOT_FOUND)
+    end
   end
   
 end
