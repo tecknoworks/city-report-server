@@ -13,7 +13,7 @@ describe IssuesController, type: :controller do
       address: '12.12.13.12'
     }
   end
-  
+
   let(:invalid_issue_hash) do
     {
       name: 'foo',
@@ -55,7 +55,7 @@ describe IssuesController, type: :controller do
     before(:all) do
       Issue.delete_all
       BannedIp.delete_all
-      
+
       create(:issue)
       create(:issue, name: 'foo')
       create(:issue, name: 'foo2')
@@ -153,15 +153,15 @@ describe IssuesController, type: :controller do
 
     it 'sends the correct error code' do
       post :create, name: 'foo', lon: Repara.map_center_lon,
-                    lat: Repara.map_center_lat, category: category,
-                    device_id: 'device_id'
+      lat: Repara.map_center_lat, category: category,
+      device_id: 'device_id'
       response.status.should be RequestCodes::BAD_REQUEST
       json['code'].should be RequestCodes::REQUIRES_AT_LEAST_ONE_IMAGE
     end
 
     it 'requires category to be valid' do
       post :create, name: 'foo', category: 'foo', lat: 0, lon: 0,
-                    images: ['foo'], device_id: 'device_id'
+      images: ['foo'], device_id: 'device_id'
       response.status.should be RequestCodes::BAD_REQUEST
 
       post :create, valid_issue_hash
@@ -220,7 +220,7 @@ describe IssuesController, type: :controller do
 
     it 'returns error when updating with invalid object id' do
       put :update, id: '/invalid_id', name: 'bar'
-      response.status.should be RequestCodes::NOT_FOUND
+      response.status.should eq RequestCodes::NOT_FOUND
     end
 
     it 'returns error when updating a field with an invalid value' do
@@ -234,9 +234,9 @@ describe IssuesController, type: :controller do
       issue = create(:issue)
 
       put :add_to_set, id: issue['_id'].to_s,
-                       images: ['http://www.google.com/asd.png']
-      response.status.should be RequestCodes::BAD_REQUEST
-      json['code'].should be RequestCodes::INVALID_IMAGE_HASH_FORMAT
+      images: ['http://www.google.com/asd.png']
+      response.status.should eq RequestCodes::BAD_REQUEST
+      json['code'].should eq RequestCodes::INVALID_IMAGE_HASH_FORMAT
     end
 
     it 'adds an image url to images' do
@@ -244,7 +244,7 @@ describe IssuesController, type: :controller do
 
       issue['images'].count.should be 1
       put :add_to_set, id: issue['_id'].to_s,
-                       images: [{ url: 'http://www.google.com/image2.png' }]
+      images: [{ url: 'http://www.google.com/image2.png' }]
       response.status.should be RequestCodes::SUCCESS
 
       issue = Issue.find(issue['_id'])
@@ -257,7 +257,7 @@ describe IssuesController, type: :controller do
 
       issue['comments'].count.should be 0
       put :add_to_set, id: issue['_id'].to_s, comments: ['comment']
-      response.status.should be RequestCodes::SUCCESS
+      response.status.should eq RequestCodes::SUCCESS
 
       issue = Issue.find(issue['_id'])
       issue.reload
@@ -269,8 +269,8 @@ describe IssuesController, type: :controller do
 
       issue['comments'].count.should be 0
       put :add_to_set, id: issue['_id'], comments: [{ asd: 'comment' }]
-      response.status.should be RequestCodes::BAD_REQUEST
-      json['code'].should be RequestCodes::INVALID_COMMENT_FORMAT
+      response.status.should eq RequestCodes::BAD_REQUEST
+      json['code'].should eq RequestCodes::INVALID_COMMENT_FORMAT
 
       issue = Issue.find(issue['_id'])
       issue.reload
@@ -278,71 +278,78 @@ describe IssuesController, type: :controller do
       issue.valid?.should be_false
     end
   end
-  
+
   context 'BannedIp' do
     # ActionController::TestRequest.any_instance.stub(:remote_ip).and_return(VALID_IP)
     # request.remote_ip
-    
+
     it 'can create issue' do
-      
+
       Issue.delete_all
       BannedIp.delete_all
-      
-      address = "123.123.123.123" 
+
+      address = "123.123.123.123"
       banned_ip = create :banned_ip, address: address
-      
+
       ActionController::TestRequest.any_instance.stub(:remote_ip).and_return("2.32.12.123")
       expect do
         post :create, valid_issue_hash
+        response.status.should eq RequestCodes::SUCCESS
+        json['code'].should eq RequestCodes::SUCCESS
       end.to change { Issue.count }.by 1
-       
+
     end
-    
+
     it 'can not create issue' do
       Issue.delete_all
       BannedIp.delete_all
-      
+
       address = "123.123.123.123"
       banned_ip = create :banned_ip, address: address
-      
+
       ActionController::TestRequest.any_instance.stub(:remote_ip).and_return("123.123.123.123")
       expect do
         post :create, invalid_issue_hash
-      end.to change { Issue.count }.by 0  
+        response.status.should eq RequestCodes::BAD_REQUEST
+        json['code'].should eq RequestCodes::BANNED_IP
+      end.to change { Issue.count }.by 0
     end
-    
-    it 'can not update issue' do
-      
+
+    it 'can update issue' do
       Issue.delete_all
-      BannedIp.delete_all 
+      BannedIp.delete_all
 
       issue = create(:issue, name: 'foo')
       assert issue['name'] == 'foo'
       banned_ip = create :banned_ip, address: '111.222.12.21'
-      
+
       ActionController::TestRequest.any_instance.stub(:remote_ip).and_return("123.123.123.123")
-      
+
       put :update, id: issue['_id'].to_s, name: 'bar'
-      
-      issue = Issue.find(issue['_id'].to_s) 
+
+      response.status.should eq RequestCodes::SUCCESS
+      json['code'].should eq RequestCodes::SUCCESS
+
+      issue = Issue.find(issue['_id'].to_s)
       issue['name'].should eq 'bar'
-    end  
-    
-    it 'can update issue' do
-      
+    end
+
+    it 'can not update issue' do
       Issue.delete_all
       BannedIp.delete_all
-      
+
       issue = create(:issue, name: 'foo')
       assert issue['name'] == 'foo'
       banned_ip = create :banned_ip, address: '123.123.123.123'
 
       ActionController::TestRequest.any_instance.stub(:remote_ip).and_return("123.123.123.123")
-      
+
       put :update, id: issue['_id'].to_s, name: 'bar'
-      
+      response.status.should eq RequestCodes::BAD_REQUEST
+      json['code'].should eq RequestCodes::BANNED_IP
+
       issue = Issue.find(issue['_id'].to_s)
       issue['name'].should_not eq 'bar'
-    end 
+    end
   end
 end

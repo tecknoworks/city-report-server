@@ -10,42 +10,58 @@ describe BannedIpsController, type: :controller do
     banned_ip2
   end
 
-  it 'works' do
-    get :index
-    response.status.should eq RequestCodes::SUCCESS
+  describe '#index' do
+
+    it 'works' do
+      get :index
+      response.status.should eq RequestCodes::SUCCESS
+    end
+
+    it 'has the code and body params in the result' do
+      get :index
+      expect(json.key?('code')).to eq true
+      expect(json.key?('body')).to eq true
+    end
+
+    it 'has status code 200' do
+      get :index
+      expect(json['code']).to eq RequestCodes::SUCCESS
+    end
+
+    it 'returns the two banned ips' do
+      get :index
+      expect(json['body'].class).to be Array
+      expect(json['body'].size).to be > 0
+    end
   end
 
-  it 'has the code and body params in the result' do
-    get :index
-    expect(json.key?('code')).to eq true
-    expect(json.key?('body')).to eq true
+  describe '#show' do
+
+    it 'returns a specific banned_ip' do
+      get :show, id: banned_ip1.id.to_s
+      expect(json['_id']).to eq banned_ip1.id.to_s
+      expect(json['address']).to eq banned_ip1.address
+      expect(json['created_at']).to be_present
+      expect(json['updated_at']).to be_present
+      response.status.should be RequestCodes::SUCCESS
+    end
+
+    it 'returns a friendly error when banned_ip not found by id' do
+      get :show, id: -1
+      response.status.should be RequestCodes::NOT_FOUND
+    end
   end
 
-  it 'has status code 200' do
-    get :index 
-    expect(json['code']).to eq RequestCodes::SUCCESS
-  end
-
-  it 'returns the two banned ips' do
-    get :index   
-    expect(json['body'].class).to be Array
-    expect(json['body'].size).to be > 0
-  end
- 
-  it 'returns a specific banned_ip' do
-    banned_ip1 
-    get :show, id: banned_ip1.id.to_s
-    expect(json['id']['$oid']).to eq banned_ip1.id.to_s
-  end
-
+  # CODE describe similar to '#show'
   it 'creates a banned ip' do
-    expect { 
+    expect {
       post :create, banned_ip: { address: '192.168.0.0' }
       expect(response.status).to eq RequestCodes::SUCCESS
       expect(json['address']).to eq '192.168.0.0'
     }.to change { BannedIp.count }.by 1
   end
 
+  # CODE describe similar to '#show'
   it 'updates the address of a banned ip' do
     addr = '192.168.0.12'
     banned_ip1
@@ -57,6 +73,7 @@ describe BannedIpsController, type: :controller do
     expect(banned_ip1.address).to eq addr
   end
 
+  # CODE describe similar to '#show'
   it 'deletes a banned ip' do
     banned_ip1
     expect {

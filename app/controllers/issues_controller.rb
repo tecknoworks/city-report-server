@@ -93,7 +93,9 @@ class IssuesController < ApplicationController
   def create
     remote_ip = request.remote_ip
     
-    return render_response "This id is banned!" if BannedIp.where(address: remote_ip.to_s).exists? == true
+    if BannedIp.where(address: remote_ip.to_s).any?
+      return render_response("This id is banned!", BANNED_IP, BAD_REQUEST)
+    end
 
     @issue = Issue.create(params)
     unless @issue.valid?
@@ -115,8 +117,9 @@ class IssuesController < ApplicationController
   EOS
   def update
     remote_ip = request.remote_ip
-    
-    return render_response "This id is banned!" if BannedIp.where(address: remote_ip.to_s).exists? == true
+    if BannedIp.where(address: remote_ip.to_s).any?
+      return render_response("This id is banned!", BANNED_IP, BAD_REQUEST)
+    end
     
     @issue.update_attributes(params)
 
@@ -168,7 +171,7 @@ class IssuesController < ApplicationController
 
   def set_issue
     @issue = Issue.find(params[:id])
-    if @issue.nil?
+    if @issue.blank?
       render_response("issue with id #{params[:id]} not found", NOT_FOUND)
     end
   end
