@@ -58,7 +58,7 @@ describe BannedIpsController, type: :controller do
       expect {
         post :create, banned_ip: { address: '192.168.0.0' }
         expect(response.status).to eq RequestCodes::SUCCESS
-        expect(json['address']).to eq '192.168.0.0'
+        expect(json['body']['address']).to eq '192.168.0.0'
       }.to change { BannedIp.count }.by 1
     end
   end
@@ -69,9 +69,8 @@ describe BannedIpsController, type: :controller do
       addr = '192.168.0.12'
       banned_ip1
       expect(banned_ip1.address).to_not eq addr
-
       patch :update, id: banned_ip1.id.to_s, banned_ip: { address: addr }
-      expect(json['address']).to eq addr
+      expect(json['body']['address']).to eq addr
       banned_ip1.reload
       expect(banned_ip1.address).to eq addr
     end
@@ -83,7 +82,7 @@ describe BannedIpsController, type: :controller do
       banned_ip1
       expect {
         delete :destroy, id: banned_ip1.id.to_s
-        expect(json['id']['$oid']).to eq banned_ip1.id.to_s
+        expect(json['body']['_id']).to eq banned_ip1.id.to_s
       }.to change { BannedIp.count }.by(-1)
     end
   end

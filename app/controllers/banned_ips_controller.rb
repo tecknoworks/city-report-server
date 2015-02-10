@@ -10,17 +10,14 @@ class BannedIpsController < ApplicationController
   end
    
   def create
-    @address = params["banned_ip"]["address"]
-    BannedIp.create(params["banned_ip"]) 
+    @banned_ip = BannedIp.create(params["banned_ip"]) 
   end
   
-  def update 
-    @banned_ip.update(address: params["banned_ip"]["address"]) 
-    @address = @banned_ip['address'] 
+  def update  
+    @banned_ip.update(address: params["banned_ip"]["address"])  
   end
   
   def destroy
-    @id = @banned_ip['id'] 
     @banned_ip.delete
   end
 

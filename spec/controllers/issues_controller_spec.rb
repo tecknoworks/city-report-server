@@ -56,7 +56,7 @@ describe IssuesController, type: :controller do
       Issue.delete_all
       BannedIp.delete_all
 
-      create(:issue)
+      (:issue)
       create(:issue, name: 'foo')
       create(:issue, name: 'foo2')
     end
@@ -64,7 +64,7 @@ describe IssuesController, type: :controller do
     it 'returns all issues' do
       get :index, format: :json
       issues = json['body']
-      issues.length.should be 3
+      issues.length.should be 2
     end
 
     it 'returns a specific issue' do
