@@ -280,42 +280,69 @@ describe IssuesController, type: :controller do
   end
   
   context 'BannedIp' do
-    it 'can not create issue' do
+    # ActionController::TestRequest.any_instance.stub(:remote_ip).and_return(VALID_IP)
+    # request.remote_ip
+    
+    it 'can create issue' do
       
       Issue.delete_all
       BannedIp.delete_all
       
-      address = "123.123.123.123"  
-      banned_ip = create :banned_ip, address: address 
-
+      address = "123.123.123.123" 
+      banned_ip = create :banned_ip, address: address
+      
+      ActionController::TestRequest.any_instance.stub(:remote_ip).and_return("2.32.12.123")
       expect do
         post :create, valid_issue_hash
       end.to change { Issue.count }.by 1
-        
+       
+    end
+    
+    it 'can not create issue' do
+      Issue.delete_all
+      BannedIp.delete_all
+      
+      address = "123.123.123.123"
+      banned_ip = create :banned_ip, address: address
+      
+      ActionController::TestRequest.any_instance.stub(:remote_ip).and_return("123.123.123.123")
       expect do
         post :create, invalid_issue_hash
-      end.to change { Issue.count }.by 0 
+      end.to change { Issue.count }.by 0  
     end
     
     it 'can not update issue' do
       
       Issue.delete_all
       BannedIp.delete_all 
-      
-      issue = create(:issue, name: 'foo', address: '123.222.111.112')
-      assert issue['name'] == 'foo'
-      banned_ip = create :banned_ip, address: '123.222.111.112'
- 
-      put :update, id: issue['_id'].to_s, name: 'bar'
 
+      issue = create(:issue, name: 'foo')
+      assert issue['name'] == 'foo'
+      banned_ip = create :banned_ip, address: '111.222.12.21'
+      
+      ActionController::TestRequest.any_instance.stub(:remote_ip).and_return("123.123.123.123")
+      
+      put :update, id: issue['_id'].to_s, name: 'bar'
+      
+      issue = Issue.find(issue['_id'].to_s) 
+      issue['name'].should eq 'bar'
+    end  
+    
+    it 'can update issue' do
+      
+      Issue.delete_all
+      BannedIp.delete_all
+      
+      issue = create(:issue, name: 'foo')
+      assert issue['name'] == 'foo'
+      banned_ip = create :banned_ip, address: '123.123.123.123'
+
+      ActionController::TestRequest.any_instance.stub(:remote_ip).and_return("123.123.123.123")
+      
+      put :update, id: issue['_id'].to_s, name: 'bar'
+      
       issue = Issue.find(issue['_id'].to_s)
       issue['name'].should_not eq 'bar'
-      issue['name'].should eq 'foo'
-        
-    end
-    
-    it 'can not issue' do
-      #not exist delete route
-    end
-  end 
+    end 
+  end
 end

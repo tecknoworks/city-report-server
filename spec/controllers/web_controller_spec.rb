@@ -17,7 +17,8 @@ describe WebController, type: :controller do
   end
 
   it 'shows meta info' do
-    get :meta
+    get :meta    
+
     response.status.should be 200
     json['body']['categories'].should eq Category.to_api
     json['body']['zones'].should eq Zone.to_api

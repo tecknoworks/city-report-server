@@ -90,7 +90,11 @@ class IssuesController < ApplicationController
 
      curl -X POST -H 'Content-Type: application/json' -d '{"name":"hello", "device_id": "device_id", "category":"altele", "lat":0, "lon":0,"images":[{"url": "image_url"}]}' #{Repara.base_url}issues.json
   EOS
-  def create 
+  def create
+    remote_ip = request.remote_ip
+    
+    return render_response "This id is banned!" if BannedIp.where(address: remote_ip.to_s).exists? == true
+
     @issue = Issue.create(params)
     unless @issue.valid?
       return render_response(@issue.first_error_desc, @issue.first_error_code, BAD_REQUEST)
@@ -110,6 +114,10 @@ class IssuesController < ApplicationController
      curl -X PATCH -H 'Content-Type: application/json' -d '{"name":"test2"}' #{Repara.base_url}issues/YOUR_ID}.json
   EOS
   def update
+    remote_ip = request.remote_ip
+    
+    return render_response "This id is banned!" if BannedIp.where(address: remote_ip.to_s).exists? == true
+    
     @issue.update_attributes(params)
 
     unless @issue.valid?
