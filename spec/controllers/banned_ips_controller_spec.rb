@@ -37,7 +37,7 @@ describe BannedIpsController, type: :controller do
     get :show, id: banned_ip1.id.to_s
     expect(json['id']['$oid']).to eq banned_ip1.id.to_s
   end
- 
+
   it 'creates a banned ip' do
     expect { 
       post :create, banned_ip: { address: '192.168.0.0' }
@@ -58,7 +58,7 @@ describe BannedIpsController, type: :controller do
   end
 
   it 'deletes a banned ip' do
-    banned_ip1    
+    banned_ip1
     expect {
       delete :destroy, id: banned_ip1.id.to_s
       expect(json['id']['$oid']).to eq banned_ip1.id.to_s

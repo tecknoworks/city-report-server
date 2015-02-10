@@ -22,11 +22,7 @@ Rails.application.routes.draw do
   end
 
   # CODE use resources
-  get 'banned_ips' => 'banned_ips#index'
-  get 'banned_ips/:id' => 'banned_ips#show'
-  post 'banned_ips' => 'banned_ips#create'
-  patch 'banned_ips/:id' => 'banned_ips#update'
-  delete 'banned_ips/:id' => 'banned_ips#destroy'
+  resources :banned_ips, only: [:index, :show, :create, :update, :destroy]
   
   get 'meta' => 'web#meta'
   get 'up' => 'web#up'

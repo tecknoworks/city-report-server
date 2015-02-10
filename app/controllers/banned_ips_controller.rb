@@ -1,10 +1,5 @@
-# CODE Refactor to use jbuilder
-# CODE remove whitespace and blank lines
 class BannedIpsController < ApplicationController
-  # CODE in IssuesController we have a before_action :set_issue.
-  # can we use something similar here?
-  # this would solve the duplicate code: banned_ip = BannedIp.find(params[:id])
-
+  
   def index
     @banned_ips = BannedIp.all
   end
@@ -21,7 +16,7 @@ class BannedIpsController < ApplicationController
   def update
     banned_ip = find_by_id(params[:id])
     banned_ip.update(address: params["banned_ip"]["address"]) 
-    @address = banned_ip['address']
+    @address = banned_ip['address'] 
   end
   
   def destroy

@@ -9,7 +9,20 @@ describe IssuesController, type: :controller do
       lat: Repara.map_center['lat'],
       lon: Repara.map_center['lon'],
       images: [{ url: 'http://www.yahoo.com/asd.png' }],
-      device_id: 'device_id'
+      device_id: 'device_id',
+      address: '12.12.13.12'
+    }
+  end
+  
+  let(:invalid_issue_hash) do
+    {
+      name: 'foo',
+      category: category,
+      lat: Repara.map_center['lat'],
+      lon: Repara.map_center['lon'],
+      images: [{ url: 'http://www.yahoo.com/asd.png' }],
+      device_id: 'device_id',
+      address: '123.123.123.123'
     }
   end
 
@@ -41,7 +54,8 @@ describe IssuesController, type: :controller do
 
     before(:all) do
       Issue.delete_all
-
+      BannedIp.delete_all
+      
       create(:issue)
       create(:issue, name: 'foo')
       create(:issue, name: 'foo2')
@@ -264,10 +278,44 @@ describe IssuesController, type: :controller do
       issue.valid?.should be_false
     end
   end
-
+  
   context 'BannedIp' do
-    it 'can not create issue'
-    it 'can not update issue'
-    it 'can not delete issue'
-  end
+    it 'can not create issue' do
+      
+      Issue.delete_all
+      BannedIp.delete_all
+      
+      address = "123.123.123.123"  
+      banned_ip = create :banned_ip, address: address 
+
+      expect do
+        post :create, valid_issue_hash
+      end.to change { Issue.count }.by 1
+        
+      expect do
+        post :create, invalid_issue_hash
+      end.to change { Issue.count }.by 0 
+    end
+    
+    it 'can not update issue' do
+      
+      Issue.delete_all
+      BannedIp.delete_all 
+      
+      issue = create(:issue, name: 'foo', address: '123.222.111.112')
+      assert issue['name'] == 'foo'
+      banned_ip = create :banned_ip, address: '123.222.111.112'
+ 
+      put :update, id: issue['_id'].to_s, name: 'bar'
+
+      issue = Issue.find(issue['_id'].to_s)
+      issue['name'].should_not eq 'bar'
+      issue['name'].should eq 'foo'
+        
+    end
+    
+    it 'can not issue' do
+      #not exist delete route
+    end
+  end 
 end

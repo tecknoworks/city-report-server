@@ -57,6 +57,8 @@ class Issue < BaseModel
   validate :image_urls
   validate :comments_format
   validate :string_size_limit
+  
+  validate :no_banned_ip 
 
   before_save :set_thumbnails
 
@@ -185,4 +187,11 @@ class Issue < BaseModel
     self.errors.add(:invalid_category, 'check /meta for allowed categories') unless
     Category.to_api.include? self.category
   end
+  
+  def no_banned_ip
+    for banned in BannedIp
+      self.errors.add(:invalid_ip, "ip is banned") if banned["address"] == address
+    end
+  end
+  
 end
