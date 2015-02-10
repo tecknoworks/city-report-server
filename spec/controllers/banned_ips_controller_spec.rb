@@ -6,7 +6,7 @@ describe BannedIpsController, type: :controller do
 
   before :each do
     BannedIp.delete_all
-    banned_ip1
+    banned_ip1  
     banned_ip2
   end
 
@@ -42,7 +42,7 @@ describe BannedIpsController, type: :controller do
       expect(json['body']['_id']).to eq banned_ip1.id.to_s
       expect(json['body']['address']).to eq banned_ip1.address
       expect(json['body']['created_at']).to be_present
-      expect(json['body']['updated_at']).to be_present   
+      expect(json['body']['updated_at']).to be_present
       response.status.should be RequestCodes::SUCCESS
     end
 
