@@ -29,7 +29,7 @@ describe BannedIpsController, type: :controller do
     end
 
     it 'returns the two banned ips' do
-      get :index
+      get :index  
       expect(json['body'].class).to be Array
       expect(json['body'].size).to be > 0
     end
