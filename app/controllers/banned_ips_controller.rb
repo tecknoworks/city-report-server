@@ -19,40 +19,40 @@ class BannedIpsController < ApplicationController
     @banned_ips = BannedIp.all
   end
    
-  api :GET, '/banned_ip/:id.json', 'Return an specific banned_ip'
+  api :GET, '/banned_ips/:id.json', 'Return an specific banned_ip'
   description <<-EOS
     Curl example:
 
-     curl -X GET -H 'Content-Type: application/json' #{Repara.base_url}banned_ip/:BANNED_ID.json
+     curl -X GET -H 'Content-Type: application/json' #{Repara.base_url}banned_ips/:BANNED_ID.json
   EOS
   def show
   end  
   
-  api :POST, '/banned_ip.json', 'Create an banned_ip'
+  api :POST, '/banned_ips.json', 'Create an banned_ip'
   description <<-EOS
     Curl example:
 
-     curl -X GET -H 'Content-Type: application/json' #{Repara.base_url}banned_ip.json
+     curl -X GET -H 'Content-Type: application/json' #{Repara.base_url}banned_ips.json
   EOS
   def create
     @banned_ip = BannedIp.create(params["banned_ip"]) 
   end
   
-  api :PATCH, '/banned_ip/:id.json', 'Update an banned_ip'
+  api :PATCH, '/banned_ips/:id.json', 'Update an banned_ip'
   description <<-EOS
     Curl example:
 
-     curl -X GET -H 'Content-Type: application/json' #{Repara.base_url}banned_ip/:BANNED_ID.json
+     curl -X GET -H 'Content-Type: application/json' #{Repara.base_url}banned_ips/:BANNED_ID.json
   EOS
   def update 
     @banned_ip.update(address: params["banned_ip"]["address"])  
   end
   
-  api :DELETE, '/banned_ip/:id.json', 'Delete an banned_ip'
+  api :DELETE, '/banned_ips/:id.json', 'Delete an banned_ip'
   description <<-EOS
     Curl example:
 
-     curl -X GET -H 'Content-Type: application/json' #{Repara.base_url}bannned_ip/:BANNED_ID.json
+     curl -X GET -H 'Content-Type: application/json' #{Repara.base_url}bannned_ips/:BANNED_ID.json
   EOS
   def destroy
     @banned_ip.delete
