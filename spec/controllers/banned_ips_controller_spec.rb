@@ -6,7 +6,7 @@ describe BannedIpsController, type: :controller do
 
   before :each do
     BannedIp.delete_all
-    banned_ip1  
+    banned_ip1
     banned_ip2
   end
 
@@ -29,7 +29,7 @@ describe BannedIpsController, type: :controller do
     end
 
     it 'returns the two banned ips' do
-      get :index  
+      get :index
       expect(json['body'].class).to be Array
       expect(json['body'].size).to be > 0
     end
@@ -49,11 +49,11 @@ describe BannedIpsController, type: :controller do
     it 'returns a friendly error when banned_ip not found by id' do
       get :show, id: -1
       response.status.should be RequestCodes::NOT_FOUND
-    end 
+    end
   end
 
   describe '#create' do
-  
+
     it 'creates a banned ip' do
       expect {
         post :create, banned_ip: { address: '192.168.0.0' }
@@ -64,7 +64,7 @@ describe BannedIpsController, type: :controller do
   end
 
   describe '#update' do
-    
+
     it 'updates the address of a banned ip' do
       addr = '192.168.0.12'
       banned_ip1
@@ -77,7 +77,7 @@ describe BannedIpsController, type: :controller do
   end
 
   describe '#delete' do
-    
+
     it 'deletes a banned ip' do
       banned_ip1
       expect {

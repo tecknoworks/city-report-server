@@ -57,7 +57,7 @@ class BannedIpsController < ApplicationController
   def destroy
     @banned_ip.delete
   end
-
+  
   protected
 
   def set_banned_ip
@@ -66,5 +66,4 @@ class BannedIpsController < ApplicationController
       render_response("banned_ip with id #{params[:id]} not found", NOT_FOUND)
     end
   end
-  
 end
