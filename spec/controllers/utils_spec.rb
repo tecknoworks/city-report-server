@@ -11,23 +11,18 @@ describe do
     km_lat = 0.00664115 * dist_lat
     km_lon = 0.004530219 * dist_lon
     
-    rez = []
-    
       Issue.where(:lat.lt => lat+km_lat,\
         :lat.gt => lat - km_lat,\
         :lon.lt => lon + km_lon,\
-        :lon.gt => lon - km_lon).each do |issue|
-        rez.push(issue)
-      end
+        :lon.gt => lon - km_lon)
         
 #      Issue.where(geo_near([ 50, 12 ])).geo_near([ 50, 12 ]).each do |document|
 #        p document.geo_near_distance 
 #      end
 #        Issue.geo_near([ 50, 12 ]).each do |issue|
 #        rez.push(issue)
-#      end 
-    
-      return rez
+#      end  
+        
     end 
   
     it "appropriate points" do
