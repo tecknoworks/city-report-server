@@ -73,7 +73,7 @@ describe Issue do
 
     it 'checks for a valid comment format' do
       issue.add_params_to_set(
-        'comments' => [{ foo: 'noice' }]
+      'comments' => [{ foo: 'noice' }]
       )
       issue.valid?.should be_false
     end
@@ -158,5 +158,15 @@ describe Issue do
     it 'takes into account the comments' do
       Issue.full_text_search('wow').count.should be 1
     end
+  end
+
+  it 'creates an issue with coordinates atribut' do
+    Issue.delete_all
+    expect do
+      i = create(:issue)
+      i.errors.should be_empty
+      assert_equal(2, i.coordinates.count)
+    end.to change { Issue.count }.by 1
+
   end
 end

@@ -14,10 +14,11 @@ class Issue < BaseModel
   field :vote_counter, type: Integer, default: 0
   field :images, type: Array, default: []
   field :comments, type: Array, default: []
+  field :coordinates, type: Array, default: []
 
   attr_accessor :images_raw
   attr_accessor :comments_raw
-
+  
   def images_raw
     self.images.collect do |img|
       img.with_indifferent_access['url'].try(:strip)
@@ -51,7 +52,7 @@ class Issue < BaseModel
 
   validates :status, inclusion: VALID_STATUSES
 
-  validate :coordinates
+  validate :limit_coordinates
   validate :allowed_category
   validate :minimum_one_image
   validate :image_urls
@@ -59,10 +60,18 @@ class Issue < BaseModel
   validate :string_size_limit   
 
   before_save :set_thumbnails
-
+  before_save :complete_coordinates
+  
   SEARCHABLE_FIELDS = [:name, :address, :comments]
   search_in SEARCHABLE_FIELDS
 
+  def complete_coordinates
+    self.coordinates = []
+    self.coordinates.push(self.lat)
+    self.coordinates.push(self.lon)
+  end
+
+  
   def add_params_to_set params
     # params = params.clone.with_indifferent_access
     ['images', 'comments'].each do |key|
@@ -170,7 +179,7 @@ class Issue < BaseModel
     end
   end
 
-  def coordinates
+  def limit_coordinates
     self.errors.add(:invalid_lat, 'is it between -90 and 90?') unless
     self.lat.nil? || -90.0 < self.lat && self.lat < 90.0
 
