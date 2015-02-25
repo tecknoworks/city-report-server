@@ -60,16 +60,22 @@ class IssuesController < ApplicationController
 
      curl -X GET -H 'Content-Type: application/json' #{Repara.base_url}issues.json
   EOS
+
   def index
     limit = params['limit'].nil? ? 10 : params['limit']
     skip = params['skip'].nil? ? 0 : params['skip']
 
+    time = Time.now
+    time = time - params[:time][:days].day
+    time = time - params[:time][:hours].hour
+    time = time - params[:time][:month].month
+ 
     @issues = Issue.order_by([:created_at, :desc])
     @issues = @issues.where(category: params[:category]) if params[:category].present?
     @issues = @issues.where(device_id: params[:device_id]) if params[:device_id].present?
     @issues = @issues.where(status: params[:status]) if params[:status].present?
     @issues = @issues.full_text_search(params[:q]) if params[:q].present?
-
+    @issues = @issues.where(:created_at.gte => time)
     @issues = @issues.limit(limit).skip(skip)
   end
 
@@ -79,6 +85,7 @@ class IssuesController < ApplicationController
 
      curl -X GET -H 'Content-Type: application/json' #{Repara.base_url}issues/ISSUE_ID.json
   EOS
+
   def show
   end
 
@@ -90,9 +97,10 @@ class IssuesController < ApplicationController
 
      curl -X POST -H 'Content-Type: application/json' -d '{"name":"hello", "device_id": "device_id", "category":"altele", "lat":0, "lon":0,"images":[{"url": "image_url"}]}' #{Repara.base_url}issues.json
   EOS
+
   def create
     remote_ip = request.remote_ip
-    
+
     if BannedIp.where(address: remote_ip.to_s).any?
       return render_response("This id is banned!", BANNED_IP, BAD_REQUEST)
     end
@@ -115,12 +123,13 @@ class IssuesController < ApplicationController
 
      curl -X PATCH -H 'Content-Type: application/json' -d '{"name":"test2"}' #{Repara.base_url}issues/YOUR_ID}.json
   EOS
+
   def update
     remote_ip = request.remote_ip
     if BannedIp.where(address: remote_ip.to_s).any?
       return render_response("This id is banned!", BANNED_IP, BAD_REQUEST)
     end
-    
+
     @issue.update_attributes(params)
 
     unless @issue.valid?
@@ -140,6 +149,7 @@ class IssuesController < ApplicationController
 
      curl -X PATCH -H 'Content-Type: application/json' -d '{"images":[{"url":"#{Repara.base_url}images/logo2.png"}]}' #{Repara.base_url}issues/YOUR_ID}/add_to_set.json
   EOS
+
   def add_to_set
     @issue.add_params_to_set(params)
 
@@ -158,6 +168,7 @@ class IssuesController < ApplicationController
 
      curl -X POST -H 'Content-Type: application/json' -d '{}' #{Repara.base_url}issues/YOUR_ID}/vote.json
   EOS
+
   def vote
     @issue.upvote! if request.post?
     @issue.downvote! if request.delete? && Repara.config['allow_downvotes']

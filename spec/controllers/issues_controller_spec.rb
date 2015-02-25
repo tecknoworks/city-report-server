@@ -62,7 +62,7 @@ describe IssuesController, type: :controller do
     end
 
     it 'returns all issues' do
-      get :index, format: :json
+      get :index, format: :json, time: {month: 0, days: 1, hours: 0}
       issues = json['body']
       issues.length.should be 2
     end
@@ -76,6 +76,44 @@ describe IssuesController, type: :controller do
     it 'returns 404 when issue id is invalid' do
       get :show, id: 'invalid_id'
       response.status.should be 404
+    end
+
+    it 'return the issue by the time' do
+      Issue.delete_all
+
+      issue1 = create :issue, name: "foo"
+      issue1.created_at = issue1.created_at - 1.day
+      issue1.save
+
+      issue2 = create :issue, name: "foo2"
+      issue2.created_at = issue2.created_at - 2.day
+      issue2.save
+
+      issue3 = create :issue, name: "foo3"
+      issue3.created_at = issue3.created_at - 1.hour
+      issue3.save
+
+      issue4 = create :issue, name: "foo4"
+
+      get :index, format: :json, time: {month: 0, days: 4, hours: 1}
+      issues = json['body']
+      issues.length.should be 4
+
+      get :index, format: :json, time: {month: 0, days: 0, hours: 2}
+      issues = json['body']
+      issues.length.should be 2
+
+      get :index, format: :json, time: {month: 0, days: 1, hours: 10}
+      issues = json['body']
+      issues.length.should be 3
+
+      get :index, format: :json, time: {month: 0, days: 0, hours: -1}
+      issues = json['body']
+      issues.length.should be 0
+
+      get :index, format: :json, time: {month: 1, days: 0, hours: 0}
+      issues = json['body']
+      issues.length.should be 4
     end
   end
 
