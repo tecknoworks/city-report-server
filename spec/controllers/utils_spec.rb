@@ -10,11 +10,13 @@ describe do
     km_lat = 0.00664115 * dist_lat
     km_lon = 0.004530219 * dist_lon
 
-        Issue.where(:lat.lt => lat+km_lat,\
-        :lat.gt => lat - km_lat,\
-        :lon.lt => lon + km_lon,\
-        :lon.gt => lon - km_lon) 
-#    issues = Issue.all.geo_near(coordinates, [ 50, 13 ])
+    Issue.where({
+      :lat.lt => lat+km_lat,
+      :lat.gt => lat - km_lat,
+      :lon.lt => lon + km_lon,
+      :lon.gt => lon - km_lon
+    })
+    #    issues = Issue.all.geo_near(coordinates, [ 50, 13 ])
   end
 
   it "appropriate points" do
@@ -33,10 +35,10 @@ describe do
       expect(issue1.lat).to eq 46.77127690853819
     }.to change { Issue.count}.by(10)
     assert_equal(radius(46.77066286159022,  23.596578240394592, 1, 1).count, 3)
-        assert_equal(radius(46.77066286159022,  23.596578240394592, 1, 1).count, 3)
-        assert_equal(radius(46.77127690853819, 23.658628463745117, 1, 1).count, 0)
-        assert_equal(radius(46.77064449059386, 23.59675459563732, 1, 1).count,  3)
-        assert_equal(radius(46.77064449059386, 23.59675459563732, 10, 10).count,10)
-        assert_equal(radius(46.77064449059386, 23.59675459563732, 10, 0).count,0)
+    assert_equal(radius(46.77066286159022,  23.596578240394592, 1, 1).count, 3)
+    assert_equal(radius(46.77127690853819, 23.658628463745117, 1, 1).count, 0)
+    assert_equal(radius(46.77064449059386, 23.59675459563732, 1, 1).count,  3)
+    assert_equal(radius(46.77064449059386, 23.59675459563732, 10, 10).count,10)
+    assert_equal(radius(46.77064449059386, 23.59675459563732, 10, 0).count,0)
   end
 end
