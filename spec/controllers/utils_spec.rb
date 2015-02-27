@@ -19,7 +19,7 @@ describe do
     #    issues = Issue.all.geo_near(coordinates, [ 50, 13 ])
   end
 
-  it "appropriate points" do
+  xit "appropriate points" do
     Issue.delete_all
     expect {
       issue1 = create :issue, name: "Avram", lat: 46.77127690853819, lon: 23.59675459563732
@@ -34,11 +34,31 @@ describe do
       issue10 = create :issue, name: "Lac ghiorgheni", lat: 46.77384600137202, lon: 23.625378459692
       expect(issue1.lat).to eq 46.77127690853819
     }.to change { Issue.count}.by(10)
-    assert_equal(radius(46.77066286159022,  23.596578240394592, 1, 1).count, 3)
-    assert_equal(radius(46.77066286159022,  23.596578240394592, 1, 1).count, 3)
-    assert_equal(radius(46.77127690853819, 23.658628463745117, 1, 1).count, 0)
-    assert_equal(radius(46.77064449059386, 23.59675459563732, 1, 1).count,  3)
-    assert_equal(radius(46.77064449059386, 23.59675459563732, 10, 10).count,10)
-    assert_equal(radius(46.77064449059386, 23.59675459563732, 10, 0).count,0)
+    expect(radius(46.77066286159022, 23.596578240394592, 1, 1).count).to eq 3
+    expect(radius(46.77066286159022, 23.596578240394592, 1, 1).count).to eq 3
+    expect(radius(46.77127690853819, 23.658628463745117, 1, 1).count).to eq 0
+    expect(radius(46.77064449059386, 23.59675459563732, 1, 1).count).to eq  3
+    expect(radius(46.77064449059386, 23.59675459563732, 10, 10).count).to eq 10
+    expect(radius(46.77064449059386, 23.59675459563732, 10, 0).count).to eq 0
+  end
+
+  #verif. in ce cartier este un issue
+
+  def get_neighborhood(issue)
+    info_zone = Geocoder.get_info_zone(issue[:lat], issue[:lon])['results'][1]['address_components'][0]["long_name"]
+  end
+
+  it 'return neighborhood for issue' do
+    issue1 = create :issue, name: "C Marasti", lat: 46.77603059830436, lon: 23.60835313796997
+    expect(get_neighborhood(issue1).to_s).to eq "Mărăști"
+    
+    issue2 = create :issue, name: "C Ghiorgheni", lat: 46.76527989160337, lon: 23.625540733337402
+    expect(get_neighborhood(issue2).to_s).to eq "Gheorgheni"
+    
+    issue3 = create :issue, name: "C Zorilor", lat: 46.75604859137965, lon: 23.585715293884277
+    expect(get_neighborhood(issue3).to_s).to eq "Zorilor"
+    
+    issue4 = create :issue, name: "C Manastur", lat: 46.758238963369145, lon: 23.55118989944458
+    expect(get_neighborhood(issue4).to_s).to eq "Mănăștur"
   end
 end
