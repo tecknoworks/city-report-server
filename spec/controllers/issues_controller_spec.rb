@@ -52,7 +52,7 @@ describe IssuesController, type: :controller do
 
   context 'find' do
 
-    before(:all) do
+    after(:each) do
       Issue.delete_all
       BannedIp.delete_all
 
@@ -62,7 +62,7 @@ describe IssuesController, type: :controller do
     end
 
     it 'returns all issues' do
-      get :index, format: :json, time: {month: 0, days: 1, hours: 0}
+      get :index, format: :json
       issues = json['body']
       issues.length.should be 2
     end
@@ -95,23 +95,23 @@ describe IssuesController, type: :controller do
 
       issue4 = create :issue, name: "foo4"
 
-      get :index, format: :json, time: {month: 0, days: 4, hours: 1}
+      get :index, format: :json, time: {days: 4, hours: 1}
       issues = json['body']
       issues.length.should be 4
 
-      get :index, format: :json, time: {month: 0, days: 0, hours: 2}
+      get :index, format: :json, time: {hours: 2}
       issues = json['body']
       issues.length.should be 2
 
-      get :index, format: :json, time: {month: 0, days: 1, hours: 10}
+      get :index, format: :json, time: {days: 1, hours: 10}
       issues = json['body']
       issues.length.should be 3
 
-      get :index, format: :json, time: {month: 0, days: 0, hours: -1}
+      get :index, format: :json, time: {hours: -1}
       issues = json['body']
       issues.length.should be 0
 
-      get :index, format: :json, time: {month: 1, days: 0, hours: 0}
+      get :index, format: :json, time: {month: 1}
       issues = json['body']
       issues.length.should be 4
     end
