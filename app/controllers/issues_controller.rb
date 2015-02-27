@@ -53,6 +53,12 @@ class IssuesController < ApplicationController
   param :category, String, desc: 'filter by category'
   param :limit, :number, desc: 'limit items per page, default 10'
   param :skip, :number, desc: 'skip items, default 0'
+  param :time, Hash, desc: "Return issue by time  " do
+    param :hours, Integer, desc: "return issue by  hours"
+    param :days, Integer, desc: "return issue by  days"
+    param :month, Integer, desc: "return issue by months"
+
+  end
   description <<-EOS
     Example response here[/issues.json]
 
