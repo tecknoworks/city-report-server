@@ -9,12 +9,13 @@ class Issue < BaseModel
   field :lat, type: Float
   field :lon, type: Float
   field :address, type: String, default: ''
+  field :neighborhood, type: String, default: ''
   field :device_id, type: String
   field :vote_counter, type: Integer, default: 0
   field :images, type: Array, default: []
   field :comments, type: Array, default: []
   field :coordinates, type: Array, default: []
-
+  
   attr_accessor :images_raw
   attr_accessor :comments_raw
   def images_raw
