@@ -65,17 +65,20 @@ class IssuesController < ApplicationController
     limit = params['limit'].nil? ? 10 : params['limit']
     skip = params['skip'].nil? ? 0 : params['skip']
 
-    time = Time.now
-    time = time - params[:time][:days].day
-    time = time - params[:time][:hours].hour
-    time = time - params[:time][:month].month
- 
     @issues = Issue.order_by([:created_at, :desc])
     @issues = @issues.where(category: params[:category]) if params[:category].present?
     @issues = @issues.where(device_id: params[:device_id]) if params[:device_id].present?
     @issues = @issues.where(status: params[:status]) if params[:status].present?
     @issues = @issues.full_text_search(params[:q]) if params[:q].present?
-    @issues = @issues.where(:created_at.gte => time)
+
+    if params.has_key?(:time)
+      time = Time.now
+      time = time - params[:time][:days].day
+      time = time - params[:time][:hours].hour
+      time = time - params[:time][:month].month
+      @issues = @issues.where(:created_at.gte => time)
+    end
+
     @issues = @issues.limit(limit).skip(skip)
   end
 
