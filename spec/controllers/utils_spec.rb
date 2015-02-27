@@ -19,7 +19,7 @@ describe do
     #    issues = Issue.all.geo_near(coordinates, [ 50, 13 ])
   end
 
-  xit "appropriate points" do
+  it "appropriate points" do
     Issue.delete_all
     expect {
       issue1 = create :issue, name: "Avram", lat: 46.77127690853819, lon: 23.59675459563732
