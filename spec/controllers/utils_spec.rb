@@ -45,7 +45,7 @@ describe do
   #verif. in ce cartier este un issue
 
   def get_neighborhood(issue)
-    info_zone = Geocoder.get_info_zone(issue[:lat], issue[:lon])['results'][1]['address_components'][0]["long_name"]
+    Geocoder.get_info_zone(issue[:lat], issue[:lon])['results'][1]['address_components'][0]["long_name"]
   end
 
   it 'return neighborhood for issue' do
