@@ -71,6 +71,8 @@ class IssuesController < ApplicationController
     @issues = @issues.where(status: params[:status]) if params[:status].present?
     @issues = @issues.full_text_search(params[:q]) if params[:q].present?
 
+    # CODE use present? method instead of has_key? look at the line above
+    # CODE sensible defaults. what happens if you don't specify the date
     if params.has_key?(:time)
       time = Time.now
       time = time - params[:time][:days].day
