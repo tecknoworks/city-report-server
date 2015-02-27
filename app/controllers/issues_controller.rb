@@ -125,8 +125,6 @@ class IssuesController < ApplicationController
     end
 
     @issue.index_keywords!
-
-    GeocodeWorker.perform_async @issue[:_id].to_s
   end
 
   api :PATCH, '/issues/:id.json', 'Update an issue'

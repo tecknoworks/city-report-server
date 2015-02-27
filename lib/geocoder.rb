@@ -9,7 +9,7 @@ class Geocoder
     json = JSON.parse(geo)
     json['status'] == 'OK' ? json : ''
   end
-
+  
   # TODO: think of a good name
   def self.kung_foo(lat, lon)
     json = self.get_info_zone(lat, lon)
@@ -18,5 +18,3 @@ class Geocoder
     return ''
   end
 end
-
-#verif in ce cartier este un issue

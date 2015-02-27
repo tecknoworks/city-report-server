@@ -3,7 +3,6 @@ class Issue < BaseModel
   VALID_STATUSES = %w(unresolved acknowledged resolved)
 
   self.primary_key = 'id'
-
   field :name, type: String
   field :status, type: String, default: VALID_STATUSES.first
   field :category, type: String
@@ -15,10 +14,9 @@ class Issue < BaseModel
   field :images, type: Array, default: []
   field :comments, type: Array, default: []
   field :coordinates, type: Array, default: []
-  
+
   attr_accessor :images_raw
   attr_accessor :comments_raw
-  
   def images_raw
     self.images.collect do |img|
       img.with_indifferent_access['url'].try(:strip)
@@ -57,13 +55,19 @@ class Issue < BaseModel
   validate :minimum_one_image
   validate :image_urls
   validate :comments_format
-  validate :string_size_limit   
+  validate :string_size_limit
 
   before_save :set_thumbnails
   before_save :complete_coordinates
-  
+
+  after_create :complete_address
+
   SEARCHABLE_FIELDS = [:name, :address, :comments]
   search_in SEARCHABLE_FIELDS
+
+  def complete_address
+    GeocodeWorker.perform_async id.to_s
+  end
 
   def complete_coordinates
     self.coordinates = []
@@ -71,7 +75,6 @@ class Issue < BaseModel
     self.coordinates.push(self.lon)
   end
 
-  
   def add_params_to_set params
     # params = params.clone.with_indifferent_access
     ['images', 'comments'].each do |key|
@@ -194,5 +197,5 @@ class Issue < BaseModel
     self.errors.add(:invalid_category, 'check /meta for allowed categories') unless
     Category.to_api.include? self.category
   end
-  
+
 end

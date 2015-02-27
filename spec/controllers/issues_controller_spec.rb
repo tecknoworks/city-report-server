@@ -52,12 +52,12 @@ describe IssuesController, type: :controller do
 
   context 'find' do
 
-    after(:each) do
+    before(:each) do
       Issue.delete_all
       BannedIp.delete_all
 
       (:issue)
-      create(:issue, name: 'foo')
+      create(:issue, name: 'foo') 
       create(:issue, name: 'foo2')
     end
 
