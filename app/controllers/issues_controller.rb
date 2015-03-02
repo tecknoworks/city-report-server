@@ -199,4 +199,3 @@ class IssuesController < ApplicationController
     end
   end
 end
-#aproximare dupa distanta

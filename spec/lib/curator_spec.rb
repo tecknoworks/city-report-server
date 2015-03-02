@@ -9,14 +9,14 @@ describe Curator do
     end
     
     it 'returns an array' do
-      expect(curator.find_duplicate_coordinates(0, 0)).to be_empty
+      expect(curator.find_duplicate_coordinates("groapa", 0, 0)).to be_empty
     end
 
     it 'finds exact duplicate coordinates' do
       issue1 = create :issue
       issue2 = create :issue, lat: issue1.lat, lon: issue1.lon
 
-      result = curator.find_duplicate_coordinates(issue2.lat, issue2.lon)
+      result = curator.find_duplicate_coordinates("category1", issue2.lat, issue2.lon)
 
       expect(result).to include(issue1)
       expect(result).to include(issue2)
