@@ -20,6 +20,7 @@ class GeocodeWorker
     
     issue[:address] = address
     issue[:neighborhood] = neighborhood
+    issue.index_keywords!
     issue.save
   end
 end

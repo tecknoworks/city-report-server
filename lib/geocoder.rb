@@ -9,12 +9,4 @@ class Geocoder
     json = JSON.parse(geo)
     json['status'] == 'OK' ? json : ''
   end
-  
-  # TODO: think of a good name
-  def self.kung_foo(lat, lon)
-    json = self.get_info_zone(lat, lon)
-    return json['results'][0]['formatted_address']
-  rescue
-    return ''
-  end
 end

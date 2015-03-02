@@ -63,7 +63,7 @@ class Issue < BaseModel
 
   after_create :complete_address
 
-  SEARCHABLE_FIELDS = [:name, :address, :comments]
+  SEARCHABLE_FIELDS = [:name, :address, :comments, :neighborhood]
   search_in SEARCHABLE_FIELDS
 
   def complete_address

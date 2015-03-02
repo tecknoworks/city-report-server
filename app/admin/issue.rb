@@ -44,10 +44,9 @@ ActiveAdmin.register Issue do
       @issues = @issues.where(device_id: params[:device_id]) if params[:device_id].present?
       @issues = @issues.where(status: params[:status]) if params[:status].present?
       @issues = @issues.full_text_search(params[:q]) if params[:q].present?
-
       @issues = @issues.page(params[:page])
     end
   end
 
-  sidebar :filters, partial: "custom_filters", only: :index
+  sidebar :filters, partial: "custom_filters", only: :index #
 end

@@ -16,7 +16,6 @@ describe do
       :lon.lt => lon + km_lon,
       :lon.gt => lon - km_lon   
     })
-    #    issues = Issue.all.geo_near(coordinates, [ 50, 13 ])
   end
 
   it "appropriate points" do
