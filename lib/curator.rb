@@ -9,6 +9,14 @@
 #
 class Curator
   def find_duplicate_coordinates(category, lat, lon)
-    Issue.where(category: category, lat: lat, lon: lon)
+    # 0.000040233 =~ 5m in lat
+    # 0.000020208 =~ 5m in lon
+    Issue.where({
+      category: category, 
+        :lat.lt => lat + 0.000040233, 
+        :lat.gt => lat - 0.000040233, 
+        :lon.lt => lon + 0.000020209, 
+        :lon.gt => lon - 0.000020209
+    })
   end
 end
