@@ -3,19 +3,19 @@ class BannedIp < BaseModel
 
   self.primary_key = 'id'
 
-  field :address, type: String
+  field :ip_address, type: String
 
-  validates :address, presence: true
-  validates :address, uniqueness: true
+  validates :ip_address, presence: true
+  validates :ip_address, uniqueness: true
   
   validate :ip_format
 
   def ip_v4?
-    address =~ Resolv::IPv4::Regex ? true : false
+    ip_address =~ Resolv::IPv4::Regex ? true : false
   end
 
   def ip_v6?
-    address =~ Resolv::IPv6::Regex ? true : false
+    ip_address =~ Resolv::IPv6::Regex ? true : false
   end
 
   protected

@@ -1,9 +1,9 @@
 require 'spec_helper'
-
+ 
 describe BannedIpsController, type: :controller do
   let(:banned_ip1) { create :banned_ip }
   let(:banned_ip2) { create :banned_ip2 }
-
+ 
   before :each do
     BannedIp.delete_all
     banned_ip1
@@ -40,7 +40,7 @@ describe BannedIpsController, type: :controller do
     it 'returns a specific banned_ip' do
       get :show, id: banned_ip1.id.to_s
       expect(json['body']['_id']).to eq banned_ip1.id.to_s
-      expect(json['body']['address']).to eq banned_ip1.address
+      expect(json['body']['ip_address']).to eq banned_ip1.ip_address
       expect(json['body']['created_at']).to be_present
       expect(json['body']['updated_at']).to be_present
       response.status.should be RequestCodes::SUCCESS
@@ -56,9 +56,9 @@ describe BannedIpsController, type: :controller do
 
     it 'creates a banned ip' do
       expect {
-        post :create, banned_ip: { address: '192.168.0.0' }
+        post :create, banned_ip: { ip_address: '192.168.0.0' }
         expect(response.status).to eq RequestCodes::SUCCESS
-        expect(json['body']['address']).to eq '192.168.0.0'
+        expect(json['body']['ip_address']).to eq '192.168.0.0'
       }.to change { BannedIp.count }.by 1
     end
   end
@@ -68,11 +68,11 @@ describe BannedIpsController, type: :controller do
     it 'updates the address of a banned ip' do
       addr = '192.168.0.12'
       banned_ip1
-      expect(banned_ip1.address).to_not eq addr
-      patch :update, id: banned_ip1.id.to_s, banned_ip: { address: addr }
-      expect(json['body']['address']).to eq addr
+      expect(banned_ip1.ip_address).to_not eq addr
+      patch :update, id: banned_ip1.id.to_s, banned_ip: { ip_address: addr }
+      expect(json['body']['ip_address']).to eq addr
       banned_ip1.reload
-      expect(banned_ip1.address).to eq addr
+      expect(banned_ip1.ip_address).to eq addr
     end
   end
 

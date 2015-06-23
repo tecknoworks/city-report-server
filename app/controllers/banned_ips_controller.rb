@@ -45,7 +45,7 @@ class BannedIpsController < ApplicationController
      curl -X GET -H 'Content-Type: application/json' #{Repara.base_url}banned_ips/:BANNED_ID.json
   EOS
   def update 
-    @banned_ip.update(address: params["banned_ip"]["address"])  
+    @banned_ip.update(ip_address: params["banned_ip"]["ip_address"])  
   end
   
   api :DELETE, '/banned_ips/:id.json', 'Delete an banned_ip'

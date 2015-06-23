@@ -12,34 +12,34 @@ describe BannedIp do
   end     
    
   it 'validates the presence of the address' do 
-    banned_ip = build :banned_ip, address: nil
+    banned_ip = build :banned_ip, ip_address: nil
     expect(banned_ip).to_not be_valid
   end
 
   it 'does not allow duplicate addresses' do
     address = "123.123.123.123" 
-    banned_ip1 = create :banned_ip, address: address
+    banned_ip1 = create :banned_ip, ip_address: address
     expect(banned_ip1).to be_valid
 
-    banned_ip2 = build :banned_ip, address: address
+    banned_ip2 = build :banned_ip, ip_address: address
 
     expect(banned_ip1.id).to_not eq(banned_ip2.id)
     expect(banned_ip2).to_not be_valid
 
     expect {
-      banned_ip3 = create :banned_ip, address: address     
+      banned_ip3 = create :banned_ip, ip_address: address     
     }.to raise_error(Mongoid::Errors::Validations)
 
   end
 
   it 'validates the format of the address' do
     def valid_ip address
-      banned_ip = build :banned_ip, address: address
+      banned_ip = build :banned_ip, ip_address: address
       expect(banned_ip).to be_valid
     end
 
     def invalid_ip address
-      banned_ip = build :banned_ip, address: address
+      banned_ip = build :banned_ip, ip_address: address
       expect(banned_ip).to_not be_valid
     end
 
@@ -59,7 +59,7 @@ describe BannedIp do
   end
 
   it 'allows IPv4 and IPv6 in the address field' do
-    b = BannedIp.create(address: "11.11.11.11")   
+    b = BannedIp.create(ip_address: "11.11.11.11")   
  
     expect {
       banned_IPv4 = create :banned_ip

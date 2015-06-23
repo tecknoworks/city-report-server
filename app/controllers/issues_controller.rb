@@ -115,7 +115,7 @@ class IssuesController < ApplicationController
   def create
     remote_ip = request.remote_ip
 
-    if BannedIp.where(address: remote_ip.to_s).any?
+    if BannedIp.where(ip_address: remote_ip.to_s).any?
       return render_response("This id is banned!", BANNED_IP, BAD_REQUEST)
     end
 
@@ -138,7 +138,7 @@ class IssuesController < ApplicationController
 
   def update
     remote_ip = request.remote_ip
-    if BannedIp.where(address: remote_ip.to_s).any?
+    if BannedIp.where(ip_address: remote_ip.to_s).any?
       return render_response("This id is banned!", BANNED_IP, BAD_REQUEST)
     end
 

@@ -10,7 +10,6 @@ describe IssuesController, type: :controller do
       lon: Repara.map_center['lon'],
       images: [{ url: 'http://www.yahoo.com/asd.png' }],
       device_id: 'device_id',
-      address: '12.12.13.12'
     }
   end
 
@@ -22,7 +21,6 @@ describe IssuesController, type: :controller do
       lon: Repara.map_center['lon'],
       images: [{ url: 'http://www.yahoo.com/asd.png' }],
       device_id: 'device_id',
-      address: '123.123.123.123'
     }
   end
 
@@ -327,7 +325,7 @@ describe IssuesController, type: :controller do
       BannedIp.delete_all
 
       address = "123.123.123.123"
-      banned_ip = create :banned_ip, address: address
+      banned_ip = create :banned_ip, ip_address: address
 
       ActionController::TestRequest.any_instance.stub(:remote_ip).and_return("2.32.12.123")
       expect do
@@ -343,7 +341,7 @@ describe IssuesController, type: :controller do
       BannedIp.delete_all
 
       address = "123.123.123.123"
-      banned_ip = create :banned_ip, address: address
+      banned_ip = create :banned_ip, ip_address: address
 
       ActionController::TestRequest.any_instance.stub(:remote_ip).and_return("123.123.123.123")
       expect do
@@ -359,7 +357,7 @@ describe IssuesController, type: :controller do
 
       issue = create(:issue, name: 'foo')
       assert issue['name'] == 'foo'
-      banned_ip = create :banned_ip, address: '111.222.12.21'
+      banned_ip = create :banned_ip, ip_address: '111.222.12.21'
 
       ActionController::TestRequest.any_instance.stub(:remote_ip).and_return("123.123.123.123")
 
@@ -378,7 +376,7 @@ describe IssuesController, type: :controller do
 
       issue = create(:issue, name: 'foo')
       assert issue['name'] == 'foo'
-      banned_ip = create :banned_ip, address: '123.123.123.123'
+      banned_ip = create :banned_ip, ip_address: '123.123.123.123'
 
       ActionController::TestRequest.any_instance.stub(:remote_ip).and_return("123.123.123.123")
 

@@ -108,6 +108,14 @@ class Issue < BaseModel
     Math.sqrt(delta_lat * delta_lat + delta_lon * delta_lon)
   end
 
+  def ip_v4?
+    address =~ Resolv::IPv4::Regex ? true : false
+  end
+
+  def ip_v6?
+    address =~ Resolv::IPv6::Regex ? true : false
+  end
+
   protected
 
   def string_size_limit
