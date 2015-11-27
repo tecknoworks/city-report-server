@@ -10,5 +10,5 @@ http://192.168.0.15/
 * Image Upload
   * Thumbnail generation
 * Banning IPs
-* Admin Interface - '/admin' (admin:admin2014)
+* Admin Interface - '/admin' (admin@admin.com:admin2014)
 * API Documentation - '/doc'
