@@ -48,6 +48,10 @@ class Repara
     config['show_doc']
   end
 
+  def self.max_distance_validator
+    config['max_distance_validator']
+  end
+
   def self.max_distance_to_map_center
     config['max_distance_to_map_center']
   end

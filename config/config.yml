@@ -13,6 +13,7 @@ development: &common_settings
     name: 32
     comments: 140
     address: 140
+  max_distance_validator: true
   max_distance_to_map_center: 1
   map_center:
     lat: 46.768322
@@ -29,3 +30,4 @@ production:
   allow_delete_all: false
   allow_downvotes: false
   show_doc: true
+  max_distance_validator: false

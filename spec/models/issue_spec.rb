@@ -52,6 +52,14 @@ describe Issue do
       issue.errors.first.first.should eq result
     end
 
+    it 'checks if Repara.max_distance_validator is enabled' do
+      allow(Repara).to receive(:max_distance_validator).and_return(false)
+      issue.valid?.should be_true
+      issue.lat = 80
+      issue.valid?.should be_true
+      expect(issue.errors).to be_empty
+    end
+
     it 'knows category will be downcased' do
       expect do
         issue.category = category.upcase
@@ -160,13 +168,12 @@ describe Issue do
     end
   end
 
-  it 'creates an issue with coordinates atribut' do
+  it 'creates an issue with coordinates attribute' do
     Issue.delete_all
     expect do
       i = create(:issue)
       i.errors.should be_empty
       assert_equal(2, i.coordinates.count)
     end.to change { Issue.count }.by 1
-
   end
 end

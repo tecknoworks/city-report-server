@@ -15,7 +15,7 @@ class Issue < BaseModel
   field :images, type: Array, default: []
   field :comments, type: Array, default: []
   field :coordinates, type: Array, default: []
-  
+
   attr_accessor :images_raw
   attr_accessor :comments_raw
   def images_raw
@@ -198,8 +198,10 @@ class Issue < BaseModel
     self.errors.add(:invalid_lon, 'is it between -180 and 180?') unless
     self.lon.nil? || -180.0 < self.lon && self.lon < 180
 
-    self.errors.add(:invalid_coordinates_too_far_from_map_center, "allowed to place issues only around #{Repara.map_center_lat}:#{Repara.map_center_lon}") if
-    self.distance_to_map_center > Repara.max_distance_to_map_center
+    if Repara.max_distance_validator
+      self.errors.add(:invalid_coordinates_too_far_from_map_center, "allowed to place issues only around #{Repara.map_center_lat}:#{Repara.map_center_lon}") if
+      self.distance_to_map_center > Repara.max_distance_to_map_center
+    end
   end
 
   def allowed_category
