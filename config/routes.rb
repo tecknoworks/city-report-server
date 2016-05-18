@@ -23,7 +23,8 @@ Rails.application.routes.draw do
 
   # CODE use resources
   resources :banned_ips, only: [:index, :show, :create, :update, :destroy]
-  
+
+  get '/app', to: redirect('/app/build/')
   get 'meta' => 'web#meta'
   get 'up' => 'web#up'
   get 'eula' => 'web#eula'

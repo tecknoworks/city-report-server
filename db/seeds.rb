@@ -3,7 +3,8 @@ unless admin_count.any?
   AdminUser.create(email: 'admin@admin.com', password: 'admin2014', password_confirmation: 'admin2014')
 end
 
-['groapă', 'gunoi', 'vandalism', 'altele'].each do |cat|
+# for each category a corresponding image must exist
+['groapa', 'gunoi', 'vandalism', 'altele', 'rutiere'].each do |cat|
   Category.where(name: cat).first_or_create
 end
 

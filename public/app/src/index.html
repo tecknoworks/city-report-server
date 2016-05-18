@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+    <head>
+        <title>City Report Cluj-Napoca</title>
+
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="description" content="">
+        <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
+
+        <link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Roboto:400,500,850,400italic'>
+        <link rel="stylesheet" href="./css/vendor.css"/>
+        <link rel="stylesheet" href="./css/app.css"/>
+    </head>
+
+    <body layout="row" ng-controller="MainController">
+        <md-sidenav class="site-sidenav md-sidenav-left md-whiteframe-z2" md-component-id="left" ng-cloak>
+
+            <div class="images" md-swipe-left="swipeLeft()" md-swipe-right="swipeRight()">
+                <img class="" draggable="false" ng-src="{{ map.window.model.json.images[map.window.model.previewIndex].url }}"/>
+            </div>
+
+            <!-- <md-button class="sidenav-button md-fab md-primary" aria-label="Upvote"> -->
+                <!-- <md-icon md-svg-icon="upvote"></md-icon> -->
+            <!-- </md-button> -->
+
+            <md-toolbar class="md-whiteframe-z1">
+                <h1>{{ map.window.model.json.name }}</h1>
+                <h3>{{ map.window.model.json.category }}</h3>
+            </md-toolbar>
+
+            <md-list>
+                <md-list-item layout="row" ng-show="map.window.model.json.address">
+                    <span flex="15"><md-icon md-svg-icon="home"></md-icon></span>
+                    <span flex="85">{{ map.window.model.json.address }}</span>
+                </md-list-item>
+                <md-list-item layout="row" ng-hide="map.window.model.json.address">
+                    <span flex="15"><md-icon md-svg-icon="home"></md-icon></span>
+                    <span flex="85">{{ map.window.model.json.lat + " : " + map.window.model.json.lon }}</span>
+                </md-list-item>
+                <md-list-item layout="row">
+                    <span flex="15"><md-icon md-svg-icon="label"></md-icon></span>
+                    <span flex="85">{{ map.window.model.json.status }}</span>
+                </md-list-item>
+                <md-list-item layout="row">
+                    <span flex="15"><md-icon md-svg-icon="event"></md-icon></span>
+                    <span flex="85">{{ map.window.model.json.updated_at | date: 'd MMMM yyyy' }}</span>
+                </md-list-item>
+            </md-list>
+
+        </md-sidenav>
+
+        <div flex layout="column" tabIndex="-1" role="main" class="md-whiteframe-z2">
+
+            <!-- <md-toolbar layout="row" class="md-whiteframe-z1"> -->
+                <!-- <md-button class="menu" ng-click="toggleList()" aria-label="Show User List"> -->
+                    <!-- <md-icon md-svg-icon="menu" ></md-icon> -->
+                    <!-- </md-button> -->
+                <!-- <h1>City Report Cluj-Napoca</h1> -->
+                <!-- </md-toolbar> -->
+
+            <md-content flex id="content" ng-view></md-content>
+
+        </div>
+        <script src="./js/vendor.js"></script>
+
+        <script src="./js/app.js"></script>
+
+        <script src="./js/CityReportFactory.js"></script>
+        <script src="./js/MainController.js"></script>
+        <script src="./js/maps/MapController.js"></script>
+    </body>
+</html>

@@ -18,6 +18,9 @@ development: &common_settings
   map_center:
     lat: 46.768322
     lon: 23.595002
+  redis:
+    url: 'redis://localhost:6379/12'
+    # url: 'redis://172.17.0.4:6379/12'
 
 test:
   <<: *common_settings
