@@ -1,14 +1,9 @@
-README
-======
+City Report
+===========
 
-To get an overview of the system check out the UML diagram.
+An application which allows people to report problems in their city.
 
-Daily jobs:
-
-* code to test ratio - http://jenkins.st.st2k.ro/job/test%20repara-clujul-server/ws/code_to_test_report.html
-* tests - http://jenkins.st.st2k.ro/job/test%20repara-clujul-server/ws/test_report.html
-* code quality - http://jenkins.st.st2k.ro/job/test%20repara-clujul-server/ws/code_quality_report.html
-* security report - http://jenkins.st.st2k.ro/job/test%20repara-clujul-server/ws/security_report.html
+To get an overview of the system check out the [UML diagrams](uml/).
 
 Requirements
 ------------
@@ -28,28 +23,39 @@ Deployment
 
 Capistrano is used for deployment.
 
+```
 cap production deploy
 cap staging deploy
+```
 
 Run tests
 ---------
 
+```
 rake spec
+```
 
-Run tests on file save
-----------------------
-
+```
 guard
+```
 
 Coding style
 ------------
 
 TODO: check with rubocop
+
 https://github.com/bbatsov/ruby-style-guide
 
 Services
 --------
 
-To start the thumbnail generation service/geocoder
+Long running tasks are taken care of by Sidekiq:
 
+* thumbnail generation
+* geocoding
+
+To start/restart:
+
+```
 rake sidekiq:restart
+```
