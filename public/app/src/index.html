@@ -14,15 +14,52 @@
     </head>
 
     <body layout="row" ng-controller="MainController">
+        <md-button class="md-fab md-primary md-fab-top-right" aria-label="Menu" ng-click="openList('right'); closeList('left')">
+            <md-icon md-svg-icon="menu"></md-icon>
+        </md-button>
+
+        <md-sidenav class="site-sidenav md-sidenav-right md-whiteframe-z2" md-component-id="right" ng-cloak>
+
+            <div class="images" md-swipe-left="swipeLeft()" md-swipe-right="swipeRight()">
+                <img class="logo" draggable="false" ng-src="assets/png/logo.png"/>
+            </div>
+
+            <!-- <md-toolbar class="md-whiteframe-z1"> -->
+                <!-- <h1>{{ map.window.model.json.name }}</h1> -->
+                <!-- <h3>{{ map.window.model.json.category }}</h3> -->
+                <!-- </md-toolbar> -->
+
+            <md-list>
+                <md-list-item ng-repeat="category in meta.categories">
+                    <md-checkbox ng-model="meta.checked_categories[category]" aria-label="{{category}}">
+                        <span flex>{{ category }}</span>
+                    </md-checkbox>
+                </md-list-item>
+                <md-list-item>
+                    <md-button>
+                        <md-icon md-svg-icon="svg-1" class=""></md-icon>
+                        About
+                    </md-button>
+                </md-list-item>
+                <md-list-item>
+                    <md-button>
+                        <md-icon md-svg-icon="svg-1" class=""></md-icon>
+                        Eula
+                    </md-button>
+                </md-list-item>
+            </md-list>
+
+        </md-sidenav>
+
         <md-sidenav class="site-sidenav md-sidenav-left md-whiteframe-z2" md-component-id="left" ng-cloak>
 
             <div class="images" md-swipe-left="swipeLeft()" md-swipe-right="swipeRight()">
-                <img class="" draggable="false" ng-src="{{ map.window.model.json.images[map.window.model.previewIndex].url }}"/>
+                <img class="img-preview" draggable="false" ng-src="{{ map.window.model.json.images[map.window.model.previewIndex].url }}"/>
             </div>
 
             <!-- <md-button class="sidenav-button md-fab md-primary" aria-label="Upvote"> -->
                 <!-- <md-icon md-svg-icon="upvote"></md-icon> -->
-            <!-- </md-button> -->
+                <!-- </md-button> -->
 
             <md-toolbar class="md-whiteframe-z1">
                 <h1>{{ map.window.model.json.name }}</h1>
@@ -68,6 +105,7 @@
 
         <script src="./js/CityReportFactory.js"></script>
         <script src="./js/MainController.js"></script>
-        <script src="./js/maps/MapController.js"></script>
+        <script src="./js/SimpleController.js"></script>
+        <script src="./js/MapController.js"></script>
     </body>
 </html>

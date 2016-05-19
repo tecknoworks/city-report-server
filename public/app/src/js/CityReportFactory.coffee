@@ -18,6 +18,10 @@ app.factory 'CityReportFactory', ['$http', '$q', ($http, $q)->
       self.meta.map_center.latitude = self.meta.map_center.lat
       self.meta.map_center.longitude = self.meta.map_center.lon
 
+      self.meta.checked_categories = {}
+      for category in self.meta.categories
+        self.meta.checked_categories[category] = true
+
       deffered.resolve self.meta
     , (response) ->
       deffered.reject(response)

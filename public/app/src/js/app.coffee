@@ -15,7 +15,7 @@ app.config ['$mdThemingProvider', '$mdIconProvider', ($mdThemingProvider, $mdIco
     .icon('label', './assets/svg/ic_label_48px.svg', 512)
 
   $mdThemingProvider.theme('default')
-    .primaryPalette('deep-purple')
+    # .primaryPalette('deep-purple')
     .accentPalette('pink')
     .warnPalette('red')
     .backgroundPalette('grey')
@@ -26,7 +26,11 @@ app.config ['$mdThemingProvider', '$mdIconProvider', ($mdThemingProvider, $mdIco
 
 app.config ['$routeProvider', ($routeProvider) ->
   $routeProvider
-    .when('/map', templateUrl: 'js/maps/map.html', controller: 'MapController')
+    .when('/map', templateUrl: 'views/map.html', controller: 'MapController')
+    .when('/about', templateUrl: 'views/about.html', controller: 'SimpleController')
+    .when('/about/:language', templateUrl: 'views/about.html', controller: 'SimpleController')
+    .when('/eula', templateUrl: 'views/eula.html', controller: 'SimpleController')
+    .when('/eula/:language', templateUrl: 'views/eula.html', controller: 'SimpleController')
     .otherwise(redirectTo: '/map')
   return
 ]

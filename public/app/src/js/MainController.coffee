@@ -1,14 +1,14 @@
 MainController = ($scope, $mdSidenav, $mdBottomSheet, $log, $q, CityReportFactory, uiGmapGoogleMapApi) ->
-  $scope.toggleList = ->
+  $scope.toggleList = (nav = 'left') ->
     pending = $mdBottomSheet.hide() or $q.when(true)
     pending.then ->
-      $mdSidenav('left').toggle()
+      $mdSidenav(nav).toggle()
 
-  $scope.openList = ->
-    $mdSidenav('left').open()
+  $scope.openList = (nav = 'left') ->
+    $mdSidenav(nav).open()
 
-  $scope.closeList = ->
-    $mdSidenav('left').close()
+  $scope.closeList = (nav = 'left') ->
+    $mdSidenav(nav).close()
 
   $scope.swipeLeft = ->
     $scope.map.window.model.previewIndex += 1
