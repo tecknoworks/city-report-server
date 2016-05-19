@@ -3,6 +3,7 @@ lock '3.2.1'
 
 set :application, 'repara-clujul-server-rails'
 
+set :repo_url, 'git@github.com:tecknoworks/city-report-server.git'
 # Default branch is :master
 # ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }.call
 set :branch, 'dev'
