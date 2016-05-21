@@ -12,6 +12,7 @@ var paths = {
   sass: ['src/**/*.sass'],
   html: ['src/**/*.html'],
   icons: ['src/**/*.svg'],
+  iconsPng: ['src/**/*.png'],
   vendor: {
     icons: [
       './bower_components/material-design-icons/communication/svg/production/contact_mail_48px.svg',
@@ -66,6 +67,9 @@ gulp.task('vendor', function () {
 
   gulp.src(paths.icons)
     .pipe(gulp.dest(paths.output))
+
+  gulp.src(paths.iconsPng)
+    .pipe(gulp.dest(paths.output))
 });
 
 gulp.task('sass', function () {
@@ -79,7 +83,8 @@ gulp.task('clean', function () {
     'build/**/*.js',
     'build/**/*.css',
     'build/**/*.html',
-    'build/**/*.svg'
+    'build/**/*.svg',
+    'build/**/*.png'
   ]);
 });
 

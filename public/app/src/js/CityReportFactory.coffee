@@ -5,7 +5,21 @@ app.factory 'CityReportFactory', ['$http', '$q', ($http, $q)->
 
   getIssues = ->
     deffered = $q.defer()
-    $http(method: 'GET', url: '/issues.json').then((response) ->
+    $http(method: 'GET', url: '/issues.json?limit=1000').then((response) ->
+      deffered.resolve response.data
+    )
+    deffered.promise
+
+  upvote = (issue) ->
+    deffered = $q.defer()
+    $http(method: 'POST', url: "/issues/#{issue._id}/vote.json").then((response) ->
+      deffered.resolve response.data
+    )
+    deffered.promise
+
+  update = (json) ->
+    deffered = $q.defer()
+    $http(method: 'POST', url: "/issues.json", data: JSON.stringify(json)).then((response) ->
       deffered.resolve response.data
     )
     deffered.promise
@@ -31,5 +45,7 @@ app.factory 'CityReportFactory', ['$http', '$q', ($http, $q)->
   {
     updateMeta: updateMeta
     getIssues: getIssues
+    upvote: upvote
+    update: update
   }
 ]

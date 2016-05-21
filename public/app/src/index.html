@@ -14,66 +14,44 @@
     </head>
 
     <body layout="row" ng-controller="MainController">
-        <md-button class="md-fab md-primary md-fab-top-right" aria-label="Menu" ng-click="openList('right'); closeList('left')">
-            <md-icon md-svg-icon="menu"></md-icon>
-        </md-button>
-
-        <md-sidenav class="site-sidenav md-sidenav-right md-whiteframe-z2" md-component-id="right" ng-cloak>
-
-            <div class="images" md-swipe-left="swipeLeft()" md-swipe-right="swipeRight()">
-                <img class="logo" draggable="false" ng-src="assets/png/logo.png"/>
-            </div>
-
-            <!-- <md-toolbar class="md-whiteframe-z1"> -->
-                <!-- <h1>{{ map.window.model.json.name }}</h1> -->
-                <!-- <h3>{{ map.window.model.json.category }}</h3> -->
-                <!-- </md-toolbar> -->
-
-            <md-list>
-                <md-list-item ng-repeat="category in meta.categories">
-                    <md-checkbox ng-model="meta.checked_categories[category]" aria-label="{{category}}">
-                        <span flex>{{ category }}</span>
-                    </md-checkbox>
-                </md-list-item>
-                <md-list-item>
-                    <md-button>
-                        <md-icon md-svg-icon="svg-1" class=""></md-icon>
-                        About
-                    </md-button>
-                </md-list-item>
-                <md-list-item>
-                    <md-button>
-                        <md-icon md-svg-icon="svg-1" class=""></md-icon>
-                        Eula
-                    </md-button>
-                </md-list-item>
-            </md-list>
-
-        </md-sidenav>
-
         <md-sidenav class="site-sidenav md-sidenav-left md-whiteframe-z2" md-component-id="left" ng-cloak>
-
             <div class="images" md-swipe-left="swipeLeft()" md-swipe-right="swipeRight()">
-                <img class="img-preview" draggable="false" ng-src="{{ map.window.model.json.images[map.window.model.previewIndex].url }}"/>
+                <img class="img-preview" for="input-file-id" draggable="false" ng-src="{{ map.window.model.json.images[map.window.model.previewIndex].url }}"/>
             </div>
 
-            <!-- <md-button class="sidenav-button md-fab md-primary" aria-label="Upvote"> -->
-                <!-- <md-icon md-svg-icon="upvote"></md-icon> -->
-                <!-- </md-button> -->
+            <md-button class="sidenav-button md-fab md-secondary" aria-label="Upvote" ng-click="upvote(map.window.model.json)" ng-if="map.window.model.json._id">
+                <md-icon md-svg-icon="upvote"></md-icon>
+            </md-button>
 
-            <md-toolbar class="md-whiteframe-z1">
-                <h1>{{ map.window.model.json.name }}</h1>
-                <h3>{{ map.window.model.json.category }}</h3>
+            <md-toolbar class="md-whiteframe-z1" md-swipe-left="closeList()">
+                <h1 ng-show="map.window.model.id != 'new'">{{ map.window.model.json.name }}</h1>
+                <h3 ng-show="map.window.model.id != 'new'">{{ map.window.model.json.category }}</h3>
             </md-toolbar>
 
-            <md-list>
+            <md-list md-swipe-left="closeList()">
+                <md-list-item layout="row" ng-show="map.window.model.id == 'new'">
+                    <md-input-container class="md-block" flex ng-show="map.window.model.id == 'new'">
+                        <label>Name</label>
+                        <input md-autofocus ng-model="map.window.model.json.name">
+                    </md-input-container>
+                </md-list-item>
+                <md-list-item layout="row" ng-show="map.window.model.id == 'new'">
+                    <span flex ng-repeat="category in meta.categories">
+                        <img ng-src="{{ 'assets/png/' + category + '.png' }}" ng-click="setCategory(category)" ng-class="{ 'selected': category == map.window.model.json.category}"/>
+                    </span>
+                </md-list-item>
                 <md-list-item layout="row" ng-show="map.window.model.json.address">
                     <span flex="15"><md-icon md-svg-icon="home"></md-icon></span>
                     <span flex="85">{{ map.window.model.json.address }}</span>
                 </md-list-item>
                 <md-list-item layout="row" ng-hide="map.window.model.json.address">
                     <span flex="15"><md-icon md-svg-icon="home"></md-icon></span>
-                    <span flex="85">{{ map.window.model.json.lat + " : " + map.window.model.json.lon }}</span>
+                    <span flex="85">
+                        {{ map.window.model.json.lat + " : " + map.window.model.json.lon }}
+                    </span>
+                    <span flex="15" ng-show="map.window.model.id == 'new'">
+                        <md-icon md-svg-icon="gps" style="position: relative; right: 16px" ng-click="useCurrentGpsPosition()"></md-icon>
+                    </span>
                 </md-list-item>
                 <md-list-item layout="row">
                     <span flex="15"><md-icon md-svg-icon="label"></md-icon></span>
@@ -83,29 +61,34 @@
                     <span flex="15"><md-icon md-svg-icon="event"></md-icon></span>
                     <span flex="85">{{ map.window.model.json.updated_at | date: 'd MMMM yyyy' }}</span>
                 </md-list-item>
+                <md-list-item layout="row" ng-if="map.window.model.json.vote_counter > 0">
+                    <span flex="15"><md-icon md-svg-icon="upvote"></md-icon></span>
+                    <span flex="85">{{ getVoteText(map.window.model.json.vote_counter) }}</span>
+                </md-list-item>
+                <md-list-item ng-show="map.window.model.id == 'new'">
+                    <input class="ng-hide" id="input-file-id" multiple type="file" accept="image/*" />
+                    <label for="input-file-id" class="md-button md-raised md-primary">Add image</label>
+                </md-list-item>
+                <md-list-item layout="row" ng-show="isValid(map.window.model.json) && map.window.model.id == 'new'">
+                    <md-button class="md-primary" flex ng-click="save(map.window.model)">save</md-button>
+                </md-list-item>
             </md-list>
 
         </md-sidenav>
 
         <div flex layout="column" tabIndex="-1" role="main" class="md-whiteframe-z2">
-
-            <!-- <md-toolbar layout="row" class="md-whiteframe-z1"> -->
-                <!-- <md-button class="menu" ng-click="toggleList()" aria-label="Show User List"> -->
-                    <!-- <md-icon md-svg-icon="menu" ></md-icon> -->
-                    <!-- </md-button> -->
-                <!-- <h1>City Report Cluj-Napoca</h1> -->
-                <!-- </md-toolbar> -->
-
             <md-content flex id="content" ng-view></md-content>
-
         </div>
+
         <script src="./js/vendor.js"></script>
 
         <script src="./js/app.js"></script>
 
         <script src="./js/CityReportFactory.js"></script>
-        <script src="./js/MainController.js"></script>
-        <script src="./js/SimpleController.js"></script>
-        <script src="./js/MapController.js"></script>
+
+        <script src="./js/controllers/MainController.js"></script>
+        <script src="./js/controllers/SimpleController.js"></script>
+        <script src="./js/controllers/NewController.js"></script>
+        <script src="./js/controllers/MapController.js"></script>
     </body>
 </html>

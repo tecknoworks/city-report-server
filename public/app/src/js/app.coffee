@@ -9,10 +9,14 @@ app.config ['$mdThemingProvider', '$mdIconProvider', ($mdThemingProvider, $mdIco
     .icon('hangouts', './assets/svg/hangouts.svg', 512)
     .icon('twitter', './assets/svg/twitter.svg', 512)
     .icon('phone', './assets/svg/phone.svg', 512)
-    .icon('upvote', './assets/svg/ic_arrow_drop_up_48px.svg', 512)
+    .icon('upvote', './assets/svg/ic_plus_one_48px.svg', 512)
     .icon('home', './assets/svg/ic_home_48px.svg', 512)
     .icon('event', './assets/svg/ic_event_48px.svg', 512)
     .icon('label', './assets/svg/ic_label_48px.svg', 512)
+    .icon('add', './assets/svg/ic_add_48px.svg', 512)
+    .icon('gps', './assets/svg/ic_gps_fixed_48px.svg', 512)
+    .icon('camera', './assets/svg/ic_add_a_photo_black_48px.svg', 512)
+    .icon('photo', './assets/svg/ic_insert_photo_48px.svg', 512)
 
   $mdThemingProvider.theme('default')
     # .primaryPalette('deep-purple')
@@ -38,7 +42,7 @@ app.config ['$routeProvider', ($routeProvider) ->
 app.config(['$localStorageProvider', ($localStorageProvider) ->
   # $localStorageProvider.get('MyKey');
   # $localStorageProvider.set('MyKey', { k: 'value' });
-  $localStorageProvider.setKeyPrefix 'app'
+  $localStorageProvider.setKeyPrefix 'city-report'
   return
 ])
 
@@ -56,6 +60,7 @@ app.config ['$mdGestureProvider', ($mdGestureProvider) ->
 
 app.run ['CityReportFactory', '$rootScope', (CityReportFactory, $rootScope) ->
   CityReportFactory.updateMeta().then((data) ->
+    console.log data
     $rootScope.meta = data
   )
 ]
