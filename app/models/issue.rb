@@ -15,6 +15,7 @@ class Issue < BaseModel
   field :images, type: Array, default: []
   field :comments, type: Array, default: []
   field :coordinates, type: Array, default: []
+  field :hide, type: Boolean, default: false
 
   attr_accessor :images_raw
   attr_accessor :comments_raw

@@ -55,7 +55,7 @@ describe IssuesController, type: :controller do
       BannedIp.delete_all
 
       (:issue)
-      create(:issue, name: 'foo') 
+      create(:issue, name: 'foo')
       create(:issue, name: 'foo2')
     end
 
@@ -316,14 +316,24 @@ describe IssuesController, type: :controller do
   end
 
   context 'BannedIp' do
-    # ActionController::TestRequest.any_instance.stub(:remote_ip).and_return(VALID_IP)
-    # request.remote_ip
-
-    it 'can create issue' do
-
+    before(:each) do
       Issue.delete_all
       BannedIp.delete_all
+    end
 
+    it 'returns all issues' do
+      create(:issue, name: 'foo')
+      create(:issue, name: 'foo2')
+
+      create(:issue, name: 'test', hide: true)
+      expect(Issue.count()).to eq(3)
+
+      get :index, format: :json
+      issues = json['body']
+      issues.length.should be 2
+    end
+
+    it 'create issue when ip is banned' do
       address = "123.123.123.123"
       banned_ip = create :banned_ip, ip_address: address
 
@@ -334,27 +344,26 @@ describe IssuesController, type: :controller do
         json['code'].should eq RequestCodes::SUCCESS
       end.to change { Issue.count }.by 1
 
+      issue = Issue.first
+      expect(issue.hide).to eq(false)
     end
 
-    it 'can not create issue' do
-      Issue.delete_all
-      BannedIp.delete_all
-
+    it 'create issue when ip is not banned' do
       address = "123.123.123.123"
       banned_ip = create :banned_ip, ip_address: address
 
       ActionController::TestRequest.any_instance.stub(:remote_ip).and_return("123.123.123.123")
       expect do
         post :create, invalid_issue_hash
-        response.status.should eq RequestCodes::BAD_REQUEST
-        json['code'].should eq RequestCodes::BANNED_IP
-      end.to change { Issue.count }.by 0
+        response.status.should eq RequestCodes::SUCCESS
+        json['code'].should eq RequestCodes::SUCCESS
+      end.to change { Issue.count }.by 1
+
+      issue = Issue.first
+      expect(issue.hide).to eq(true)
     end
 
-    it 'can update issue' do
-      Issue.delete_all
-      BannedIp.delete_all
-
+    it 'update issue' do
       issue = create(:issue, name: 'foo')
       assert issue['name'] == 'foo'
       banned_ip = create :banned_ip, ip_address: '111.222.12.21'
@@ -370,10 +379,7 @@ describe IssuesController, type: :controller do
       issue['name'].should eq 'bar'
     end
 
-    it 'can not update issue' do
-      Issue.delete_all
-      BannedIp.delete_all
-
+    it 'update issue by banned user' do
       issue = create(:issue, name: 'foo')
       assert issue['name'] == 'foo'
       banned_ip = create :banned_ip, ip_address: '123.123.123.123'
@@ -381,11 +387,11 @@ describe IssuesController, type: :controller do
       ActionController::TestRequest.any_instance.stub(:remote_ip).and_return("123.123.123.123")
 
       put :update, id: issue['_id'].to_s, name: 'bar'
-      response.status.should eq RequestCodes::BAD_REQUEST
-      json['code'].should eq RequestCodes::BANNED_IP
+      response.status.should eq RequestCodes::SUCCESS
+      json['code'].should eq RequestCodes::SUCCESS
 
       issue = Issue.find(issue['_id'].to_s)
-      issue['name'].should_not eq 'bar'
+      issue['name'].should eq 'bar'
     end
   end
 end

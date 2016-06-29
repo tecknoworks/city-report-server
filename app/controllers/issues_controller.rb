@@ -72,6 +72,7 @@ class IssuesController < ApplicationController
     skip = params['skip'].nil? ? 0 : params['skip']
 
     @issues = Issue.order_by([:created_at, :desc])
+    @issues = @issues.where(hide: false)
     @issues = @issues.where(category: params[:category]) if params[:category].present?
     @issues = @issues.where(device_id: params[:device_id]) if params[:device_id].present?
     @issues = @issues.where(status: params[:status]) if params[:status].present?
@@ -116,7 +117,9 @@ class IssuesController < ApplicationController
     remote_ip = request.remote_ip
 
     if BannedIp.where(ip_address: remote_ip.to_s).any?
-      return render_response("This id is banned!", BANNED_IP, BAD_REQUEST)
+      params[:hide] = true
+    else
+      params[:hide] = false
     end
 
     @issue = Issue.create(params)
@@ -139,7 +142,9 @@ class IssuesController < ApplicationController
   def update
     remote_ip = request.remote_ip
     if BannedIp.where(ip_address: remote_ip.to_s).any?
-      return render_response("This id is banned!", BANNED_IP, BAD_REQUEST)
+      params[:hide] = true
+    else
+      params[:hide] = false
     end
 
     @issue.update_attributes(params)

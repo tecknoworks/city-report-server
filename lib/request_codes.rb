@@ -17,7 +17,6 @@ module RequestCodes
   INVALID_COMMENT_FORMAT      = 400_007
   STRING_TOO_BIG              = 400_008
   TOO_FAR_FROM_MAP_CENTER     = 400_009
-  BANNED_IP                   = 400_010
 
   INVALID_IMAGE_URL    = 400_100
   INVALID_IMAGE_FORMAT = 400_101

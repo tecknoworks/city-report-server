@@ -10,6 +10,7 @@ ActiveAdmin.register Issue do
       f.input :lon, input_html: { value: 23.595002 }
       f.input :address
       f.input :category, collection: Category.to_api
+      f.input :hide, as: :boolean
       f.input :vote_counter
       f .input :images_raw, as: :text
       f.input :comments_raw, as: :text
@@ -26,6 +27,7 @@ ActiveAdmin.register Issue do
     column :lat
     column :lon
     column :address
+    column :hide
     column :category
     column :vote_counter
     column 'Images' do |issue|
@@ -58,7 +60,9 @@ ActiveAdmin.register Issue do
       end
 
       @issues = Issue.in(category: @categories)
-
+      if params.has_key? "hidden"
+        @issues = @issues.where(hide: params[:hidden])
+      end
       @issues = @issues.where(category: params[:category]) if params[:category].present?
       @issues = @issues.where(device_id: params[:device_id]) if params[:device_id].present?
       @issues = @issues.where(status: params[:status]) if params[:status].present?
