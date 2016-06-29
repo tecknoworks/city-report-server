@@ -1,5 +1,5 @@
 require 'spec_helper'
-
+require 'pp'
 describe Issue do
   let(:category) { create(:category).name }
 
@@ -120,6 +120,7 @@ describe Issue do
       i.images.should_not be_empty
       i.images.first.key?(:thumb_url).should be_true
       i.comments.should be_empty
+      i.progress.should_not be_empty
       i.errors.should be_empty
       i.created_at.to_s.should_not be_empty
       i.updated_at.to_s.should_not be_empty
@@ -182,5 +183,27 @@ describe Issue do
       i.errors.should be_empty
       assert_equal(2, i.coordinates.count)
     end.to change { Issue.count }.by 1
+  end
+
+  context 'progress' do
+    it 'add progress when create issue' do
+      i = create(:issue)
+      i.errors.should be_empty
+      i.progress.should_not be_empty
+    end
+
+    it 'add a progress only when status is changed' do
+      issue = create(:issue)
+
+      expect do
+        issue.name = 'test'
+        issue.save
+      end.to change { issue['progress'].count }.by 0
+
+      expect do
+        issue.status = Issue::VALID_STATUSES[1]
+        issue.save
+      end.to change { issue['progress'].count }.by 1
+    end
   end
 end

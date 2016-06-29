@@ -17,6 +17,7 @@ class Issue < BaseModel
   field :coordinates, type: Array, default: []
   field :hide, type: Boolean, default: false
   field :resolve_time, type: Integer, default: 0
+  field :progress, type: Array, default: []
 
   attr_accessor :images_raw
   attr_accessor :comments_raw
@@ -64,6 +65,7 @@ class Issue < BaseModel
 
   before_save :set_thumbnails
   before_save :complete_coordinates
+  before_save :add_progress
 
   after_create :complete_address
 
@@ -158,6 +160,18 @@ class Issue < BaseModel
       if img_hash[:url].start_with? Repara.base_url
         img[:thumb_url] = original_url_to_thumbnail_url(img_hash[:url])
       end
+    end
+  end
+
+  def add_progress
+    if (self.status_changed?)
+      self.progress.push(
+        {
+          'data' => Time.now,
+          'status_was' => self.status_was,
+          'changed_in' => self.status
+        }
+      )
     end
   end
 
