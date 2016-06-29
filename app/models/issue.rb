@@ -16,6 +16,7 @@ class Issue < BaseModel
   field :comments, type: Array, default: []
   field :coordinates, type: Array, default: []
   field :hide, type: Boolean, default: false
+  field :resolve_time, type: Integer, default: 0
 
   attr_accessor :images_raw
   attr_accessor :comments_raw
@@ -51,6 +52,8 @@ class Issue < BaseModel
   validates :status, presence: true
 
   validates :status, inclusion: VALID_STATUSES
+
+  validates :resolve_time, :numericality => { :greater_than_or_equal_to => 0 }
 
   validate :limit_coordinates
   validate :allowed_category

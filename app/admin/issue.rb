@@ -11,6 +11,7 @@ ActiveAdmin.register Issue do
       f.input :address
       f.input :category, collection: Category.to_api
       f.input :hide, as: :boolean
+      f.input :resolve_time
       f.input :vote_counter
       f .input :images_raw, as: :text
       f.input :comments_raw, as: :text
@@ -20,7 +21,7 @@ ActiveAdmin.register Issue do
 
   index do
     selectable_column
-    id_column
+    # id_column
     column :name
     column :status
     column :device_id
@@ -28,6 +29,7 @@ ActiveAdmin.register Issue do
     column :lon
     column :address
     column :hide
+    column :resolve_time
     column :category
     column :vote_counter
     column 'Images' do |issue|
