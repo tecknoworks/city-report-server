@@ -5,19 +5,22 @@ describe BannedIp do
     BannedIp.delete_all
   end
 
+  it { expect(subject).to validate_presence_of :ip_address}
+  it { expect(subject).to validate_uniqueness_of :ip_address}
+
   it 'works' do
     expect {
-      create :banned_ip 
+      create :banned_ip
     }.to change { BannedIp.count }.by(1)
-  end     
-   
-  it 'validates the presence of the address' do 
+  end
+
+  it 'validates the presence of the address' do
     banned_ip = build :banned_ip, ip_address: nil
     expect(banned_ip).to_not be_valid
   end
 
   it 'does not allow duplicate addresses' do
-    address = "123.123.123.123" 
+    address = "123.123.123.123"
     banned_ip1 = create :banned_ip, ip_address: address
     expect(banned_ip1).to be_valid
 
@@ -27,7 +30,7 @@ describe BannedIp do
     expect(banned_ip2).to_not be_valid
 
     expect {
-      banned_ip3 = create :banned_ip, ip_address: address     
+      banned_ip3 = create :banned_ip, ip_address: address
     }.to raise_error(Mongoid::Errors::Validations)
 
   end
@@ -47,20 +50,20 @@ describe BannedIp do
     invalid_ip ''
     invalid_ip '299.299.299.299'
     invalid_ip 'google.com'
-    invalid_ip '1.-2.-3.0' 
+    invalid_ip '1.-2.-3.0'
     invalid_ip 'a.b.c.d'
     invalid_ip '129.168.0.'
     invalid_ip '129.168.0'
 
     valid_ip '192.168.0.19'
-    valid_ip '192.168.200.192' 
+    valid_ip '192.168.200.192'
     valid_ip '1.1.2.1'
     valid_ip '0.0.0.0'
   end
 
   it 'allows IPv4 and IPv6 in the address field' do
-    b = BannedIp.create(ip_address: "11.11.11.11")   
- 
+    b = BannedIp.create(ip_address: "11.11.11.11")
+
     expect {
       banned_IPv4 = create :banned_ip
     }.to_not raise_error
@@ -75,7 +78,7 @@ describe BannedIp do
     expect(banned_ip.ip_v4?).to be(true)
   end
 
-  it 'knows if it is IPv6' do 
+  it 'knows if it is IPv6' do
     banned_ip = create :banned_ip_v6
     expect(banned_ip.ip_v6?).to be(true)
   end

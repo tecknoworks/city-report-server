@@ -33,6 +33,10 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 
 gem 'spring', group: :development
 
+group :test do
+  gem 'shoulda-matchers', '~> 3.1'
+  gem 'mongoid-rspec'
+end
 
 group :development, :test do
   gem 'rspec-rails'

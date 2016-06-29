@@ -11,7 +11,7 @@ ActiveAdmin.register Issue do
       f.input :address
       f.input :category, collection: Category.to_api
       f.input :vote_counter
-      f.input :images_raw, as: :text
+      f .input :images_raw, as: :text
       f.input :comments_raw, as: :text
     end
     f.actions
@@ -39,7 +39,26 @@ ActiveAdmin.register Issue do
 
   controller do
     def index
-      @issues = Issue.all
+      unless params.has_key? 'categories'
+        params['categories'] = {}
+      end
+
+      unless params.has_key? "commit"
+        @category_admin = CategoryAdmin.where(admin_user: current_admin_user)
+        @category_admin.each do |c|
+          category = Category.find(c.categories_id).name
+          params['categories'][category] = category
+        end
+      end
+
+      @categories = []
+
+      params['categories'].each do |key, value|
+        @categories.push value
+      end
+
+      @issues = Issue.in(category: @categories)
+
       @issues = @issues.where(category: params[:category]) if params[:category].present?
       @issues = @issues.where(device_id: params[:device_id]) if params[:device_id].present?
       @issues = @issues.where(status: params[:status]) if params[:status].present?

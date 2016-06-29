@@ -3,6 +3,13 @@ require 'spec_helper'
 describe Issue do
   let(:category) { create(:category).name }
 
+  it { expect(subject).to validate_presence_of :name }
+  it { expect(subject).to validate_presence_of :device_id }
+  it { expect(subject).to validate_presence_of :category }
+  it { expect(subject).to validate_presence_of :lat }
+  it { expect(subject).to validate_presence_of :lon }
+  it { expect(subject).to validate_presence_of :status }
+
   it 'uses the test db' do
     # repara-test can be found in config/mongoid.yml
     result = 'repara_server_test'.to_sym

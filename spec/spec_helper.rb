@@ -16,6 +16,9 @@ require 'sidekiq/testing'
 Sidekiq::Logging.logger = nil
 
 RSpec.configure do |config|
+  config.include(Shoulda::Matchers::ActiveModel, type: :model)
+  config.include(Shoulda::Matchers::ActiveRecord, type: :model)
+  config.include Mongoid::Matchers, type: :model
   # ## Mock Framework
   #
   # If you prefer to use mocha, flexmock or RR, uncomment the appropriate line:
