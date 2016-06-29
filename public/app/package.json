@@ -23,8 +23,7 @@
     "shelljs": "^0.2.6"
   },
   "scripts": {
-    "postinstall": "bower update",
-    "prestart": "npm update",
+    "postinstall": "bower install",
     "test": "protractor ./e2e/protractor.conf.js"
   }
 }
