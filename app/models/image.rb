@@ -3,8 +3,10 @@ class Image < BaseModel
   field :storage_filename, type: String
   field :storage_path, type: String
   field :storage_thumb_path, type: String
+  field :storage_resized_path, type: String
   field :url, type: String
   field :thumb_url, type: String
+  field :resized_url, type: String
 
   validate :image_format
 
@@ -13,7 +15,8 @@ class Image < BaseModel
   def to_api
     {
       url: self.url,
-      thumb_url: self.thumb_url
+      thumb_url: self.thumb_url,
+      resized_url: self.resized_url
     }
   end
 
@@ -24,9 +27,11 @@ class Image < BaseModel
 
     self.storage_path = File.join('public/images/uploads/original/', self.storage_filename)
     self.storage_thumb_path = File.join('public/images/uploads/thumb/', self.storage_filename)
+    self.storage_resized_path = File.join('public/images/uploads/resized/', self.storage_filename)
 
     self.url = Repara.base_url + 'images/uploads/original/' + self.storage_filename
     self.thumb_url = Repara.base_url + 'images/uploads/thumb/' + self.storage_filename
+    self.resized_url = Repara.base_url + 'images/uploads/resized' + self.storage_filename
   end
 
   def image_format

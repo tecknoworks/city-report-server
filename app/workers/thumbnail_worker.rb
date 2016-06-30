@@ -15,8 +15,6 @@ class ThumbnailWorker
 
     img = MicroMagick::Image.new(image.storage_path)
     img.strip.quality(85).resize("100x100").write(image.storage_thumb_path)
-
-    img = MicroMagick::Image.new(image.storage_path)
-    img.strip.quality(85).resize("500x500").write(image.storage_path)
+    img.strip.quality(85).resize('1000x1000>').write(image.storage_resized_path)
   end
 end

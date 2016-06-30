@@ -29,6 +29,7 @@ describe ImagesController, type: :controller do
       json['body']['_id'].should be_nil
       json['body']['url'].should_not be_nil
       json['body']['thumb_url'].should_not be_nil
+      json['body']['resized_url'].should_not be_nil
     end
 
     it 'should upload files' do
