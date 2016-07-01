@@ -14,7 +14,7 @@ Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
 
 require 'sidekiq/testing'
 Sidekiq::Logging.logger = nil
-Sidekiq::Testing.inline!
+# Sidekiq::Testing.inline!
 
 RSpec.configure do |config|
   config.include(Shoulda::Matchers::ActiveModel, type: :model)
